@@ -140,9 +140,9 @@ promptinit
 #RPS1='%B%T%b'
 #GIT_PROMPT_EXECUTABLE="haskell"
 
-export PATH="/home/q/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+#export PATH="/home/q/.pyenv/bin:$PATH"
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
