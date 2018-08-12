@@ -1,6 +1,6 @@
 [user]
 	name = Igor Ivanov
-	email = ivanov@s5development.com
+	email = ivanov.i@gmail.com
 [core]
 	editor = vim
 	pager = less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
