@@ -1,0 +1,74 @@
+[user]
+	name = Igor Ivanov
+	email = ivanov@s5development.com
+[core]
+	editor = vim
+	pager = less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
+	autocrlf = false
+[color]
+    ui = auto
+[alias]
+    st = status
+    ci = commit --verbose
+    co = checkout
+    di = diff
+    dc = diff --cached
+    amend = commit --amend
+    aa = add --all
+    ds = diff --stat=160,120
+    dh1 = diff HEAD~1
+
+    # Fancy logging.
+    #   h = head
+    #   hp = head with patch
+    #   r = recent commits, only current branch
+    #   ra = recent commits, all reachable refs
+    #   l = all commits, only current branch
+    #   la = all commits, all reachable refs
+    head = !git r -1
+    h = !git head
+    hp = "!. ~/.githelpers && show_git_head"
+    r = !GIT_NO_PAGER=1 git l -20
+    ra = !git r --all
+    l = "!. ~/.githelpers && pretty_git_log"
+    la = !git l --all
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = true
+[difftool "vsdiffmerge"]
+    cmd = vsdiffmerge \"$LOCAL\" \"$REMOTE\" /t
+	keepBackup = false
+[merge]
+	tool = p4merge
+#    conflictstyle = diff3
+[mergetool]
+	prompt = true
+	keepBackup = false
+
+[mergetool "vsdiffmerge"]
+    cmd = vsdiffmerge \"$REMOTE\" \"$LOCAL\" \"$BASE\" \"$MERGED\" /m
+
+#	cmd = \"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\IDE\\CommonExtensions\\Microsoft\\TeamFoundation\\Team Explorer\\vsdiffmerge.exe\" \"$REMOTE\" \"$LOCAL\" \"$BASE\" \"$MERGED\" //m
+	keepBackup = false
+	trustExitCode = true
+
+[mergetool "p4merge"]
+    #cmd = "'echo' $(wslpath -a -w $BASE) $(wslpath -a -w $LOCAL) $(wslpath -a -w $REMOTE) $(wslpath -a -w $MERGED)"
+    cmd = "'//mnt/c/Program Files/Perforce/p4merge.exe' $(wslpath -a -w $BASE) $(wslpath -a -w $LOCAL) $(wslpath -a -w $REMOTE) $(wslpath -a -w $MERGED)"
+    trustExitCode = false
+
+[rerere]
+	enabled = true
+	autoupdate = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[gui]
+	recentrepo = C:/WorkFolder/eft
+[winUpdater]
+	recentlySeenVersion = 2.15.1.windows.2
+[credential]
+	helper = cache --timeout=900000
