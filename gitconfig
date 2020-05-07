@@ -3,7 +3,6 @@
 [core]
 	editor = vim
 	pager = less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
-	autocrlf = true
 [color]
 	ui = auto
 [alias]

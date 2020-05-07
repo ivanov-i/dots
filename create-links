@@ -1,13 +1,10 @@
 #!/bin/bash
 
-pushd ~ > /dev/null
 ln -f ~/dots/gitconfig ~/.gitconfig
 ln -f ~/dots/githelpers ~/.githelpers
 ln -f ~/dots/tmux.conf ~/.tmux.conf
 ln -f ~/dots/vimrc ~/.vimrc
 ln -f ~/dots/zshrc ~/.zshrc
-mkdir -p .config
-pushd .config > /dev/null
-ln -f -s ../dots/config/nvim nvim
-popd > /dev/null
-popd > /dev/null
+ln -f ~/dots/zshrc ~/.zshrc
+mkdir -p ~/.config/nvim 
+ln -f ~/dots/config/nvim/init.vim  ~/.config/nvim/init.vim
