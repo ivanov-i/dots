@@ -8,3 +8,4 @@ ln -f ~/dots/zshrc ~/.zshrc
 ln -f ~/dots/zshrc ~/.zshrc
 mkdir -p ~/.config/nvim 
 ln -f ~/dots/config/nvim/init.vim  ~/.config/nvim/init.vim
+ln -f ~/dots/config/nvim/fzf.vim  ~/.config/nvim/fzf.vim
