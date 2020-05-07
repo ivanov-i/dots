@@ -1,3 +1,4 @@
 ln -f ~/dots/gitconfig ~/.gitconfig
 ln -f ~/dots/githelpers ~/.githelpers
+ln -f ~/dots/tmux.conf ~/.tmux.conf
 
