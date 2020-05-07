@@ -118,4 +118,4 @@ source /home/q/.config/broot/launcher/bash/br
 
 bindkey -v
 
-alias tf="/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Enterprise/Common7/IDE/CommonExtensions/Microsoft/TeamFoundation/Team\ Explorer/TF.exe"
+
