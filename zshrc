@@ -118,4 +118,6 @@ source /home/q/.config/broot/launcher/bash/br
 
 bindkey -v
 
+export VIMCONFIG=~/.config/nvim
+export VIMDATA=~/.local/share/nvim
 
