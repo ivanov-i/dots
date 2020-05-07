@@ -1,43 +1,47 @@
-export TERM="xterm-256color"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$PATH:$HOME/.git-radar
-export PATH=$HOME/.local/bin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export ZSH="/home/q/.oh-my-zsh"
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-DEFAULT_USER=`whoami`
-#ZSH_THEME="sorin"
-#ZSH_THEME="bureau"
-#ZSH_THEME="bira"
-ZSH_THEME="agnoster"
-#ZSH_THEME="powerlevel9k/powerlevel9k"
-#ZSH_THEME="robbyrussell"
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir status)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
-POWERLEVEL9K_TIME_BACKGROUND="black"
-POWERLEVEL9K_TIME_FOREGROUND="249"
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
-#POWERLEVEL9K_STATUS_OK="false"
+# ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -54,30 +58,25 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-#DISABLE_UNTRACKED_FILES_DIRTY="true"
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git npm zsh-autosuggestions zsh-syntax-highlighting z)
-
-# Save all history
-# Incrementally write history to file
-setopt INC_APPEND_HISTORY
-# Save timestamp to history file too
-setopt EXTENDED_HISTORY
-# Import newly written commands from the history file
-setopt SHARE_HISTORY
-
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -98,9 +97,6 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -110,45 +106,16 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export LC_ALL=en_US.UTF-8  
-export LANG=en_US.UTF-8
+export DOCKER_HOST='tcp://0.0.0.0:2375'
+export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
-#source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh  
-#. `brew --prefix`/etc/profile.d/z.sh
 
-#export ERL_AFLAGS="-kernel shell_history enabled"
+source /home/q/.config/broot/launcher/bash/br
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=6'
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Set default editor to vim
+bindkey -v
 
-export VISUAL=vim
-export EDITOR="$VISUAL"
-
-# Powerline
-#if [[ -r /usr/local/lib/python2.7/dist-packages/powerline/bindings/zsh/powerline.zsh ]]; then
-#    source /usr/local/lib/python2.7/dist-packages/powerline/bindings/zsh/powerline.zsh
-#fi
-
-autoload -Uz promptinit
-promptinit
-
-#source $HOME/.zsh-git-prompt/zshrc.sh
-# an example prompt
-#PROMPT='%B%3~%b$(git_super_status) %(?..(%{%F{red}%}%?%{%f%}%))%# '
-#PROMPT='%B%3~%b$(git_super_status) %(?..(%{%F{red}%}%?%{%f%}%))%# '
-#RPS1='%B%T%b'
-#GIT_PROMPT_EXECUTABLE="haskell"
-
-#export PATH="/home/q/.pyenv/bin:$PATH"
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
-
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
-export DOCKER_HOST="tcp://127.0.0.1:2375"
-
-case $(uname -a) in
-   *Microsoft*) unsetopt BG_NICE ;;
-esac
+alias tf="/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Enterprise/Common7/IDE/CommonExtensions/Microsoft/TeamFoundation/Team\ Explorer/TF.exe"
