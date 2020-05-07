@@ -11,8 +11,10 @@ call minpac#init()
 "call minpac#add('garbas/vim-snipmate')
 "call minpac#add('honza/vim-snippets')
 "call minpac#add('tpope/vim-repeat')
+call minpac#add('junegunn/fzf')
+call minpac#add('junegunn/fzf.vim')
 
 command! Pu call minpac#update()
 command! Pc call minpac#clean()
 
-" local plugins
+source $VIMCONFIG/fzf.vim
