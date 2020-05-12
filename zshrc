@@ -9,14 +9,18 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/q/.oh-my-zsh"
+export ZSH="/Users/ivanov/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+if [[ -r "/usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme" ]]; then
+  source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+else
+  # Set name of the theme to load --- if set to "random", it will
+  # load a random theme each time oh-my-zsh is loaded, in which case,
+  # to know which specific one was loaded, run: echo $RANDOM_THEME
+  # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+  # ZSH_THEME="robbyrussell"
+  ZSH_THEME="powerlevel10k/powerlevel10k"
+fi
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -110,9 +114,6 @@ export DOCKER_HOST='tcp://0.0.0.0:2375'
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
-
-source /home/q/.config/broot/launcher/bash/br
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -126,5 +127,6 @@ export VISUAL=nvim
 alias vim=nvim
 alias vi=nvim
 
-source ~/.paths
+[[ ! -f ~/.paths ]] || source ~/.paths
 
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
