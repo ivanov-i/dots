@@ -1,11 +1,11 @@
 #!/bin/bash
 
-ln -f ~/dots/gitconfig ~/.gitconfig
-ln -f ~/dots/githelpers ~/.githelpers
-ln -f ~/dots/tmux.conf ~/.tmux.conf
-ln -f ~/dots/vimrc ~/.vimrc
-ln -f ~/dots/zshrc ~/.zshrc
-ln -f ~/dots/zshrc ~/.zshrc
+ln -f -s ~/dots/gitconfig ~/.gitconfig
+ln -f -s ~/dots/githelpers ~/.githelpers
+ln -f -s ~/dots/tmux.conf ~/.tmux.conf
+ln -f -s ~/dots/vimrc ~/.vimrc
+ln -f -s ~/dots/zshrc ~/.zshrc
+ln -f -s ~/dots/zshrc ~/.zshrc
 mkdir -p ~/.config/nvim 
-ln -f ~/dots/config/nvim/init.vim  ~/.config/nvim/init.vim
-ln -f ~/dots/config/nvim/fzf.vim  ~/.config/nvim/fzf.vim
+ln -f -s ~/dots/config/nvim/init.vim  ~/.config/nvim/init.vim
+ln -f -s ~/dots/config/nvim/fzf.vim  ~/.config/nvim/fzf.vim
