@@ -129,6 +129,4 @@ alias vi=nvim
 
 [[ ! -f ~/.paths ]] || source ~/.paths
 
-source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
-
 export LANG="en_US.UTF-8"
