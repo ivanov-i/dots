@@ -13,8 +13,10 @@ call minpac#init()
 "call minpac#add('tpope/vim-repeat')
 call minpac#add('junegunn/fzf')
 call minpac#add('junegunn/fzf.vim')
+call minpac#add('morhetz/gruvbox')
 
 command! Pu call minpac#update()
 command! Pc call minpac#clean()
 
 source $VIMCONFIG/fzf.vim
+autocmd vimenter * colorscheme gruvbox
