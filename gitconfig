@@ -1,7 +1,7 @@
 [include]
     path = ~/.git.name
 [core]
-	editor = vim
+	editor = nvim
 	pager = less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
 [color]
 	ui = auto
