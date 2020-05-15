@@ -15,14 +15,19 @@ call minpac#add('junegunn/fzf')
 call minpac#add('junegunn/fzf.vim')
 call minpac#add('morhetz/gruvbox')
 call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-imap jj <Esc>
+call minpac#add('vim-airline/vim-airline')
+call minpac#add('tpope/vim-fugitive')
 
 command! Pu call minpac#update()
 command! Pc call minpac#clean()
 
+imap jj <Esc> 
+nmap <leader>gs :G<CR>
+
 source $VIMCONFIG/fzf.vim
 autocmd vimenter * colorscheme gruvbox
 
+set relativenumber
 
 " TextEdit might fail if hidden is not set.
 set hidden
