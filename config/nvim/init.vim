@@ -28,6 +28,7 @@ source $VIMCONFIG/fzf.vim
 autocmd vimenter * colorscheme gruvbox
 
 set relativenumber
+set number
 
 " TextEdit might fail if hidden is not set.
 set hidden
