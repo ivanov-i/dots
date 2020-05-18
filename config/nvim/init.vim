@@ -17,6 +17,7 @@ call minpac#add('morhetz/gruvbox')
 call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('tpope/vim-fugitive')
+call minpac#add('tpope/vim-commentary')
 
 command! Pu call minpac#update()
 command! Pc call minpac#clean()
