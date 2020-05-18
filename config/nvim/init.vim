@@ -28,6 +28,7 @@ nmap <leader>gs :G<CR>
 source $VIMCONFIG/fzf.vim
 autocmd vimenter * colorscheme gruvbox
 
+set termguicolors
 set relativenumber
 set number
 "set ttymouse=xterm2
