@@ -21,7 +21,7 @@ call minpac#add('tpope/vim-fugitive')
 command! Pu call minpac#update()
 command! Pc call minpac#clean()
 
-imap jj <Esc> 
+imap jj <Esc>
 nmap <leader>gs :G<CR>
 
 source $VIMCONFIG/fzf.vim
