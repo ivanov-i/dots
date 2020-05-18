@@ -28,6 +28,8 @@ nmap <leader>gs :G<CR>
 source $VIMCONFIG/fzf.vim
 autocmd vimenter * colorscheme gruvbox
 
+set undodir=~/.config/nvim/undodir
+set undofile " Maintain undo history between sessions
 set termguicolors
 set relativenumber
 set number
