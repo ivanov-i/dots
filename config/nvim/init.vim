@@ -30,6 +30,8 @@ autocmd vimenter * colorscheme gruvbox
 
 set relativenumber
 set number
+"set ttymouse=xterm2
+set mouse=a
 
 " TextEdit might fail if hidden is not set.
 set hidden
