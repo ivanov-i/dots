@@ -36,6 +36,8 @@ set number
 "set ttymouse=xterm2
 set mouse=a
 set tabstop=4
+set ignorecase
+set smartcase
 
 " TextEdit might fail if hidden is not set.
 set hidden
