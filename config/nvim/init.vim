@@ -38,6 +38,8 @@ set number
 set mouse=a
 set tabstop=4
 let g:rustfmt_autosave = 1
+set ignorecase
+set smartcase
 
 " TextEdit might fail if hidden is not set.
 set hidden
