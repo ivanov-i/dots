@@ -56,7 +56,8 @@
 
 [mergetool "p4merge"]
     #cmd = "'echo' $(wslpath -a -w $BASE) $(wslpath -a -w $LOCAL) $(wslpath -a -w $REMOTE) $(wslpath -a -w $MERGED)"
-    cmd = \"c:\\Program Files\\Perforce\\p4merge.exe\" \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+    cmd = \"/c/Program Files/Perforce/p4merge.exe\" \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+    #cmd = \"c:\\Program Files\\Perforce\\p4merge.exe\" \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
     #cmd = \"c:\\Program Files\\Perforce\\p4merge.exe\"
     trustExitCode = false
 
