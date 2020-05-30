@@ -18,6 +18,7 @@ call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-commentary')
+call minpac#add('rust-lang/rust.vim')
 
 command! Pu call minpac#update()
 command! Pc call minpac#clean()
@@ -36,6 +37,7 @@ set number
 "set ttymouse=xterm2
 set mouse=a
 set tabstop=4
+let g:rustfmt_autosave = 1
 
 " TextEdit might fail if hidden is not set.
 set hidden
