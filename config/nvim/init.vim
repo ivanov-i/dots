@@ -13,7 +13,7 @@ call minpac#init()
 "call minpac#add('tpope/vim-repeat')
 call minpac#add('junegunn/fzf')
 call minpac#add('junegunn/fzf.vim')
-call minpac#add('morhetz/gruvbox')
+call minpac#add('gruvbox-community/gruvbox')
 call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('tpope/vim-fugitive')
@@ -23,11 +23,13 @@ call minpac#add('rust-lang/rust.vim')
 command! Pu call minpac#update()
 command! Pc call minpac#clean()
 
+colorscheme gruvbox
+set background=dark
+
 imap jj <Esc>
 nmap <leader>gs :G<CR>
 
 source $VIMCONFIG/fzf.vim
-autocmd vimenter * colorscheme gruvbox
 
 set undodir=~/.config/nvim/undodir
 set undofile " Maintain undo history between sessions
