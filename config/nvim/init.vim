@@ -24,7 +24,7 @@ command! Pu call minpac#update()
 command! Pc call minpac#clean()
 
 colorscheme gruvbox
-set background=dark
+set background=light
 
 imap jj <Esc>
 nmap <leader>gs :G<CR>
