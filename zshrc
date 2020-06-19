@@ -76,7 +76,8 @@ fi
 # ZSH_CUSTOM=/path/to/new-custom-folder
 #
 # Set fzf installation directory path
-export FZF_BASE=/usr/bin
+#export FZF_BASE="$(dirname "$(which fzf)")"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Uncomment the following line to disable fuzzy completion
 # export DISABLE_FZF_AUTO_COMPLETION="true"
@@ -140,3 +141,4 @@ alias vi=nvim
 
 export LANG="en_US.UTF-8"
 export PATH="$HOME/.cargo/bin:$PATH"
+

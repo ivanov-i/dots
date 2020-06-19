@@ -6,6 +6,7 @@ ln -f -s ~/dots/tmux.conf ~/.tmux.conf
 ln -f -s ~/dots/vimrc ~/.vimrc
 ln -f -s ~/dots/zshrc ~/.zshrc
 ln -f -s ~/dots/zshrc ~/.zshrc
+ln -f -s ~/dots/fzf.zsh ~/.fzf.zsh
 mkdir -p ~/.config/nvim 
 ln -f -s ~/dots/config/nvim/init.vim  ~/.config/nvim/init.vim
 ln -f -s ~/dots/config/nvim/fzf.vim  ~/.config/nvim/fzf.vim
