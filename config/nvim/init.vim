@@ -28,6 +28,7 @@ set background=dark
 
 imap jj <Esc>
 nmap <leader>gs :G<CR>
+nnoremap <cr> :noh<CR><CR>:<backspace>
 
 source $VIMCONFIG/fzf.vim
 
