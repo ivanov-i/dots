@@ -19,6 +19,8 @@ call minpac#add('vim-airline/vim-airline')
 call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('rust-lang/rust.vim')
+call minpac#add('ryanoasis/vim-devicons')
+call minpac#add('preservim/nerdtree')
 
 command! Pu call minpac#update()
 command! Pc call minpac#clean()
