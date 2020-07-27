@@ -23,6 +23,11 @@ call minpac#add('rust-lang/rust.vim')
 call minpac#add('ryanoasis/vim-devicons')
 call minpac#add('preservim/nerdtree')
 
+call minpac#add('sainnhe/gruvbox-material')
+call minpac#add('phanviet/vim-monokai-pro')
+call minpac#add('vim-airline/vim-airline')
+call minpac#add('flazz/vim-colorschemes')
+
 command! Pu call minpac#update()
 command! Pc call minpac#clean()
 
