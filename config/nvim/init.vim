@@ -67,7 +67,6 @@ set tabstop=4
 let g:rustfmt_autosave = 1
 set ignorecase
 set smartcase
-set scrolloff=999
 
 " TextEdit might fail if hidden is not set.
 set hidden
