@@ -22,6 +22,8 @@ call minpac#add('rust-lang/rust.vim')
 call minpac#add('ryanoasis/vim-devicons')
 call minpac#add('preservim/nerdtree')
 call minpac#add('dstein64/vim-startuptime')
+call minpac#add('junegunn/vim-peekaboo')
+call minpac#add('airblade/vim-gitgutter')
 
 "call minpac#add('sainnhe/gruvbox-material')
 "call minpac#add('phanviet/vim-monokai-pro')
