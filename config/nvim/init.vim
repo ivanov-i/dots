@@ -2,6 +2,8 @@
 packadd minpac
 call minpac#init()
 
+let g:airline#extensions#tabline#enabled = 1
+
 " Managed plugins (automatically installed and updated via "Pu" and "Pc")
 
 "call minpac#add('k-takata/minpac', {'type': 'opt'})
