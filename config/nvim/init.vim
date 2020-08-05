@@ -50,7 +50,7 @@ set t_vb=
 imap jj <Esc>
 nmap <leader>gs :G<CR>
 nnoremap <cr> :noh<CR><CR>:<backspace>
-nnoremap zz :update<cr>
+"nnoremap zz :update<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" => NERDTree 
