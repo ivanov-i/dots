@@ -1,41 +1,45 @@
 "" PLUGIN MANAGEMENT
-packadd minpac
-call minpac#init()
+"packadd minpac
+"call minpac#init()
 
-let g:airline#extensions#tabline#enabled = 1
+call plug#begin()
 
 " Managed plugins (automatically installed and updated via "Pu" and "Pc")
 
-call minpac#add('k-takata/minpac', {'type': 'opt'})
-"call minpac#add('vim-airline/vim-airline')
-"call minpac#add('vim-airline/vim-airline-themes')
-"call minpac#add('MarcWeber/vim-addon-mw-utils')
-"call minpac#add('garbas/vim-snipmate')
-"call minpac#add('honza/vim-snippets')
-"call minpac#add('tpope/vim-repeat')
-call minpac#add('junegunn/fzf', { 'do': { -> fzf#install() } })
-call minpac#add('junegunn/fzf.vim')
-call minpac#add('yuki-ycino/fzf-preview.vim')
-call minpac#add('gruvbox-community/gruvbox')
-call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-call minpac#add('tpope/vim-fugitive')
-"call minpac#add('tpope/vim-commentary')
-call minpac#add('rust-lang/rust.vim')
-call minpac#add('ryanoasis/vim-devicons')
-"call minpac#add('preservim/nerdtree')
-call minpac#add('dstein64/vim-startuptime')
-call minpac#add('junegunn/vim-peekaboo')
-call minpac#add('airblade/vim-gitgutter')
-call minpac#add('tpope/vim-unimpaired')
-call minpac#add('mhinz/vim-startify')
+"call minpac#add('k-takata/minpac', {'type': 'opt'})
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+"Plug 'MarcWeber/vim-addon-mw-utils'
+"Plug 'garbas/vim-snipmate'
+"Plug 'honza/vim-snippets'
+"Plug 'tpope/vim-repeat'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'yuki-ycino/fzf-preview.vim'
+Plug 'gruvbox-community/gruvbox'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-commentary'
+Plug 'rust-lang/rust.vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'dstein64/vim-startuptime'
+Plug 'junegunn/vim-peekaboo'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-unimpaired'
+Plug 'mhinz/vim-startify'
 
-"call minpac#add('sainnhe/gruvbox-material')
-"call minpac#add('phanviet/vim-monokai-pro')
-"call minpac#add('vim-airline/vim-airline')
-"call minpac#add('flazz/vim-colorschemes')
+"Plug 'sainnhe/gruvbox-material'
+"Plug 'phanviet/vim-monokai-pro'
+"Plug 'vim-airline/vim-airline'
+"Plug 'flazz/vim-colorschemes'
 
-command! Pu call minpac#update()
-command! Pc call minpac#clean()
+"command! Pu call minpac#update()
+"command! Pc call minpac#clean()
+
+call plug#end()
+
+let g:airline#extensions#tabline#enabled = 1
 
 colorscheme gruvbox
 set background=dark
