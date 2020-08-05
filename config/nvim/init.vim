@@ -27,6 +27,7 @@ call minpac#add('dstein64/vim-startuptime')
 call minpac#add('junegunn/vim-peekaboo')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('tpope/vim-unimpaired')
+call minpac#add('mhinz/vim-startify')
 
 "call minpac#add('sainnhe/gruvbox-material')
 "call minpac#add('phanviet/vim-monokai-pro')
