@@ -7,8 +7,8 @@ let g:airline#extensions#tabline#enabled = 1
 " Managed plugins (automatically installed and updated via "Pu" and "Pc")
 
 "call minpac#add('k-takata/minpac', {'type': 'opt'})
-call minpac#add('vim-airline/vim-airline')
-call minpac#add('vim-airline/vim-airline-themes')
+"call minpac#add('vim-airline/vim-airline')
+"call minpac#add('vim-airline/vim-airline-themes')
 "call minpac#add('MarcWeber/vim-addon-mw-utils')
 "call minpac#add('garbas/vim-snipmate')
 "call minpac#add('honza/vim-snippets')
@@ -22,7 +22,7 @@ call minpac#add('tpope/vim-fugitive')
 "call minpac#add('tpope/vim-commentary')
 call minpac#add('rust-lang/rust.vim')
 call minpac#add('ryanoasis/vim-devicons')
-call minpac#add('preservim/nerdtree')
+"call minpac#add('preservim/nerdtree')
 call minpac#add('dstein64/vim-startuptime')
 call minpac#add('junegunn/vim-peekaboo')
 call minpac#add('airblade/vim-gitgutter')
@@ -51,13 +51,13 @@ nmap <leader>gs :G<CR>
 nnoremap <cr> :noh<CR><CR>:<backspace>
 nnoremap zz :update<cr>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NERDTree 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Changes NerdTree Toggle to Ctrl + n
-map <C-n> :NERDTreeToggle<CR> 
-"autocmd VimEnter * NERDTree "Toggles Nerdtree on vim open
-let NERDTreeQuitOnOpen = 1 "closes NerdTree when opening a file
+"" => NERDTree 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""Changes NerdTree Toggle to Ctrl + n
+"map <C-n> :NERDTreeToggle<CR> 
+""autocmd VimEnter * NERDTree "Toggles Nerdtree on vim open
+"let NERDTreeQuitOnOpen = 1 "closes NerdTree when opening a file
 
 source $VIMCONFIG/fzf.vim
 
@@ -198,7 +198,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings using CoCList:
 " Show all diagnostics.
