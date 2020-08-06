@@ -19,7 +19,7 @@ Plug 'yuki-ycino/fzf-preview.vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
-"Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
 Plug 'rust-lang/rust.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
