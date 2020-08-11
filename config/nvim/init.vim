@@ -40,7 +40,7 @@ Plug 'mhinz/vim-startify'
 
 call plug#end()
 
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
 
 colorscheme gruvbox
 set background=dark
