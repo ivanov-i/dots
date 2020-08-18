@@ -30,6 +30,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-unimpaired'
 Plug 'mhinz/vim-startify'
 Plug 'itchyny/lightline.vim'
+Plug 'osyo-manga/vim-over'
 
 "Plug 'sainnhe/gruvbox-material'
 "Plug 'phanviet/vim-monokai-pro'
