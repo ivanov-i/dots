@@ -77,6 +77,8 @@ set number
 "set ttymouse=xterm2
 set mouse=a
 set tabstop=4
+set shiftwidth=4
+let &softtabstop = &shiftwidth
 let g:rustfmt_autosave = 1
 set ignorecase
 set smartcase
