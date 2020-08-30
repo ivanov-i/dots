@@ -64,6 +64,10 @@ Plug 'bluz71/vim-moonfly-colors'
 
 call plug#end()
 
+if has("nvim")
+    set inccommand=split
+endif
+
 "let g:airline#extensions#tabline#enabled = 1
 
 colorscheme moonfly
