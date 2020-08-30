@@ -23,7 +23,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'rust-lang/rust.vim'
-Plug 'ryanoasis/vim-devicons'
+"Plug 'ryanoasis/vim-devicons'
+Plug 'lambdalisue/nerdfont.vim'
 "Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'dstein64/vim-startuptime'
 Plug 'junegunn/vim-peekaboo'
@@ -38,10 +39,14 @@ Plug 'antoinemadec/FixCursorHold.nvim'
 " in millisecond, used for both CursorHold and CursorHoldI,
 " use updatetime instead if not defined
 let g:cursorhold_updatetime = 100
+
 Plug 'lambdalisue/fern.vim'
 " let g:fern#disable_default_mappings   = 1
 " let g:fern#disable_drawer_auto_quit   = 1
 " let g:fern#disable_viewer_hide_cursor = 1
+
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+let g:fern#renderer = "nerdfont"
 
 Plug 'lambdalisue/fern-git-status.vim'
 
