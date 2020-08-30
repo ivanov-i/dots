@@ -4,6 +4,8 @@
 
 call plug#begin()
 
+let g:lightline = { 'colorscheme': 'moonfly' }
+
 " Managed plugins (automatically installed and updated via "Pu" and "Pc")
 
 "call minpac#add('k-takata/minpac', {'type': 'opt'})
@@ -16,7 +18,6 @@ call plug#begin()
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'yuki-ycino/fzf-preview.vim'
-Plug 'gruvbox-community/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
@@ -32,6 +33,8 @@ Plug 'mhinz/vim-startify'
 Plug 'itchyny/lightline.vim'
 Plug 'osyo-manga/vim-over'
 
+Plug 'gruvbox-community/gruvbox'
+Plug 'bluz71/vim-moonfly-colors'
 "Plug 'sainnhe/gruvbox-material'
 "Plug 'phanviet/vim-monokai-pro'
 "Plug 'vim-airline/vim-airline'
@@ -44,7 +47,8 @@ call plug#end()
 
 "let g:airline#extensions#tabline#enabled = 1
 
-colorscheme gruvbox
+colorscheme moonfly
+"colorscheme gruvbox
 set background=dark
 
 " Disable Autocommenting
