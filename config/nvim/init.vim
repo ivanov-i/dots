@@ -57,6 +57,8 @@ let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
 
 Plug 'tpope/vim-sleuth'
 
+Plug 'mbbill/undotree'
+
 Plug 'gruvbox-community/gruvbox'
 Plug 'bluz71/vim-moonfly-colors'
 "Plug 'sainnhe/gruvbox-material'
