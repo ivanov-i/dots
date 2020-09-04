@@ -1,4 +1,4 @@
-"" PLUGIN MANAGEMENT
+"" PLUGIN MANAGEMENT{{{
 "packadd minpac
 "call minpac#init()
 
@@ -70,6 +70,9 @@ Plug 'bluz71/vim-moonfly-colors'
 "command! Pc call minpac#clean()
 
 call plug#end()
+" }}} plugins
+
+set foldmethod=marker
 
 if has("nvim")
     set inccommand=split
