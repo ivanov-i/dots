@@ -80,8 +80,8 @@ endif
 
 "let g:airline#extensions#tabline#enabled = 1
 
-colorscheme moonfly
-"colorscheme gruvbox
+"colorscheme moonfly
+colorscheme gruvbox
 set background=dark
 
 " Disable Autocommenting
