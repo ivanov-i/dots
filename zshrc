@@ -142,3 +142,6 @@ alias vi=nvim
 export LANG="en_US.UTF-8"
 export PATH="$HOME/.cargo/bin:$PATH"
 
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_SCREEN_SCALE_FACTORS=1
+
