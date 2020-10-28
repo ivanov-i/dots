@@ -87,6 +87,8 @@ set background=dark
 " Disable Autocommenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+set path=$PWD/**
+
 " Blink cursor on error instead of beeping (grr)
 set visualbell
 set t_vb=
