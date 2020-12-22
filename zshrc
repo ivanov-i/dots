@@ -157,6 +157,6 @@ upgrade() {
   brew update && \
   brew upgrade && \
   brew cleanup && \
-  echo "[rustup upgrade]" && \
-  rustup upgrade
+  echo "[rustup update]" && \
+  rustup update
 }
