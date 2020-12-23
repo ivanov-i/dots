@@ -148,7 +148,7 @@ export QT_SCREEN_SCALE_FACTORS=1
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 alias ibrew='arch -x86_64 /usr/local/bin/brew'
 
-upgrade() {
+update() {
   echo "[ibrew update, upgrade, cleanup]" && \
   ibrew update && \
   ibrew upgrade && \
