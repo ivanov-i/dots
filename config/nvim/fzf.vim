@@ -1,4 +1,5 @@
 " FZF fuzzy file search
+set rtp+=/opt/homebrew/opt/fzf
 
 """" FZF - bind file fuzzy search to C-p
 nnoremap <C-p> :<C-u>FZF<CR> 

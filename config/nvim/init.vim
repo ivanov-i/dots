@@ -33,7 +33,7 @@ let g:gitgutter_grep = 'rg'
 Plug 'tpope/vim-unimpaired'
 Plug 'mhinz/vim-startify'
 Plug 'itchyny/lightline.vim'
-Plug 'osyo-manga/vim-over'
+" Plug 'osyo-manga/vim-over'
 
 Plug 'antoinemadec/FixCursorHold.nvim'
 " in millisecond, used for both CursorHold and CursorHoldI,
