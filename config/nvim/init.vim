@@ -83,7 +83,9 @@ endif
 "colorscheme moonfly
 colorscheme gruvbox
 set background=dark
+
 set pumblend=30
+set wildignorecase
 
 " Disable Autocommenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
