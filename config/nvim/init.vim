@@ -4,12 +4,12 @@
 
 call plug#begin()
 
-let g:lightline = { 'colorscheme': 'gruvbox' }
+let g:lightline = { 'colorscheme': 'moonfly' }
+" let g:lightline = { 'colorscheme': 'gruvbox' }
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
-Plug 'rust-lang/rust.vim'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'dstein64/vim-startuptime'
 Plug 'junegunn/vim-peekaboo'
@@ -18,6 +18,8 @@ let g:gitgutter_grep = 'rg'
 Plug 'tpope/vim-unimpaired'
 Plug 'mhinz/vim-startify'
 Plug 'itchyny/lightline.vim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 
 Plug 'antoinemadec/FixCursorHold.nvim'
 " in millisecond, used for both CursorHold and CursorHoldI,
@@ -32,6 +34,7 @@ let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
 Plug 'tpope/vim-sleuth'
 
 Plug 'gruvbox-community/gruvbox'
+Plug 'bluz71/vim-moonfly-colors'
 
 call plug#end()
 " }}} plugins
@@ -42,10 +45,9 @@ if has("nvim")
     set inccommand=split
 endif
 
-"let g:airline#extensions#tabline#enabled = 1
 
-"colorscheme moonfly
-colorscheme gruvbox
+colorscheme moonfly
+" colorscheme gruvbox
 set background=dark
 
 set pumblend=30
@@ -63,24 +65,12 @@ set t_vb=
 imap jj <Esc>
 nmap <leader>gs :G<CR>
 nnoremap <cr> :noh<CR><CR>:<backspace>
-"nnoremap zz :update<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" => NERDTree 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""Changes NerdTree Toggle to Ctrl + n
-"map <C-n> :NERDTreeToggle<CR> 
-""autocmd VimEnter * NERDTree "Toggles Nerdtree on vim open
-"let NERDTreeQuitOnOpen = 1 "closes NerdTree when opening a file
-
-" source $VIMCONFIG/fzf.vim
 
 set undodir=~/.config/nvim/undodir
 set undofile " Maintain undo history between sessions
 set termguicolors
 set relativenumber
 set number
-"set ttymouse=xterm2
 set mouse=a
 set tabstop=4
 set shiftwidth=4
@@ -110,3 +100,85 @@ set shortmess+=c
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes
+
+
+" LSP
+
+lua << EOF
+
+require'lspconfig'.rust_analyzer.setup{on_attach=require'completion'.on_attach}
+
+local nvim_lsp = require('lspconfig')
+
+local on_attach = function(client, bufnr)
+
+  require'completion'.on_attach(client)
+
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', 'gr','<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', 'gi','<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>', opts)
+  buf_set_keymap('n', '<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
+  -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  elseif client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  end
+  
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+    require('lspconfig').util.nvim_multiline_command [[
+      :hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      :hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      :hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd!
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]]
+  end
+end
+
+-- Use a loop to conveniently both setup defined servers 
+-- and map buffer local keybindings when the language server attaches
+local servers = { "pyright", "rust_analyzer", "tsserver" }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup { on_attach = on_attach }
+end
+
+EOF
+
+autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
