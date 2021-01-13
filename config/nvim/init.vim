@@ -4,8 +4,8 @@
 
 call plug#begin()
 
-let g:lightline = { 'colorscheme': 'moonfly' }
-" let g:lightline = { 'colorscheme': 'gruvbox' }
+" let g:lightline = { 'colorscheme': 'moonfly' }
+let g:lightline = { 'colorscheme': 'gruvbox' }
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
@@ -52,9 +52,9 @@ if has("nvim")
 endif
 
 
-colorscheme moonfly
-" colorscheme gruvbox
-set background=dark
+" colorscheme moonfly
+colorscheme gruvbox
+" set background=dark
 
 set pumblend=30
 set wildignorecase
