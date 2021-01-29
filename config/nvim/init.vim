@@ -26,6 +26,7 @@ Plug 'RishabhRD/nvim-lsputils'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
 Plug 'antoinemadec/FixCursorHold.nvim'
 " in millisecond, used for both CursorHold and CursorHoldI,
@@ -41,6 +42,7 @@ Plug 'tpope/vim-sleuth'
 
 Plug 'gruvbox-community/gruvbox'
 Plug 'bluz71/vim-moonfly-colors'
+Plug 'kyazdani42/nvim-web-devicons'
 
 call plug#end()
 " }}} plugins
@@ -112,6 +114,21 @@ set signcolumn=yes
 " LSP
 
 lua << EOF
+
+require'nvim-web-devicons'.setup {
+ -- your personnal icons can go here (to override)
+ -- DevIcon will be appended to `name`
+ override = {
+  zsh = {
+    icon = "",
+    color = "#428850",
+    name = "Zsh"
+  }
+ };
+ -- globally enable default icons (default to false)
+ -- will get overriden by `get_icons` option
+ default = true;
+}
 
 require'lspconfig'.rust_analyzer.setup{on_attach=require'completion'.on_attach}
 
