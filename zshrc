@@ -160,3 +160,5 @@ update() {
   echo "[rustup update]" && \
   rustup update
 }
+
+alias ll="exa --long"
