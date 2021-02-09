@@ -10,6 +10,7 @@ Plug 'airblade/vim-gitgutter'
 let g:gitgutter_grep = 'rg'
 Plug 'tpope/vim-unimpaired'
 Plug 'mhinz/vim-startify'
+let g:startify_change_to_dir = 0
 Plug 'itchyny/lightline.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
