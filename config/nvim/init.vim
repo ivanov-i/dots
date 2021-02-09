@@ -1,11 +1,4 @@
-"" PLUGIN MANAGEMENT{{{
-"packadd minpac
-"call minpac#init()
-
 call plug#begin()
-
-" let g:lightline = { 'colorscheme': 'moonfly' }
-let g:lightline = { 'colorscheme': 'gruvbox' }
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
@@ -45,9 +38,9 @@ Plug 'bluz71/vim-moonfly-colors'
 Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'huyvohcmc/atlas.vim'
+Plug 'karoliskoncevicius/distilled-vim'
 
 call plug#end()
-" }}} plugins
 
 set foldmethod=marker
 
@@ -58,9 +51,15 @@ endif
 
 " colorscheme moonfly
 " colorscheme gruvbox
-colorscheme atlas
-let g:lightline.colorscheme = 'atlas'
+" colorscheme atlas
 " set background=dark
+colorscheme distilled
+
+" let g:lightline = { 'colorscheme': 'moonfly' }
+" let g:lightline.colorscheme = 'atlas'
+" let g:lightline = { 'colorscheme': 'gruvbox' }
+" let g:lightline.colorschem = 'distilled'
+
 
 set pumblend=30
 set wildignorecase
