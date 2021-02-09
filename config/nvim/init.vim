@@ -44,6 +44,8 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'bluz71/vim-moonfly-colors'
 Plug 'kyazdani42/nvim-web-devicons'
 
+Plug 'huyvohcmc/atlas.vim'
+
 call plug#end()
 " }}} plugins
 
@@ -55,7 +57,9 @@ endif
 
 
 " colorscheme moonfly
-colorscheme gruvbox
+" colorscheme gruvbox
+colorscheme atlas
+let g:lightline.colorscheme = 'atlas'
 " set background=dark
 
 set pumblend=30
