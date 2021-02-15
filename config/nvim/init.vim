@@ -1,5 +1,6 @@
 call plug#begin()
 
+Plug 'codota/tabnine-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
