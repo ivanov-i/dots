@@ -162,3 +162,5 @@ update() {
 }
 
 alias ll="exa --long"
+
+export PATH="/opt/homebrew/opt/llvm/bin/:$PATH"
