@@ -54,8 +54,8 @@ endif
 " colorscheme moonfly
 " colorscheme gruvbox
 " colorscheme atlas
-" set background=dark
 colorscheme distilled
+set background=dark
 
 " let g:lightline = { 'colorscheme': 'moonfly' }
 " let g:lightline.colorscheme = 'atlas'
