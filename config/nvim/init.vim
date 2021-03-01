@@ -21,7 +21,8 @@ Plug 'RishabhRD/nvim-lsputils'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
 
 Plug 'antoinemadec/FixCursorHold.nvim'
 " in millisecond, used for both CursorHold and CursorHoldI,
