@@ -21,7 +21,7 @@ Plug 'RishabhRD/nvim-lsputils'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim', {'do': 'cd deps/fzy-lua-native && make'}
 " Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
 
