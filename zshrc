@@ -149,13 +149,15 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 alias ibrew='arch -x86_64 /usr/local/bin/brew'
 
 update() {
-  echo "[ibrew update, upgrade, cleanup]" && \
+  echo "[ibrew update, upgrade, autoremove, cleanup]" && \
   ibrew update && \
   ibrew upgrade && \
+  ibrew autoremove && \
   ibrew cleanup && \
-  echo "[brew update, upgrade, cleanup]" && \
+  echo "[brew update, upgrade, autoremove, cleanup]" && \
   brew update && \
   brew upgrade && \
+  brew autoremove && \
   brew cleanup && \
   echo "[rustup update]" && \
   rustup update
