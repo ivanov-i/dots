@@ -1,5 +1,8 @@
 call plug#begin()
 
+Plug 'jremmen/vim-ripgrep'
+let g:rg_command = 'rg --vimgrep -S'
+
 Plug 'codota/tabnine-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
