@@ -1,5 +1,7 @@
 call plug#begin()
 
+Plug 'stefandtw/quickfix-reflector.vim'
+
 Plug 'jremmen/vim-ripgrep'
 let g:rg_command = 'rg --vimgrep -S'
 
