@@ -136,6 +136,7 @@ export VISUAL=nvim
 # Use Neovim instead of Vim or Vi
 alias vim=nvim
 alias vi=nvim
+alias view=nvim
 
 [[ ! -f ~/.paths ]] || source ~/.paths
 
@@ -146,14 +147,8 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export QT_SCREEN_SCALE_FACTORS=1
 
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
-alias ibrew='arch -x86_64 /usr/local/bin/brew'
 
 update() {
-  echo "[ibrew update, upgrade, autoremove, cleanup]" && \
-  ibrew update && \
-  ibrew upgrade && \
-  ibrew autoremove && \
-  ibrew cleanup && \
   echo "[brew update, upgrade, autoremove, cleanup]" && \
   brew update && \
   brew upgrade && \
