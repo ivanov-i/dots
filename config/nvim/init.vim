@@ -5,7 +5,6 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'jremmen/vim-ripgrep'
 let g:rg_command = 'rg --vimgrep -S'
 
-Plug 'codota/tabnine-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -27,8 +26,6 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim', {'do': 'cd deps/fzy-lua-native && make'}
-" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
 
 Plug 'antoinemadec/FixCursorHold.nvim'
 " in millisecond, used for both CursorHold and CursorHoldI,
