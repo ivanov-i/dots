@@ -42,6 +42,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'gruvbox-community/gruvbox'
 Plug 'bluz71/vim-moonfly-colors'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'cideM/yui'
 
 Plug 'huyvohcmc/atlas.vim'
 Plug 'karoliskoncevicius/distilled-vim'
@@ -58,8 +59,11 @@ endif
 " colorscheme moonfly
 " colorscheme gruvbox
 " colorscheme atlas
-colorscheme distilled
-set background=dark
+" colorscheme distilled
+" set background=dark
+
+colorscheme yui
+" let g:yui_comments = 'emphasize'
 
 " let g:lightline = { 'colorscheme': 'moonfly' }
 " let g:lightline.colorscheme = 'atlas'
