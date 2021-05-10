@@ -58,11 +58,11 @@ endif
 
 " colorscheme moonfly
 " colorscheme gruvbox
-" colorscheme atlas
+ colorscheme atlas
 " colorscheme distilled
 " set background=dark
 
-colorscheme yui
+" colorscheme yui
 " let g:yui_comments = 'emphasize'
 
 " let g:lightline = { 'colorscheme': 'moonfly' }
