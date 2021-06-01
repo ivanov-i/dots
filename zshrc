@@ -158,7 +158,7 @@ update() {
   rustup update
 }
 
-alias ll="exa --long"
+alias ll="exa --long --icons"
 
 export PATH="/opt/homebrew/opt/llvm/bin/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
