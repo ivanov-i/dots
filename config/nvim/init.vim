@@ -10,7 +10,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'dstein64/vim-startuptime'
-Plug 'junegunn/vim-peekaboo'
+" Plug 'junegunn/vim-peekaboo'
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_grep = 'rg'
 Plug 'tpope/vim-unimpaired'
@@ -47,7 +47,18 @@ Plug 'cideM/yui'
 Plug 'huyvohcmc/atlas.vim'
 Plug 'karoliskoncevicius/distilled-vim'
 
+Plug 'folke/which-key.nvim'
+
 call plug#end()
+
+lua << EOF
+  require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+
 
 set foldmethod=marker
 
@@ -58,9 +69,9 @@ endif
 
 " colorscheme moonfly
 " colorscheme gruvbox
- colorscheme atlas
-" colorscheme distilled
-" set background=dark
+" colorscheme atlas
+colorscheme distilled
+set background=dark
 
 " colorscheme yui
 " let g:yui_comments = 'emphasize'
