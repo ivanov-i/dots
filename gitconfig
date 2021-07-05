@@ -31,7 +31,7 @@
 	l = !. ~/.githelpers && pretty_git_log
 	la = !git l --all
     su = !git stash show -p | git apply --reverse
-    fa = fetch --all --prune --tags
+    fa = fetch --all --prune --tags --prune-tags
     code-changes = "!git log --format=format: --name-only | egrep -v '^$' | sort | uniq -c | sort -rg | head -10"
     cc = "!git code-changes"
 [diff]
