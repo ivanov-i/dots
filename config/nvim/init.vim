@@ -97,6 +97,7 @@ set t_vb=
 imap jj <Esc>
 nmap <leader>gs :G<CR>
 nnoremap <cr> :noh<CR><CR>:<backspace>
+nnoremap Y y$
 
 set undodir=~/.config/nvim/undodir
 set undofile " Maintain undo history between sessions
