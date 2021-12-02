@@ -44,7 +44,13 @@ Plug 'karoliskoncevicius/distilled-vim'
 
 Plug 'folke/which-key.nvim'
 
+Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'yuki-ycino/fzf-preview.vim'
+
 call plug#end()
+
+source $VIMCONFIG/fzf.vim
 
 lua << EOF
   require("which-key").setup {
