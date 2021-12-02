@@ -22,10 +22,6 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'RishabhRD/popfix'
 Plug 'RishabhRD/nvim-lsputils'
 
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-
 Plug 'antoinemadec/FixCursorHold.nvim'
 " in millisecond, used for both CursorHold and CursorHoldI,
 " use updatetime instead if not defined
@@ -243,14 +239,6 @@ set completeopt=
 
 " Avoid showing message extra message when using completion
 set shortmess+=c
-
-nnoremap <leader>fff <cmd>lua require('telescope.builtin').find_files()<cr>
-" nnoremap <leader>ff <cmd>lua require('telescope.builtin').git_files()<cr>
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').fd()<cr>
-nnoremap <leader>fgg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').grep_string()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 nnoremap <space> <C-d>
 
