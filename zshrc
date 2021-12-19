@@ -159,9 +159,7 @@ update() {
   echo "[darwin-rebuild switch]" && \
   darwin-rebuild switch && \
   echo "[nix-collect-garbage]" && \
-  nix-collect-garbage && \
-  echo "[pipx" && \
-  pipx upgrade-all
+  nix-collect-garbage
 }
 
 alias ll="exa --long --icons"
