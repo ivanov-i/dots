@@ -102,6 +102,7 @@ nmap <leader>gs :G<CR>
 nnoremap <cr> :noh<CR><CR>:<backspace>
 nnoremap Y y$
 
+set timeoutlen=300
 set undodir=~/.config/nvim/undodir
 set undofile " Maintain undo history between sessions
 set termguicolors
