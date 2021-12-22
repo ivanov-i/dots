@@ -50,6 +50,8 @@ Plug 'yuki-ycino/fzf-preview.vim'
 
 call plug#end()
 
+let g:mapleader="\<space>"
+
 source $VIMCONFIG/fzf.vim
 
 lua << EOF
