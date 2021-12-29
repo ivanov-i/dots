@@ -10,9 +10,9 @@ command! -bang -nargs=* RgExact
 
 
 """" FZF - bind file fuzzy search to C-p
-nnoremap <leader>ff :<C-u>FZF<CR> 
-nnoremap <leader>fg :<C-u>RG<CR> 
-nnoremap <leader>b :<C-u>Buffers<CR> 
+nnoremap <leader>ff :<C-u>FZF<CR>
+nnoremap <leader>fg :<C-u>RG<CR>
+nnoremap <leader>b :<C-u>Buffers<CR>
 nnoremap <leader>h :<C-u>History:<CR>
 nnoremap <leader>g :<C-u>GFiles?<CR>
 nnoremap <leader>/ :<C-u>BLines<CR>
