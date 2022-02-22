@@ -107,8 +107,8 @@ set timeoutlen=300
 set undodir=~/.config/nvim/undodir
 set undofile " Maintain undo history between sessions
 set termguicolors
-set relativenumber
-set number
+set norelativenumber
+set nonumber
 set mouse=a
 set tabstop=4
 set shiftwidth=4
