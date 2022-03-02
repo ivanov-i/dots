@@ -156,6 +156,8 @@ update() {
   brew cleanup && \
   echo "[rustup update]" && \
   rustup update && \
+  echo "[cargo update]" && \
+  cargo install-update -a && \
   echo "[darwin-rebuild switch]" && \
   darwin-rebuild switch && \
   echo "[nix-collect-garbage]" && \
