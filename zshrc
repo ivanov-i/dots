@@ -148,6 +148,8 @@ export QT_SCREEN_SCALE_FACTORS=1
 
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+
 update() {
   echo "[brew update, upgrade, autoremove, cleanup]" && \
   brew update && \
@@ -163,6 +165,22 @@ update() {
   echo "[nix-collect-garbage]" && \
   nix-collect-garbage
 }
+
+else
+
+update() {
+  sudo apt update && \
+	 sudo apt upgrade -y && \
+	 rustup update && \
+	 cargo install-update -a && \
+	 yt-dlp -U && \
+	 nix-channel --update && \
+	 nix-env -u && \
+	 nix-collect-garbage && \
+	 sudo n latest
+}
+
+fi
 
 alias ll="exa --long --icons"
 
