@@ -103,6 +103,18 @@ nmap <leader>gs :G<CR>
 nnoremap <cr> :noh<CR><CR>:<backspace>
 nnoremap Y y$
 
+" Scrolling/Line movement
+
+" move by screen lines when wrapping
+nnoremap gj j
+nnoremap gk k
+nnoremap j gj
+nnoremap k gk
+
+" move by actual lines when count
+nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+
 set timeoutlen=300
 set undodir=~/.config/nvim/undodir
 set undofile " Maintain undo history between sessions
