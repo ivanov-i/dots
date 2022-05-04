@@ -53,7 +53,13 @@ call plug#end()
 nnoremap <space> <Nop>
 let g:mapleader="\<space>"
 
-source $VIMCONFIG/fzf.vim
+let configpath = stdpath('config')
+
+" let initvim = configpath . "/init.vim"
+" autocmd BufWritePost init.vim execute 'source ' . initvim
+
+let fzfpath = configpath . "/fzf.vim"
+execute 'source '.fnameescape(fzfpath)
 
 lua << EOF
   require("which-key").setup {
@@ -289,5 +295,4 @@ else
   let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
 endif
 
-autocmd BufWritePost stdpath('config') source stdpath('config')
 
