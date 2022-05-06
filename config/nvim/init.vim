@@ -10,13 +10,11 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'dstein64/vim-startuptime'
-" Plug 'junegunn/vim-peekaboo'
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_grep = 'rg'
 Plug 'tpope/vim-unimpaired'
 Plug 'mhinz/vim-startify'
 let g:startify_change_to_dir = 0
-" Plug 'itchyny/lightline.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'RishabhRD/popfix'
@@ -34,19 +32,15 @@ let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
 
 Plug 'tpope/vim-sleuth'
 
-Plug 'gruvbox-community/gruvbox'
-Plug 'bluz71/vim-moonfly-colors'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'cideM/yui'
-
-Plug 'huyvohcmc/atlas.vim'
 Plug 'karoliskoncevicius/distilled-vim'
-
-Plug 'folke/which-key.nvim'
 
 Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'yuki-ycino/fzf-preview.vim'
+
+" dim inactive panes
+Plug 'TaDaa/vimade'
 
 call plug#end()
 
@@ -55,20 +49,8 @@ let g:mapleader="\<space>"
 
 let configpath = stdpath('config')
 
-" let initvim = configpath . "/init.vim"
-" autocmd BufWritePost init.vim execute 'source ' . initvim
-
 let fzfpath = configpath . "/fzf.vim"
 execute 'source '.fnameescape(fzfpath)
-
-lua << EOF
-  require("which-key").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
-EOF
-
 
 set foldmethod=marker
 
@@ -76,21 +58,8 @@ if has("nvim")
     set inccommand=split
 endif
 
-
-" colorscheme moonfly
-" colorscheme gruvbox
-" colorscheme atlas
 colorscheme distilled
 set background=dark
-
-" colorscheme yui
-" let g:yui_comments = 'emphasize'
-
-" let g:lightline = { 'colorscheme': 'moonfly' }
-" let g:lightline.colorscheme = 'atlas'
-" let g:lightline = { 'colorscheme': 'gruvbox' }
-" let g:lightline.colorschem = 'distilled'
-
 
 set pumblend=30
 set wildignorecase
@@ -122,7 +91,7 @@ nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 
 set breakindent
-set timeoutlen=300
+" set timeoutlen=500
 set undodir=~/.config/nvim/undodir
 set undofile " Maintain undo history between sessions
 set termguicolors
