@@ -41,6 +41,10 @@ Plug 'yuki-ycino/fzf-preview.vim'
 
 " dim inactive panes
 Plug 'TaDaa/vimade'
+let g:vimade = {}
+let g:vimade.fadelevel = 0.7
+" let g:vimade.enablesigns = 1
+
 
 call plug#end()
 
