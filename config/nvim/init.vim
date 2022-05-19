@@ -10,8 +10,8 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'dstein64/vim-startuptime'
-Plug 'airblade/vim-gitgutter'
-let g:gitgutter_grep = 'rg'
+" Plug 'airblade/vim-gitgutter'
+" let g:gitgutter_grep = 'rg'
 Plug 'tpope/vim-unimpaired'
 Plug 'mhinz/vim-startify'
 let g:startify_change_to_dir = 0
@@ -45,6 +45,7 @@ let g:vimade = {}
 let g:vimade.fadelevel = 0.7
 " let g:vimade.enablesigns = 1
 
+Plug 'lewis6991/gitsigns.nvim'
 
 call plug#end()
 
@@ -268,4 +269,8 @@ else
   let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
 endif
 
-
+"gitsigns
+lua require('gitsigns').setup()
+"set color to be the same as comment
+highlight link GitSignsCurrentLineBlame Comment
+Gitsigns toggle_current_line_blame
