@@ -1,7 +1,5 @@
 call plug#begin()
 
-Plug 'lewis6991/impatient.nvim'
-
 Plug 'stefandtw/quickfix-reflector.vim'
 
 Plug 'jremmen/vim-ripgrep'
@@ -50,9 +48,6 @@ let g:vimade.fadelevel = 0.7
 Plug 'lewis6991/gitsigns.nvim'
 
 call plug#end()
-
-lua require('impatient')
-
 
 nnoremap <space> <Nop>
 let g:mapleader="\<space>"
