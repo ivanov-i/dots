@@ -109,7 +109,7 @@ let &softtabstop = &shiftwidth
 let g:rustfmt_autosave = 1
 set ignorecase
 set smartcase
-set colorcolumn=80
+" set colorcolumn=80
 
 " TextEdit might fail if hidden is not set.
 set hidden
