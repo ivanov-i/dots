@@ -64,7 +64,7 @@ if has("nvim")
 endif
 
 colorscheme distilled
-set background=dark
+hi Normal guibg=NONE ctermbg=NONE
 
 set pumblend=30
 set wildignorecase
