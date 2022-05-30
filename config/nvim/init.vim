@@ -47,9 +47,11 @@ let g:vimade.fadelevel = 0.7
 
 Plug 'lewis6991/gitsigns.nvim'
 
-
 " 'Match 4 of 20' when searching
 Plug 'henrik/vim-indexed-search'
+
+" lets you do things like `vim file.txt:123`
+Plug 'kopischke/vim-fetch'
 
 call plug#end()
 
