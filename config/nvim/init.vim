@@ -141,6 +141,12 @@ set shortmess+=c
 set signcolumn=yes
 
 
+" splits
+
+set splitbelow
+set splitright
+
+
 " LSP
 
 lua << EOF
