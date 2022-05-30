@@ -53,6 +53,11 @@ Plug 'henrik/vim-indexed-search'
 " lets you do things like `vim file.txt:123`
 Plug 'kopischke/vim-fetch'
 
+"run command in tmux window
+Plug 'benmills/vimux'
+let g:VimuxOrientation = "h"
+" map <Leader>rb :call VimuxRunCommand("clear; rspec " . bufname("%"))<CR>
+
 call plug#end()
 
 nnoremap <space> <Nop>
@@ -145,7 +150,6 @@ set signcolumn=yes
 
 set splitbelow
 set splitright
-
 
 " LSP
 
