@@ -47,6 +47,10 @@ let g:vimade.fadelevel = 0.7
 
 Plug 'lewis6991/gitsigns.nvim'
 
+
+" 'Match 4 of 20' when searching
+Plug 'henrik/vim-indexed-search'
+
 call plug#end()
 
 nnoremap <space> <Nop>
