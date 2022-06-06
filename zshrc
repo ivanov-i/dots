@@ -198,3 +198,4 @@ export PATH="/opt/homebrew/sbin:$PATH"
 if [ -e /home/q/.nix-profile/etc/profile.d/nix.sh ]; then . /home/q/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+echo -ne "\033]12;Red1\007"
