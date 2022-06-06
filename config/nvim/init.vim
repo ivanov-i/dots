@@ -290,3 +290,6 @@ lua require('gitsigns').setup()
 "set color to be the same as comment
 highlight link GitSignsCurrentLineBlame Comment
 Gitsigns toggle_current_line_blame
+
+"Red cursor
+echo -ne "\033]12;Red1\007"
