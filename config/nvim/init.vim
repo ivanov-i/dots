@@ -289,4 +289,4 @@ endif
 lua require('gitsigns').setup()
 "set color to be the same as comment
 highlight link GitSignsCurrentLineBlame Comment
-Gitsigns toggle_current_line_blame
+" Gitsigns toggle_current_line_blame
