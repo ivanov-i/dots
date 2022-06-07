@@ -58,6 +58,9 @@ Plug 'benmills/vimux'
 let g:VimuxOrientation = "h"
 " map <Leader>rb :call VimuxRunCommand("clear; rspec " . bufname("%"))<CR>
 
+"shows the context of the currently visible buffer contents
+Plug 'wellle/context.vim'
+
 call plug#end()
 
 nnoremap <space> <Nop>
