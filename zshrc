@@ -177,6 +177,7 @@ else
 update() {
   sudo apt update && \
 	 sudo apt upgrade -y && \
+	 sudo apt autoremove -y && \
 	 rustup update && \
 	 cargo install-update -a && \
 	 yt-dlp -U && \
