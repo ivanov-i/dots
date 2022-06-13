@@ -170,8 +170,6 @@ update() {
   cargo install-update -a && \
   echo "[darwin-rebuild switch]" && \
   darwin-rebuild switch && \
-  echo "[nix-collect-garbage]" && \
-  nix-collect-garbage
 }
 
 else
