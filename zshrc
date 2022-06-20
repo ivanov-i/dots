@@ -1,3 +1,4 @@
+if false; then
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -21,7 +22,7 @@ else
   # ZSH_THEME="robbyrussell"
   ZSH_THEME="powerlevel10k/powerlevel10k"
 fi
-
+fi
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
@@ -132,8 +133,10 @@ export DOCKER_HOST='tcp://0.0.0.0:2375'
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
+if false; then
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
 
 #bindkey -v
 
