@@ -19,3 +19,5 @@ ln -f -s ~/dots/config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
 
 mkdir -p ~/.config/zellij
 ln -f -s ~/dots/config/zellij/config.yaml ~/.config/zellij/config.yaml
+
+ln -f -s ~/dots/config/starship.toml ~/.config/starship.toml
