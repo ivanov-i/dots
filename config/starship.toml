@@ -4,13 +4,25 @@ command_timeout = 10000
 "$schema" = 'https://starship.rs/config-schema.json'
 
 # Inserts a blank line between shell prompts
-add_newline = true
+# add_newline = true
+
+# Move the directory to the second line
+# format = "$all$directory$character"
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character] # The name of the module we are configuring is "character"
 success_symbol = "[➜](bold green)" # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[✗](bold red) "
 
 # Disable the package module, hiding it from the prompt completely
 [package]
 disabled = true
 
+[directory]
+# Whether or not to truncate to the root of the git repo that you're currently in
+truncate_to_repo = false
+# The style for the root of the git repo. The default value is equivalent to
+repo_root_style = "bold"
+
+[username]
+disabled = true
