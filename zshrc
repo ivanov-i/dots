@@ -189,8 +189,8 @@ update() {
 
 fi
 
-alias ll="exa --grid --color-scale --classify --icons --header"
-alias lm="exa --grid --color-scale --classify --icons --header --long --sort=changed"
+alias ll="exa --grid --color-scale --classify --icons"
+alias lm="exa --grid --color-scale --classify --icons --long --sort=changed"
 
 export PATH="/opt/homebrew/opt/llvm/bin/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
