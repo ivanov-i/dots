@@ -203,11 +203,3 @@ echo -ne "\033]12;Red1\007"
 
 # unset LSCOLORS
 # export CLICOLOR=1
-# export CLICOLOR_FORCE=1
-
-eval "$(mcfly init zsh)"
-export MCFLY_FUZZY=2
-# export MCFLY_DISABLE_MENU=TRUE
-export MCFLY_INTERFACE_VIEW=BOTTOM
-
-
