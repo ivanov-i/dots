@@ -80,6 +80,12 @@ if has("nvim")
 endif
 
 " colorscheme distilled
+
+" lua << EOF
+" vim.g.tokyonight_transparent = true
+" vim.g.tokyonight_transparent_sidebar = true
+" EOF
+
 colorscheme tokyonight
 hi Normal guibg=NONE ctermbg=NONE
 
