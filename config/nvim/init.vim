@@ -61,6 +61,8 @@ let g:VimuxOrientation = "h"
 "shows the context of the currently visible buffer contents
 Plug 'wellle/context.vim'
 
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+
 call plug#end()
 
 nnoremap <space> <Nop>
@@ -77,7 +79,8 @@ if has("nvim")
     set inccommand=split
 endif
 
-colorscheme distilled
+" colorscheme distilled
+colorscheme tokyonight
 hi Normal guibg=NONE ctermbg=NONE
 
 set pumblend=30
