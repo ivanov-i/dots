@@ -23,7 +23,7 @@ ln -f -s ~/dots/config/zellij/config.yaml ~/.config/zellij/config.yaml
 ln -f -s ~/dots/p10k.zsh ~/.p10k.zsh
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-	mkdir ~/Library/Application\ Support/lazygit
+	mkdir -p ~/Library/Application\ Support/lazygit
 	ln -f -s ~/dots/config/lazygit/config.yml ~/Library/Application\ Support/lazygit/config.yml
 else
 	mkdir -p ~/.config/lazygit/
