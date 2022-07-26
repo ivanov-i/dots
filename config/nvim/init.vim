@@ -33,17 +33,10 @@ let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
 Plug 'tpope/vim-sleuth'
 
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'karoliskoncevicius/distilled-vim'
 
 Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'yuki-ycino/fzf-preview.vim'
-
-" dim inactive panes
-Plug 'TaDaa/vimade'
-let g:vimade = {}
-let g:vimade.fadelevel = 0.7
-" let g:vimade.enablesigns = 1
 
 Plug 'lewis6991/gitsigns.nvim'
 
