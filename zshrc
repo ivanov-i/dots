@@ -170,7 +170,8 @@ update() {
   echo "[rustup update]" && \
   rustup update && \
   echo "[cargo update]" && \
-  cargo install-update -a
+  cargo install-update -a && \
+  tldr --update
 }
 
 else
@@ -182,7 +183,8 @@ update() {
 	 # rustup update && \
 	 cargo install-update -a && \
 	 yt-dlp -U && \
-	 sudo n latest
+	 sudo n latest && \
+	 tldr --update
 }
 
 fi
