@@ -54,7 +54,31 @@ let g:VimuxOrientation = "h"
 "shows the context of the currently visible buffer contents
 Plug 'wellle/context.vim'
 
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+"Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'karoliskoncevicius/distilled-vim'
+
+"rust
+
+Plug 'folke/trouble.nvim'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'hrsh7th/cmp-path'
+" Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/nvim-cmp'
+" Plug 'hrsh7th/vim-vsnip'
+" Plug 'hrsh7th/vim-vsnip-integ'
+
+" Standalone UI for nvim-lsp progress. Eye candy for the impatient.
+"Plug 'j-hui/fidget.nvim'
+
+"Plug 'kosayoda/nvim-lightbulb'
+" Plug 'm-demare/hlargs.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'simrat39/rust-tools.nvim'
+Plug 'weilbith/nvim-code-action-menu'
+Plug 'williamboman/nvim-lsp-installer'
 
 call plug#end()
 
@@ -72,14 +96,14 @@ if has("nvim")
     set inccommand=split
 endif
 
-" colorscheme distilled
+colorscheme distilled
 
 " lua << EOF
 " vim.g.tokyonight_transparent = true
 " vim.g.tokyonight_transparent_sidebar = true
 " EOF
 
-colorscheme tokyonight
+"colorscheme tokyonight
 hi Normal guibg=NONE ctermbg=NONE
 
 set pumblend=30
@@ -175,80 +199,6 @@ require'nvim-web-devicons'.setup {
  default = true;
 }
 
-require'lspconfig'.rust_analyzer.setup{on_attach=require'completion'.on_attach}
-
-vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
-vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
-vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
-vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
-vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
-vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
-vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
-vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
-
-
-local nvim_lsp = require('lspconfig')
-
-local on_attach = function(client, bufnr)
-
-  require'completion'.on_attach(client)
-
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-  -- buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  -- buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  -- buf_set_keymap('n', 'gr','<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  -- buf_set_keymap('n', 'gi','<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  -- buf_set_keymap('n', '<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  -- buf_set_keymap('n', '<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>', opts)
-  -- buf_set_keymap('n', '<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>', opts)
-  -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  -- buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  -- buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  -- buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  -- buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  -- buf_set_keymap('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-
-  -- Set some keybinds conditional on server capabilities
-  -- if client.resolved_capabilities.document_formatting then
-  --   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  -- elseif client.resolved_capabilities.document_range_formatting then
-  --   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  -- end
-  
-  -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
-    require('lspconfig').util.nvim_multiline_command [[
-      :hi LspReferenceRead cterm=bold ctermbg=red guibg=Blue
-      :hi LspReferenceText cterm=bold ctermbg=red guibg=Blue
-      :hi LspReferenceWrite cterm=bold ctermbg=red guibg=Blue
-      augroup lsp_document_highlight
-        autocmd!
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]]
-  end
-end
-
--- Use a loop to conveniently both setup defined servers 
--- and map buffer local keybindings when the language server attaches
-local servers = { "pyright", "rust_analyzer", "tsserver" }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
-end
-
 EOF
 
 autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
@@ -295,3 +245,189 @@ lua require('gitsigns').setup()
 "set color to be the same as comment
 highlight link GitSignsCurrentLineBlame Comment
 Gitsigns toggle_current_line_blame
+
+
+"rust
+
+" ------------------------------------
+" j-hui/fidget.nvim
+" ------------------------------------
+"
+"lua require("fidget").setup()
+
+" ------------------------------------
+" kosayoda/nvim-lightbulb
+" ------------------------------------
+"
+"autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()
+
+" ------------------------------------
+" weilbith/nvim-code-action-menu
+" ------------------------------------
+"
+let g:code_action_menu_window_border = 'single'
+
+" ------------------------------------
+" folke/trouble.nvim
+" ------------------------------------
+"
+lua require("trouble").setup()
+
+" ------------------------------------
+" Neovim LSP
+" ------------------------------------
+"
+" Configure Rust LSP.
+"
+" https://github.com/simrat39/rust-tools.nvim#configuration
+"
+lua <<EOF
+local opts = {
+  -- rust-tools options
+  tools = {
+    autoSetHints = true,
+--    hover_with_actions = true,
+    inlay_hints = {
+      show_parameter_hints = true,
+      parameter_hints_prefix = "",
+      other_hints_prefix = "",
+      },
+    },
+
+  -- all the opts to send to nvim-lspconfig
+  -- these override the defaults set by rust-tools.nvim
+  -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+  -- https://rust-analyzer.github.io/manual.html#features
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      --vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      --vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+    settings = {
+      ["rust-analyzer"] = {
+        assist = {
+          importEnforceGranularity = true,
+          importPrefix = "crate"
+          },
+        cargo = {
+          allFeatures = true
+          },
+        checkOnSave = {
+          -- default: `cargo check`
+          command = "clippy"
+          },
+        },
+        inlayHints = {
+          lifetimeElisionHints = {
+            enable = true,
+            useParameterNames = true
+          },
+        },
+      }
+    },
+}
+require('rust-tools').setup(opts)
+
+require('lspconfig')['rust_analyzer'].setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+    -- Server-specific settings...
+    settings = {
+      ["rust-analyzer"] = {}
+    }
+}
+EOF
+
+" Configure LSP code navigation shortcuts
+" as found in :help lsp
+"
+nnoremap <silent> <c-]>     <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <c-k>     <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> K         <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gi        <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> gc        <cmd>lua vim.lsp.buf.incoming_calls()<CR>
+nnoremap <silent> gd        <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr        <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gn        <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> gs        <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gw        <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+
+" Replaced LSP implementation with code action plugin...
+"
+" nnoremap <silent> ga        <cmd>lua vim.lsp.buf.code_action()<CR>
+"
+nnoremap <silent> ga        <cmd>CodeActionMenu<CR>
+
+nnoremap <silent> [x        <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> ]x        <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap <silent> ]s        <cmd>lua vim.diagnostic.show()<CR>
+
+" Replaced LSP implementation with trouble plugin...
+"
+" nnoremap <silent> <space>q  <cmd>lua vim.diagnostic.setloclist()<CR>
+"
+nnoremap <silent> <space>q  <cmd>Trouble<CR>
+
+" Setup Completion
+" https://github.com/hrsh7th/nvim-cmp#recommended-configuration
+"
+lua <<EOF
+local cmp = require('cmp')
+cmp.setup({
+  snippet = {
+    expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  mapping = {
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    ['<Tab>'] = cmp.mapping.select_next_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Insert,
+      select = true,
+    })
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' },
+    { name = 'path' },
+    { name = 'buffer' },
+    { name = 'nvim_lsp_signature_help' },
+  },
+})
+EOF
+
+" Setup Treesitter and friends
+"
+" NOTE: originally used `ensure_installed = "all"` but an experimental PHP
+" parser was causing NPM lockfile errors.
+"
+lua <<EOF
+require('nvim-treesitter.configs').setup {
+  ensure_installed = { "bash", "c", "cmake", "css", "dockerfile", "go", "gomod", "gowork", "hcl", "help", "html", "http", "javascript", "json", "lua", "make", "markdown", "python", "regex", "ruby", "rust", "toml", "vim", "yaml", "zig" },
+  highlight = {
+    enable = true,
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    --disable = { "c", "rust" },
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  }
+}
+-- require('hlargs').setup()
+EOF
+
+syntax off

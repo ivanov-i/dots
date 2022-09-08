@@ -152,7 +152,6 @@ alias view=nvim
 [[ ! -f ~/.paths ]] || source ~/.paths
 
 export LANG="en_US.UTF-8"
-export PATH="$HOME/.cargo/bin:$PATH"
 
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export QT_SCREEN_SCALE_FACTORS=1
@@ -210,3 +209,35 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
+
+#rust
+export PATH="$HOME/.cargo/bin:$PATH"
+source $HOME/.cargo/env
+
+install-rust-things()
+{
+	if [ ! -f "$HOME/.config/rustlang/autocomplete/rustup" ]; then
+		mkdir -p ~/.config/rustlang/autocomplete
+		rustup completions bash rustup >> ~/.config/rustlang/autocomplete/rustup
+	fi
+	source "$HOME/.config/rustlang/autocomplete/rustup"
+	if ! command -v rust-analyzer &> /dev/null
+	then
+		brew install rust-analyzer
+	fi
+	if ! cargo audit --version &> /dev/null; then
+		cargo install cargo-audit --features=fix
+	fi
+	if ! cargo nextest --version &> /dev/null; then
+		cargo install cargo-nextest
+	fi
+	if ! cargo fmt --version &> /dev/null; then
+		rustup component add rustfmt
+	fi
+	if ! cargo clippy --version &> /dev/null; then
+		rustup component add clippy
+	fi
+	if ! ls ~/.cargo/bin | grep 'cargo-upgrade' &> /dev/null; then
+		cargo install cargo-edit
+	fi
+}
