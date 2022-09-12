@@ -209,7 +209,7 @@ require'nvim-web-devicons'.setup {
 
 EOF
 
-autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
+"autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
