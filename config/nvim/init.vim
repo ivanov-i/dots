@@ -140,6 +140,9 @@ nnoremap k gk
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 
+"paste and keep the register contents
+xnoremap <leader>p "_dP
+
 set breakindent
 " set timeoutlen=500
 set undodir=~/.config/nvim/undodir
