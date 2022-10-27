@@ -161,15 +161,19 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
 update() {
-  echo "[brew update, upgrade, autoremove, cleanup]" && \
+  echo "[brew update]" && \
   brew update && \
+  echo "[upgrade]" && \
   brew upgrade && \
+  echo "[autoremove]" && \
   brew autoremove && \
+  echo "[cleanup]" && \
   brew cleanup && \
   echo "[rustup update]" && \
   rustup update && \
   echo "[cargo update]" && \
   cargo install-update -a && \
+  echo "[tldr update]" && \
   tldr --update
 }
 
