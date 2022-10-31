@@ -131,7 +131,7 @@ setopt no_cdable_vars
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export DOCKER_HOST='tcp://0.0.0.0:2375'
+#export DOCKER_HOST='tcp://0.0.0.0:2375'
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
