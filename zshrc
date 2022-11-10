@@ -180,14 +180,22 @@ update() {
 else
 
 update() {
-  sudo apt update && \
-	 sudo apt upgrade -y && \
-	 sudo apt autoremove -y && \
-	 # rustup update && \
-	 cargo install-update -a && \
-	 yt-dlp -U && \
-	 sudo n latest && \
-	 tldr --update
+  echo "[apt update]" && \
+	  sudo apt update && \
+	  echo "[apt upgrade]" && \
+	  sudo apt upgrade -y && \
+	  echo "[apt autoremove]" && \
+	  sudo apt autoremove -y && \
+	  echo "[rustup update]" && \
+	  rustup update && \
+	  echo "[cargo install-update -a]" && \
+	  cargo install-update -a && \
+	  echo "[yt-dlp update]" && \
+	  yt-dlp -U && \
+	  echo "[npm update]" && \
+	  sudo n latest && \
+	  echo "[tldr update]" && \
+	  tldr --update
 }
 
 fi
