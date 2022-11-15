@@ -179,6 +179,9 @@ update() {
 
 else
 
+JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export JAVA_HOME
+
 update() {
   echo "[apt update]" && \
 	  sudo apt update && \
