@@ -57,6 +57,11 @@ Plug 'wellle/context.vim'
 "Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'karoliskoncevicius/distilled-vim'
 
+"java
+
+Plug 'williamboman/mason.nvim'
+Plug 'mfussenegger/nvim-jdtls'
+
 "rust
 
 Plug 'folke/trouble.nvim'
@@ -254,6 +259,11 @@ lua require('gitsigns').setup()
 highlight link GitSignsCurrentLineBlame Comment
 Gitsigns toggle_current_line_blame
 
+"java
+
+lua << EOF
+require("mason").setup()
+EOF
 
 "rust
 
