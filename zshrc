@@ -179,7 +179,7 @@ update() {
 
 else
 
-JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+JAVA_HOME=/usr/lib/jvm/java-18-openjdk-amd64
 export JAVA_HOME
 export GRADLE_HOME=/opt/gradle/latest
 export PATH=${GRADLE_HOME}/bin:${PATH}
