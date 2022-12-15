@@ -1,3 +1,4 @@
+lua require('basic')
 call plug#begin()
 
 Plug 'stefandtw/quickfix-reflector.vim'
@@ -455,3 +456,6 @@ require('nvim-treesitter.configs').setup {
 EOF
 
 syntax off
+nnoremap <leader>s :source ~/.config/nvim/init.vim<cr>
+
+

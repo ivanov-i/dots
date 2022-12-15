@@ -14,6 +14,7 @@ ln -f -s ~/dots/fzf.zsh ~/.fzf.zsh
 
 mkdir -p ~/.config/nvim 
 ln -f -s ~/dots/config/nvim/init.vim  ~/.config/nvim/init.vim
+ln -f -s ~/dots/config/nvim/lua  ~/.config/nvim/lua
 ln -f -s ~/dots/config/nvim/fzf.vim  ~/.config/nvim/fzf.vim
 ln -f -s ~/dots/config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
 

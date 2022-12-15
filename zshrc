@@ -304,3 +304,18 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 	eval "$(pyenv init -)"
 fi
+
+source /Users/ivanov/.docker/init-zsh.sh || true # Added by Docker Desktop
+
+fix-mosh-server() {
+  local fw='/usr/libexec/ApplicationFirewall/socketfilterfw'
+  local mosh_sym="$(which mosh-server)"
+  local mosh_abs="$(greadlink -f $mosh_sym)"
+
+  sudo "$fw" --setglobalstate off
+  sudo "$fw" --add "$mosh_sym"
+  sudo "$fw" --unblockapp "$mosh_sym"
+  sudo "$fw" --add "$mosh_abs"
+  sudo "$fw" --unblockapp "$mosh_abs"
+  sudo "$fw" --setglobalstate on
+}
