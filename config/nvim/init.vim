@@ -14,8 +14,6 @@ Plug 'dstein64/vim-startuptime'
 " Plug 'airblade/vim-gitgutter'
 " let g:gitgutter_grep = 'rg'
 Plug 'tpope/vim-unimpaired'
-Plug 'mhinz/vim-startify'
-let g:startify_change_to_dir = 0
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'RishabhRD/popfix'
