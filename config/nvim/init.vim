@@ -1,4 +1,4 @@
-lua require('basic')
+"lua require('basic')
 call plug#begin()
 
 Plug 'stefandtw/quickfix-reflector.vim'
