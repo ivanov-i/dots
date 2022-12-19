@@ -305,7 +305,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	eval "$(pyenv init -)"
 fi
 
-source /Users/ivanov/.docker/init-zsh.sh || true # Added by Docker Desktop
+FILE=/Users/ivanov/.docker/init-zsh.sh; [ -f $FILE ] && . $FILE
 
 fix-mosh-server() {
   local fw='/usr/libexec/ApplicationFirewall/socketfilterfw'
