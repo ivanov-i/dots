@@ -1,32 +1,31 @@
 #!/bin/bash
 
-ln -f -s ~/dots/gitconfig ~/.gitconfig
-ln -f -s ~/dots/githelpers ~/.githelpers
+ln -f -s $PWD/gitconfig ~/.gitconfig
+ln -f -s $PWD/githelpers ~/.githelpers
 
-ln -f -s ~/dots/tmux.conf ~/.tmux.conf
+ln -f -s $PWD/tmux.conf ~/.tmux.conf
 
-ln -f -s ~/dots/vimrc ~/.vimrc
+ln -f -s $PWD/vimrc ~/.vimrc
 
-ln -f -s ~/dots/zshrc ~/.zshrc
-ln -f -s ~/dots/zshrc ~/.zshrc
+ln -f -s $PWD/zshrc ~/.zshrc
+ln -f -s $PWD/zshrc ~/.zshrc
 
-ln -f -s ~/dots/fzf.zsh ~/.fzf.zsh
+ln -f -s $PWD/fzf.zsh ~/.fzf.zsh
 
 mkdir -p ~/.config/nvim 
-ln -f -s ~/dots/config/nvim/init.vim  ~/.config/nvim/init.vim
-ln -f -s ~/dots/config/nvim/lua  ~/.config/nvim/lua
-ln -f -s ~/dots/config/nvim/fzf.vim  ~/.config/nvim/fzf.vim
-ln -f -s ~/dots/config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
+ln -f -s $PWD/config/nvim/lua ~/.config/nvim/lua
+ln -f -s $PWD/config/nvim/after ~/.config/nvim/after
+ln -f -s $PWD/config/nvim/init.lua ~/.config/nvim/init.lua
 
 mkdir -p ~/.config/zellij
-ln -f -s ~/dots/config/zellij/config.yaml ~/.config/zellij/config.yaml
+ln -f -s $PWD/config/zellij/config.yaml ~/.config/zellij/config.yaml
 
-ln -f -s ~/dots/p10k.zsh ~/.p10k.zsh
+ln -f -s $PWD/p10k.zsh ~/.p10k.zsh
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	mkdir -p ~/Library/Application\ Support/lazygit
-	ln -f -s ~/dots/config/lazygit/config.yml ~/Library/Application\ Support/lazygit/config.yml
+	ln -f -s $PWD/config/lazygit/config.yml ~/Library/Application\ Support/lazygit/config.yml
 else
 	mkdir -p ~/.config/lazygit/
-	ln -f -s ~/dots/config/lazygit/config.yml ~/.config/lazygit/config.yml
+	ln -f -s $PWD/config/lazygit/config.yml ~/.config/lazygit/config.yml
 fi
