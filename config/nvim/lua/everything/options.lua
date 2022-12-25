@@ -1,5 +1,5 @@
 vim.opt.inccommand="split"
-vim.opt.pumblend=30
+vim.opt.pumblend=0
 vim.opt.wildignorecase = true
 vim.opt.path="$PWD/**"
 vim.opt.visualbell = true

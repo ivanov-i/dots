@@ -53,5 +53,7 @@ return require('packer').startup(function(use)
 	}
 
 	use('907th/vim-auto-save')
+	use('nvim-tree/nvim-web-devicons')
+	use('onsails/lspkind.nvim')
 
 end)

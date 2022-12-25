@@ -26,8 +26,30 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 	['<C-Space>>'] = cmp.mapping.complete(),
 })
 
+local lspkind = require('lspkind')
+
 lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
+	mapping = cmp_mappings,
+	formatting = {
+		format = function(entry, vim_item)
+			if vim.tbl_contains({ 'path' }, entry.source.name) then
+				local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
+				if icon then
+					vim_item.kind = icon
+					vim_item.kind_hl_group = hl_group
+					return vim_item
+				end
+			end
+
+			return lspkind.cmp_format({
+				with_text = false,
+				mode = 'symbol', -- show only symbol annotations
+				maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+				ellipsis_char = '…', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+
+			})(entry, vim_item)
+		end
+	}
 })
 
 lsp.set_preferences({
@@ -63,3 +85,4 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 lsp.setup()
+
