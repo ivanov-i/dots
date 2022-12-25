@@ -5,6 +5,7 @@ vim.opt.path="$PWD/**"
 vim.opt.visualbell = true
 vim.opt.autoread = true
 vim.opt.breakindent = true
+vim.opt.showbreak = "↪ "
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 -- Maintain undo history between sessions
 vim.opt.undofile = true
