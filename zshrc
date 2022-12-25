@@ -176,6 +176,8 @@ update() {
   rustup update && \
   echo "[cargo update]" && \
   cargo install-update -a && \
+  echo "[npm update]" && \
+  sudo n latest && \
   echo "[tldr update]" && \
   tldr --update
 }
