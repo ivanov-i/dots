@@ -13,3 +13,4 @@ vim.keymap.set("n", "k", "gk")
 -- buffers
 vim.keymap.set("n", "]b", vim.cmd.bnext)
 vim.keymap.set("n", "[b", vim.cmd.bprev)
+

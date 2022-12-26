@@ -86,3 +86,51 @@ end)
 
 lsp.setup()
 
+--debug
+
+vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
+vim.keymap.set("n", "<F5>", require("dap").continue)
+vim.keymap.set("n", "<F10>", require("dap").step_over)
+vim.keymap.set("n", "<F11>", require("dap").step_into)
+vim.keymap.set("n", "<S-F11>", require("dap").step_out)
+
+local dap = require("dap")
+
+require('mason').setup()
+require ('mason-nvim-dap').setup({
+    ensure_installed = {'stylua', 'jq', 'python'}
+})
+
+require 'mason-nvim-dap'.setup_handlers {
+    function(source_name)
+      -- all sources with no handler get passed here
+
+
+      -- Keep original functionality of `automatic_setup = true`
+      require('mason-nvim-dap.automatic_setup')(source_name)
+    end,
+    python = function(source_name)
+        dap.adapters.python = {
+	        type = "executable",
+	        command = "python",
+	        args = {
+		        "-m",
+		        "debugpy.adapter",
+	        },
+        }
+
+        dap.configurations.python = {
+	        {
+		        type = "python",
+		        request = "launch",
+		        name = "Launch file",
+		        program = "${file}", -- This configuration will launch the current file if used.
+	        },
+        }
+    end,
+}
+require("dapui").setup()
+require("nvim-dap-virtual-text").setup()
+
+vim.keymap.set("n", "<leader>dr", require('dapui').toggle)
+

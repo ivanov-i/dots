@@ -55,5 +55,14 @@ return require('packer').startup(function(use)
 	use('907th/vim-auto-save')
 	use('nvim-tree/nvim-web-devicons')
 	use('onsails/lspkind.nvim')
+	use('terrortylor/nvim-comment')
+	use{'jayp0521/mason-nvim-dap.nvim',
+		requires = {
+			{'williamboman/mason.nvim'},
+			{'mfussenegger/nvim-dap'},
+		}
+	}
+	use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+	use {'theHamsta/nvim-dap-virtual-text', requires = {'nvim-treesitter/nvim-treesitter', 'mfussenegger/nvim-dap'} }
 
 end)
