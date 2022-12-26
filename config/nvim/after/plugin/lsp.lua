@@ -3,7 +3,8 @@ lsp.preset('recommended')
 lsp.ensure_installed({
 	'sumneko_lua',
 	'rust_analyzer',
-	'pylsp',
+	'pyright',
+	'jsonls',
 })
 --
 -- Fix Undefined global 'vim'
