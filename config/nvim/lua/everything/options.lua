@@ -47,3 +47,6 @@ vim.opt.signcolumn="yes"
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
+-- russian
+vim.opt.langmap="ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
+
