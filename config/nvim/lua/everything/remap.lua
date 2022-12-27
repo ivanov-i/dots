@@ -14,4 +14,7 @@ vim.keymap.set("n", "k", "gk")
 vim.keymap.set("n", "]b", ":bnext<cr>")
 vim.keymap.set("n", "[b", ":bprev<cr>")
 
+-- russian
+vim.keymap.set("i", "оо", "<escape>")
+
 vim.keymap.set('n', '<leader>w', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
