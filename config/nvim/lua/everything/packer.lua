@@ -44,6 +44,9 @@ return require('packer').startup(function(use)
 			-- Snippets
 			{'L3MON4D3/LuaSnip'},
 			{'rafamadriz/friendly-snippets'},
+
+			-- Useful status updates for LSP
+			{'j-hui/fidget.nvim'},
 		}
 	}
 
