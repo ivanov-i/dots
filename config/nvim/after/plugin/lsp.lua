@@ -55,14 +55,12 @@ lsp.setup_nvim_cmp({
 
 lsp.set_preferences({
     suggest_lsp_servers = false,
-	--[[
     sign_icons = {
         error = 'E',
         warn = 'W',
         hint = 'H',
         info = 'I'
     }
-	]]--
 })
 
 lsp.on_attach(function(client, bufnr)
