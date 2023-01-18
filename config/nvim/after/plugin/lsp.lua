@@ -19,12 +19,18 @@ lsp.configure('sumneko_lua', {
 })
 
 local cmp = require('cmp')
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
+cmp.setup({
+	completion = {
+		autocomplete = false
+	}
+})
+
+-- local cmp_enable = {cmp.setup.enabled = true }
 local cmp_mappings = lsp.defaults.cmp_mappings({
 	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
 	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
 	['<C-y>'] = cmp.mapping.confirm({select = true}),
-	['<C-Space>>'] = cmp.mapping.complete(),
+	['<C-Space>'] = cmp.mapping.complete(),
 })
 
 local lspkind = require('lspkind')
@@ -91,7 +97,8 @@ vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
 vim.keymap.set("n", "<F5>", require("dap").continue)
 vim.keymap.set("n", "<F10>", require("dap").step_over)
 vim.keymap.set("n", "<F11>", require("dap").step_into)
-vim.keymap.set("n", "<S-F11>", require("dap").step_out)
+vim.keymap.set("n", "<F12>", require("dap").step_out)
+vim.keymap.set("n", "<leader>de", function() require("dap").terminate() end)
 
 local dap = require("dap")
 
