@@ -117,6 +117,19 @@ end)
 
 lsp.setup()
 
+-- diagnostics
+
+vim.diagnostic.config({
+	virtual_text = false,
+	severity_sort = true,
+	float = {
+		border = 'rounded',
+		source = 'always',
+		header = '',
+		prefix = '',
+	},
+})
+
 --debug
 
 vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
