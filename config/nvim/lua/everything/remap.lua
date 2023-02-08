@@ -19,11 +19,3 @@ vim.keymap.set("i", "оо", "<escape>")
 
 vim.keymap.set('n', '<leader>w', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 
---diagnostics
-
-vim.keymap.set(
-	"",
-	"<Leader>l",
-	require("lsp_lines").toggle,
-	{ desc = "Toggle lsp_lines" }
-)

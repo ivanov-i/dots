@@ -130,6 +130,13 @@ vim.diagnostic.config({
 	},
 })
 
+vim.keymap.set(
+	"",
+	"<Leader>l",
+	require("lsp_lines").toggle,
+	{ desc = "Toggle lsp_lines" }
+)
+
 --debug
 
 vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
