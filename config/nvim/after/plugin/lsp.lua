@@ -22,15 +22,41 @@ local cmp = require('cmp')
 cmp.setup({
 	completion = {
 		autocomplete = false
-	}
+	},
+	sources = {
+		{name = 'path'},
+		{name = 'nvim_lsp', keyword_length = 3},
+		{name = 'buffer', keyword_length = 3},
+		-- {name = 'luasnip', keyword_length = 2},
+	},
+	window = {
+		documentation = cmp.config.window.bordered()
+	},
 })
 
+local select_opts = {behavior = cmp.SelectBehavior.Select}
 -- local cmp_enable = {cmp.setup.enabled = true }
 local cmp_mappings = lsp.defaults.cmp_mappings({
-	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+	['<up>'] = cmp.mapping.select_prev_item(select_opts),
+	['<down>'] = cmp.mapping.select_next_item(select_opts),
+	['<C-u>'] = cmp.mapping.scroll_docs(-4),
+	['<C-f>'] = cmp.mapping.scroll_docs(4),
+	['<C-e>'] = cmp.mapping.abort(),
 	['<C-y>'] = cmp.mapping.confirm({select = true}),
-	['<leader>n'] = cmp.mapping.complete(),
+	['<cr>'] = cmp.mapping.confirm({select = false}),
+
+	['<C-p>'] = cmp.mapping.select_prev_item(select_opts),
+	['<C-n>'] = cmp.mapping(function(fallback)
+		local col = vim.fn.col('.') - 1
+
+		if cmp.visible() then
+			cmp.select_next_item(select_opts)
+		-- elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+			-- fallback()
+		else
+			cmp.complete()
+		end
+	end, {'i', 's'}),
 })
 
 local lspkind = require('lspkind')
