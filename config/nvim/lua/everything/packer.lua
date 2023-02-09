@@ -76,4 +76,10 @@ return require('packer').startup(function(use)
 
 					}
 				}
+	use {"jcdickinson/wpm.nvim",
+			requires = {'nvim-lualine/lualine.nvim',
+						'kyazdani42/nvim-web-devicons',
+
+					}
+				}
 end)
