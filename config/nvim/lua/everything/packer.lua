@@ -87,5 +87,4 @@ return require('packer').startup(function(use)
 			'nvim-telescope/telescope-fzf-native.nvim',
 		}
 	}
-	use {"shortcuts/no-neck-pain.nvim", tag = "*" }
 end)
