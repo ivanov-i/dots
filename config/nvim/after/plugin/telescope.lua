@@ -1,5 +1,6 @@
 local builtin = require('telescope.builtin')
 pcall(require('telescope').load_extension, 'fzf')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+require"telescope".load_extension("smart_open")
+vim.api.nvim_set_keymap("n", "<leader>ff", "<Cmd>lua require('telescope').extensions.smart_open.smart_open()<CR>", {noremap = true, silent = true})
 vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
