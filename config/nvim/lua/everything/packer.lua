@@ -70,5 +70,10 @@ return require('packer').startup(function(use)
 	use {'theHamsta/nvim-dap-virtual-text', requires = {'nvim-treesitter/nvim-treesitter', 'mfussenegger/nvim-dap'} }
     use('lukas-reineke/indent-blankline.nvim')
     use('gen740/SmoothCursor.nvim')
+	use {'roobert/node-type.nvim',
+			requires = {'nvim-lualine/lualine.nvim',
+						'kyazdani42/nvim-web-devicons',
 
+					}
+				}
 end)
