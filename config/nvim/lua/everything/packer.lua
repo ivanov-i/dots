@@ -11,7 +11,7 @@ return require('packer').startup(function(use)
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
 	use {
-		'nvim-t)elescope/telescope-fzf-native.nvim',
+		'nvim-telescope/telescope-fzf-native.nvim',
 		run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
 	}
 	use({
