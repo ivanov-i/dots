@@ -181,8 +181,6 @@ require 'mason-nvim-dap'.setup_handlers {
         }
     end,
 }
-require("dapui").setup()
-require("nvim-dap-virtual-text").setup()
 
-vim.keymap.set("n", "<leader>dr", require('dapui').toggle)
+require("nvim-dap-virtual-text").setup()
 
