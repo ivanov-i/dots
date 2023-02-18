@@ -321,3 +321,5 @@ fix-mosh-server() {
   sudo "$fw" --unblockapp "$mosh_abs"
   sudo "$fw" --setglobalstate on
 }
+
+source /Users/ivanov/.docker/init-zsh.sh || true # Added by Docker Desktop
