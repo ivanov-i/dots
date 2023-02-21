@@ -306,9 +306,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	export PYENV_ROOT="$HOME/.pyenv"
 	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 	eval "$(pyenv init -)"
+	FILE=/Users/ivanov/.docker/init-zsh.sh; [ -f $FILE ] && . $FILE
 fi
-
-FILE=/Users/ivanov/.docker/init-zsh.sh; [ -f $FILE ] && . $FILE
 
 fix-mosh-server() {
   local fw='/usr/libexec/ApplicationFirewall/socketfilterfw'
