@@ -164,6 +164,7 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
 update() {
+  sudo echo "sudo" && \
   echo "[brew update]" && \
   brew update && \
   echo "[upgrade]" && \
