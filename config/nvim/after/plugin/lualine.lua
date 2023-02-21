@@ -9,7 +9,7 @@ require('lualine').setup {
   sections = {
 	  lualine_a = {},
 	  lualine_b = {'diagnostics'},
-	  lualine_c = {{'filename', filename=3, newfile_status=true}},
+	  lualine_c = {{'filename', path=3, newfile_status=true}},
 	  lualine_x = {
 		  wpm.wpm,
 		  wpm.historic_graph,
