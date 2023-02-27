@@ -6,16 +6,10 @@ lsp.ensure_installed({
 	'pyright',
 	'jsonls',
 })
---
--- Fix Undefined global 'vim'
-lsp.configure('sumneko_lua', {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
+
+-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+require("neodev").setup({
+  -- add any options here, or leave empty to use the default settings
 })
 
 local cmp = require('cmp')
