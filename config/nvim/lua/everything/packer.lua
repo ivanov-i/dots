@@ -53,7 +53,6 @@ return require('packer').startup(function(use)
 	})
 
 	use('907th/vim-auto-save')
-	use('nvim-tree/nvim-web-devicons')
 	use('onsails/lspkind.nvim')
 	use('terrortylor/nvim-comment')
 	use{'jayp0521/mason-nvim-dap.nvim',
@@ -65,18 +64,8 @@ return require('packer').startup(function(use)
 	use {'theHamsta/nvim-dap-virtual-text', requires = {'nvim-treesitter/nvim-treesitter', 'mfussenegger/nvim-dap'} }
     use('lukas-reineke/indent-blankline.nvim')
     use('gen740/SmoothCursor.nvim')
-	use {'roobert/node-type.nvim',
-			requires = {'nvim-lualine/lualine.nvim',
-						'kyazdani42/nvim-web-devicons',
-
-					}
-				}
-	use {"jcdickinson/wpm.nvim",
-			requires = {'nvim-lualine/lualine.nvim',
-						'kyazdani42/nvim-web-devicons',
-
-					}
-				}
+	use {'roobert/node-type.nvim', requires = {'nvim-lualine/lualine.nvim'}}
+	use {"jcdickinson/wpm.nvim", requires = {'nvim-lualine/lualine.nvim'}}
 	use {
 		"danielfalk/smart-open.nvim",
 		branch = "0.1.x",
