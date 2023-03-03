@@ -6,11 +6,15 @@ return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 
 	use {
-		'nvim-telescope/telescope.nvim', tag = '0.1.1',
+		'nvim-telescope/telescope.nvim', tag = '0.1.0',
 		-- or                            , branch = '0.1.x',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
-	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+	use {
+		'nvim-telescope/telescope-fzf-native.nvim',
+		run = 'make',
+		cond = vim.fn.executable 'make' == 1
+	}
 	use({
 		'karoliskoncevicius/distilled-vim',
 		as = 'distilled',
@@ -67,14 +71,5 @@ return require('packer').startup(function(use)
     use('gen740/SmoothCursor.nvim')
 	use {'roobert/node-type.nvim', requires = {'nvim-lualine/lualine.nvim'}}
 	use {"jcdickinson/wpm.nvim", requires = {'nvim-lualine/lualine.nvim'}}
-	use {
-		"danielfalk/smart-open.nvim",
-		branch = "0.1.x",
-		requires = {
-			"kkharji/sqlite.lua",
-			'nvim-telescope/telescope.nvim',
-			'nvim-telescope/telescope-fzf-native.nvim',
-		}
-	}
-	use "folke/neodev.nvim"
+	use {'folke/neodev.nvim'}
 end)
