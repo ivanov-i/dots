@@ -13,6 +13,10 @@ vim.keymap.set("n", "k", "gk")
 -- buffers
 vim.keymap.set("n", "]b", ":bnext<cr>")
 vim.keymap.set("n", "[b", ":bprev<cr>")
+vim.keymap.set("n", "[Q", ":cfirst<cr>")
+vim.keymap.set("n", "]q", ":cnext<cr>")
+vim.keymap.set("n", "[q", ":cprev<cr>")
+vim.keymap.set("n", "]Q", ":clast<cr>")
 
 -- russian
 vim.keymap.set("i", "оо", "<escape>")
