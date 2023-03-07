@@ -12,6 +12,17 @@ require("neodev").setup({
   -- add any options here, or leave empty to use the default settings
 })
 
+-- Fix Undefined global 'vim'
+lsp.configure('lua_ls', {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' },
+      },
+    },
+  },
+})
+
 local cmp = require('cmp')
 cmp.setup({
 	completion = {
