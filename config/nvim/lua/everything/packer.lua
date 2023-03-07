@@ -72,4 +72,5 @@ return require('packer').startup(function(use)
 	use {'roobert/node-type.nvim', requires = {'nvim-lualine/lualine.nvim'}}
 	use {"jcdickinson/wpm.nvim", requires = {'nvim-lualine/lualine.nvim'}}
 	use {'folke/neodev.nvim'}
+	use {'nyngwang/NeoZoom.lua'}
 end)
