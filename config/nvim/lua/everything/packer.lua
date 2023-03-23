@@ -73,4 +73,5 @@ return require('packer').startup(function(use)
 	use {"jcdickinson/wpm.nvim", requires = {'nvim-lualine/lualine.nvim'}}
 	use {'folke/neodev.nvim'}
 	use {'nyngwang/NeoZoom.lua'}
+	use {'airblade/vim-gitgutter'}
 end)
