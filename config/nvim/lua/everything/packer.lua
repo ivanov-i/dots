@@ -74,4 +74,5 @@ return require('packer').startup(function(use)
 	use {'folke/neodev.nvim'}
 	use {'nyngwang/NeoZoom.lua'}
 	use {'airblade/vim-gitgutter'}
+	use {'nvim-treesitter/nvim-treesitter-context', requires = {'nvim-treesitter/nvim-treesitter'}}
 end)
