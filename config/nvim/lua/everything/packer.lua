@@ -76,4 +76,6 @@ return require('packer').startup(function(use)
 	use {'airblade/vim-gitgutter'}
 	use {'nvim-treesitter/nvim-treesitter-context', requires = {'nvim-treesitter/nvim-treesitter'}}
 	use {'github/copilot.vim'}
+	use {'lewis6991/impatient.nvim'}
 end)
+
