@@ -68,7 +68,6 @@ return require('packer').startup(function(use)
 	}
 	use {'theHamsta/nvim-dap-virtual-text', requires = {'nvim-treesitter/nvim-treesitter', 'mfussenegger/nvim-dap'} }
     use('lukas-reineke/indent-blankline.nvim')
-    use('gen740/SmoothCursor.nvim')
 	use {'roobert/node-type.nvim', requires = {'nvim-lualine/lualine.nvim'}}
 	use {"jcdickinson/wpm.nvim", requires = {'nvim-lualine/lualine.nvim'}}
 	use {'folke/neodev.nvim'}
@@ -77,5 +76,6 @@ return require('packer').startup(function(use)
 	use {'nvim-treesitter/nvim-treesitter-context', requires = {'nvim-treesitter/nvim-treesitter'}}
 	use {'github/copilot.vim'}
 	use {'lewis6991/impatient.nvim'}
+	use {'danilamihailov/beacon.nvim'}
 end)
 
