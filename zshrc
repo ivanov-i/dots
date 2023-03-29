@@ -321,3 +321,22 @@ fix-mosh-server() {
   sudo "$fw" --setglobalstate on
 }
 
+function precmd() {
+	function precmd() {
+		local color=242
+		# Get the terminal width
+		local terminal_width=${COLUMNS}
+
+		# Get the timestamp
+		local timestamp=$(print -P -l "%D{%Y-%m-%d %H:%M:%S}")
+		# Calculate the length of the expanded timestamp
+		local timestamp_length=${#timestamp}
+
+		# Calculate the number of characters needed for ruker
+		local ruler_length=$((terminal_width - timestamp_length))
+
+		# Display the ruler and the timestamp
+		print -P "\n%F{$color}$(printf '·%.0s' {1..$ruler_length})${timestamp}%f"
+	}
+}
+
