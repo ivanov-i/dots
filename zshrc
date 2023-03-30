@@ -322,19 +322,16 @@ fix-mosh-server() {
 }
 
 function preexec() {
-	local color=242
-	# Get the terminal width
-	local terminal_width=${COLUMNS}
+  # Define the color variable
+  local color="242"
 
-	# Get the timestamp
-	local timestamp=$(print -P -l "%D{%Y-%m-%d %H:%M:%S}")
-	# Calculate the length of the expanded timestamp
-	local timestamp_length=${#timestamp}
+  # Calculate the timestamp string
+  local timestamp=$(print -P -l "%D{%H:%M:%S %Y-%m-%d}")
 
-	# Calculate the number of characters needed for ruker
-	local ruler_length=$((terminal_width - timestamp_length))
+  # Calculate the length of the ruler
+  local ruler_length=$((COLUMNS - ${#timestamp}))
 
-	# Display the ruler and the timestamp
-	print -P "\n%F{$color}$(printf '·%.0s' {1..$ruler_length})${timestamp}%f"
+  # Display the ruler and the timestamp using the defined color
+  print -P "\n%F{$color}$(printf '·%.0s' {1..$ruler_length})%D{%H:%M:%S %Y-%m-%d}%f"
 }
 
