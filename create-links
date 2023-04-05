@@ -29,3 +29,6 @@ else
 	mkdir -p ~/.config/lazygit/
 	ln -f -s $PWD/config/lazygit/config.yml ~/.config/lazygit/config.yml
 fi
+
+mkdir -p ~/.config/bat 
+ln -f -s $PWD/config/bat/config ~/.config/bat/config
