@@ -79,5 +79,6 @@ return require('packer').startup(function(use)
 	use {'danilamihailov/beacon.nvim'}
 	use {'dhruvasagar/vim-prosession', requires= {'tpope/vim-obsession'}}
 	use {'whiteinge/diffconflicts'}
+	use {'vim-test/vim-test'}
 end)
 
