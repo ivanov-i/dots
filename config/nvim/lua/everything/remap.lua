@@ -23,3 +23,10 @@ vim.keymap.set("i", "оо", "<escape>")
 vim.keymap.set('n', '<leader>w', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader><leader>', '<C-d>')
 
+-- close all buffers except the current one
+-- in vimscript it is:
+-- command! BufOnly execute '%bdelete|edit #|normal `"'
+vim.cmd("command! BufOnly execute '%bdelete|edit #|normal `\"'")
+-- map it to <leader>q
+vim.keymap.set("n", "<leader>q", ":BufOnly<cr>")
+
