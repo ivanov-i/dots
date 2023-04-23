@@ -1,7 +1,4 @@
 return {
-	defaults = {
-		lazy = true,
-	},
 	{
 		'nvim-telescope/telescope.nvim', tag = '0.1.0',
 		-- or                            , branch = '0.1.x',
