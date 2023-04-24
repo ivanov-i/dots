@@ -14,7 +14,7 @@ local packer_bootstrap = ensure_packer()
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
-return require('packer').startup(function(use)
+require('packer').startup(function(use)
 	-- Packer can manage itself
 	use 'wbthomason/packer.nvim'
 
@@ -94,7 +94,6 @@ return require('packer').startup(function(use)
 	use {'whiteinge/diffconflicts'}
 	use {'vim-test/vim-test'}
 
-
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then
@@ -102,3 +101,6 @@ return require('packer').startup(function(use)
 	end
 end)
 
+if pcall(require, 'impatient') then
+	require('impatient')
+end
