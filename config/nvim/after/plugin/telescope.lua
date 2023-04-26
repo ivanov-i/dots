@@ -1,3 +1,11 @@
+require('telescope').setup{
+	defaults = {
+		path_display=
+			{
+				shorten=3,
+			},
+	}
+}
 local builtin = require('telescope.builtin')
 pcall(require('telescope').load_extension, 'fzf')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
