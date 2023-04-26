@@ -1,9 +1,10 @@
 require('telescope').setup{
 	defaults = {
-		path_display=
-			{
-				shorten=3,
-			},
+		path_display= {
+			shorten=3,
+		},
+      layout_strategy = 'center',
+      layout_config = { width = 0.999, height = 0.999}
 	}
 }
 local builtin = require('telescope.builtin')
