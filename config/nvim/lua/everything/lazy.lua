@@ -91,7 +91,8 @@ require('lazy').setup({
   config = function ()
     -- require("hbac").setup()
   end
-}
+},
+{'tpope/vim-repeat'},
 })
 
 
