@@ -1,6 +1,6 @@
 require('telescope').setup{
 	defaults = {
-		path_display='smart',
+		path_display={'smart'},
       layout_strategy = 'vertical',
       layout_config = { width = 0.999, height = 0.999}
 	}
