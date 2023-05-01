@@ -74,7 +74,7 @@ require('lazy').setup({
 	}
 },
 {'theHamsta/nvim-dap-virtual-text', dependencies = {'nvim-treesitter/nvim-treesitter', 'mfussenegger/nvim-dap'} },
-{'lukas-reineke/indent-blankline.nvim'},
+{'lukas-reineke/indent-blankline.nvim', config = function () require('everything.plugins.indent-blankline') end},
 {'nvim-lualine/lualine.nvim'},
 {'folke/neodev.nvim'},
 {'nyngwang/NeoZoom.lua'},
