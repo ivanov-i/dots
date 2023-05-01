@@ -27,7 +27,7 @@ require('lazy').setup({
 		build = ':TSUpdate',
 		event = 'VeryLazy',
 		config = function()
-			-- require 'config.treesitter'
+			require 'everything.plugins.treesitter'
 		end,
   },
 
