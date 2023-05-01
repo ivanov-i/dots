@@ -1,3 +1,5 @@
+require("everything.lazy-bootstrap")
+require("everything.leader")
+require("everything.lazy")
 require("everything.remap")
-require("everything.packer")
 require("everything.options")

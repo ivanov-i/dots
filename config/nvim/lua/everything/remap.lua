@@ -1,4 +1,3 @@
-vim.g.mapleader = " "
 vim.keymap.set("i", "jj", "<escape>")
 vim.keymap.set("n", "<cr>", ":nohl<cr>")
 vim.keymap.set("n", "<leader>pv", ":Ex<cr>")
