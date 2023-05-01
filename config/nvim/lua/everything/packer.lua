@@ -81,7 +81,6 @@ require('packer').startup(function(use)
 	}
 	use {'theHamsta/nvim-dap-virtual-text', requires = {'nvim-treesitter/nvim-treesitter', 'mfussenegger/nvim-dap'} }
     use('lukas-reineke/indent-blankline.nvim')
-	use {'roobert/node-type.nvim', requires = {'nvim-lualine/lualine.nvim'}}
 	use {"jcdickinson/wpm.nvim", requires = {'nvim-lualine/lualine.nvim'}}
 	use {'folke/neodev.nvim'}
 	use {'nyngwang/NeoZoom.lua'}

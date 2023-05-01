@@ -13,7 +13,6 @@ require('lualine').setup {
 	  lualine_x = {
 		  wpm.wpm,
 		  wpm.historic_graph,
-		  require("node-type").statusline,
 		  'encoding',
 		  'fileformat',
 		  'filetype',
