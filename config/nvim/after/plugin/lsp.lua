@@ -19,6 +19,12 @@ lsp.configure('lua_ls', {
       diagnostics = {
         globals = { 'vim' },
       },
+	  workspace = {
+		  checkThirdParty = false,
+	  },
+	  telemetry = {
+		  enable = false,
+	  },
     },
   },
 })
