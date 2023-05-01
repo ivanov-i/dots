@@ -1,5 +1,4 @@
-vim.g.beacon_shrink = 0
-vim.g.beacon_minimal_jump = 5
+vim.g.beacon_enable = 1
 
 vim.keymap.set("n", "n", "n:Beacon<CR>")
 vim.keymap.set("n", "N", "N:Beacon<CR>")
