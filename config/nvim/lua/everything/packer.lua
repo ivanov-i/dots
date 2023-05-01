@@ -93,6 +93,7 @@ require('packer').startup(function(use)
 	use {'dhruvasagar/vim-prosession', requires= {'tpope/vim-obsession'}}
 	use {'whiteinge/diffconflicts'}
 	use {'vim-test/vim-test'}
+	use {'axkirillov/hbac.nvim'}
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
