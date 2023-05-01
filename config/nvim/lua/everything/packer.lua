@@ -81,7 +81,6 @@ require('packer').startup(function(use)
 	}
 	use {'theHamsta/nvim-dap-virtual-text', requires = {'nvim-treesitter/nvim-treesitter', 'mfussenegger/nvim-dap'} }
     use('lukas-reineke/indent-blankline.nvim')
-	use {"jcdickinson/wpm.nvim", requires = {'nvim-lualine/lualine.nvim'}}
 	use {'folke/neodev.nvim'}
 	use {'nyngwang/NeoZoom.lua'}
 	use {'airblade/vim-gitgutter'}
@@ -93,6 +92,7 @@ require('packer').startup(function(use)
 	use {'whiteinge/diffconflicts'}
 	use {'vim-test/vim-test'}
 	use {'axkirillov/hbac.nvim'}
+	use {'hoob3rt/lualine.nvim'}
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

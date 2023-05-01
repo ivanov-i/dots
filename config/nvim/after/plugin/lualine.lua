@@ -1,4 +1,3 @@
-local wpm = require("wpm")
 require('lualine').setup {
   options = {
     icons_enabled = false,
@@ -11,8 +10,6 @@ require('lualine').setup {
 	  lualine_b = {'diagnostics'},
 	  lualine_c = {{'filename', path=3, newfile_status=true}},
 	  lualine_x = {
-		  wpm.wpm,
-		  wpm.historic_graph,
 		  'encoding',
 		  'fileformat',
 		  'filetype',
