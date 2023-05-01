@@ -1,14 +1,5 @@
-return {
-	{
-		'nvim-telescope/telescope.nvim', tag = '0.1.0',
-		-- or                            , branch = '0.1.x',
-		dependencies = { {'nvim-lua/plenary.nvim'} }
-	},
-	{
-		'nvim-telescope/telescope-fzf-native.nvim',
-		build = 'make',
-		cond = vim.fn.executable 'make' == 1
-	},
+return
+{
 	{
 		'karoliskoncevicius/distilled-vim',
 		name = 'distilled',
@@ -16,21 +7,6 @@ return {
 			vim.cmd('colorscheme distilled')
 		end
 	},
-
-	{
-		'nvim-treesitter/nvim-treesitter',
-		dependencies = {
-			-- 'nvim-treesitter/nvim-treesitter-refactor',
-			-- 'RRethy/nvim-treesitter-textsubjects',
-			-- 'RRethy/nvim-treesitter-endwise',
-		},
-		build = ':TSUpdate',
-		event = 'VeryLazy',
-		config = function()
-			require 'everything.plugins.treesitter'
-		end,
-  },
-
 	{'tpope/vim-fugitive'},
 	{
 		'VonHeikemen/lsp-zero.nvim',
@@ -64,9 +40,7 @@ return {
 		end,
 	}},
 
-	'907th/vim-auto-save',
 	'onsails/lspkind.nvim',
-	'terrortylor/nvim-comment',
 	{'jayp0521/mason-nvim-dap.nvim',
 	dependencies = {
 		{'williamboman/mason.nvim'},
@@ -74,23 +48,11 @@ return {
 	}
 },
 {'theHamsta/nvim-dap-virtual-text', dependencies = {'nvim-treesitter/nvim-treesitter', 'mfussenegger/nvim-dap'} },
-{'nvim-lualine/lualine.nvim'},
 {'folke/neodev.nvim'},
-{'nyngwang/NeoZoom.lua'},
 {'airblade/vim-gitgutter'},
-{'nvim-treesitter/nvim-treesitter-context', dependencies = {'nvim-treesitter/nvim-treesitter'}},
-{'github/copilot.vim'},
 {'lewis6991/impatient.nvim'},
-{'danilamihailov/beacon.nvim'},
 {'dhruvasagar/vim-prosession', dependencies= {'tpope/vim-obsession'}},
 {'whiteinge/diffconflicts'},
-{'vim-test/vim-test'},
-{
-  'axkirillov/hbac.nvim',
-  config = function ()
-    -- require("hbac").setup()
-  end
-},
 {'tpope/vim-repeat'},
 }
 

@@ -1,24 +1,33 @@
-require('lualine').setup {
-  options = {
-    icons_enabled = false,
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    globalstatus = true,
-	},
-  sections = {
-	  lualine_a = {},
-	  lualine_b = {'diagnostics'},
-	  lualine_c = {{'filename', path=3, newfile_status=true}},
-	  lualine_x = {
-		  'encoding',
-		  'fileformat',
-		  'filetype',
-		  'progress',
-		  'location'},
+return
+{
+	'nvim-lualine/lualine.nvim',
+	opts =
+	{
+		options =
+		{
+			icons_enabled = false,
+			component_separators = { left = '', right = ''},
+			section_separators = { left = '', right = ''},
+			globalstatus = true,
+		},
+		sections =
+		{
+			lualine_a = {},
+			lualine_b = {'diagnostics'},
+			lualine_c = {{'filename', path=3, newfile_status=true}},
+			lualine_x =
+			{
+				'encoding',
+				'fileformat',
+				'filetype',
+				'progress',
+				'location',
+			},
 
-		  lualine_y = {},
-		  lualine_z = {}
-  }
+				lualine_y = {},
+				lualine_z = {},
+		},
+	}
 }
 -- require('lualine').setup {
 --   options = {

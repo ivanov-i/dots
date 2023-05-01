@@ -1,3 +1,8 @@
-require("indent_blankline").setup {
-	char =  "┊"
+return
+{
+	'lukas-reineke/indent-blankline.nvim',
+	opts =
+	{
+		char =  "┊",
+	}
 }

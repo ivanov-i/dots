@@ -1,98 +1,14 @@
-require('lazy').setup({
-	{
-		'nvim-telescope/telescope.nvim', tag = '0.1.0',
-		-- or                            , branch = '0.1.x',
-		dependencies = { {'nvim-lua/plenary.nvim'} }
+require("lazy").setup({
+	spec = {
+		{ import = "everything.plugins" },
 	},
-	{
-		'nvim-telescope/telescope-fzf-native.nvim',
-		build = 'make',
-		cond = vim.fn.executable 'make' == 1
+	defaults = {
+		-- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
+		-- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
+		lazy = false,
+		-- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
+		-- have outdated releases, which may break your Neovim install.
+		version = false, -- always use the latest git commit
+		-- version = "*", -- try installing the latest stable version for plugins that support semver
 	},
-	{
-		'karoliskoncevicius/distilled-vim',
-		name = 'distilled',
-		config = function()
-			vim.cmd('colorscheme distilled')
-		end
-	},
-
-	{
-		'nvim-treesitter/nvim-treesitter',
-		dependencies = {
-			-- 'nvim-treesitter/nvim-treesitter-refactor',
-			-- 'RRethy/nvim-treesitter-textsubjects',
-			-- 'RRethy/nvim-treesitter-endwise',
-		},
-		build = ':TSUpdate',
-		event = 'VeryLazy',
-		config = function()
-			require 'everything.plugins.treesitter'
-		end,
-  },
-
-	{'tpope/vim-fugitive'},
-	{
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v1.x',
-		dependencies = {
-			-- LSP Support
-			{'neovim/nvim-lspconfig'},
-			{'williamboman/mason.nvim'},
-			{'williamboman/mason-lspconfig.nvim'},
-
-			-- Autocompletion
-			{'hrsh7th/nvim-cmp'},
-			{'hrsh7th/cmp-buffer'},
-			{'hrsh7th/cmp-path'},
-			{'saadparwaiz1/cmp_luasnip'},
-			{'hrsh7th/cmp-nvim-lsp'},
-			{'hrsh7th/cmp-nvim-lua'},
-
-			-- Snippets
-			{'L3MON4D3/LuaSnip'},
-			{'rafamadriz/friendly-snippets'},
-
-			-- Useful status updates for LSP
-			{'j-hui/fidget.nvim'},
-		}
-	},
-	{{
-		'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-		config = function()
-			require("lsp_lines").setup()
-		end,
-	}},
-
-	'907th/vim-auto-save',
-	'onsails/lspkind.nvim',
-	'terrortylor/nvim-comment',
-	{'jayp0521/mason-nvim-dap.nvim',
-	dependencies = {
-		{'williamboman/mason.nvim'},
-		{'mfussenegger/nvim-dap'},
-	}
-},
-{'theHamsta/nvim-dap-virtual-text', dependencies = {'nvim-treesitter/nvim-treesitter', 'mfussenegger/nvim-dap'} },
-{'lukas-reineke/indent-blankline.nvim', config = function () require('everything.plugins.indent-blankline') end},
-{'nvim-lualine/lualine.nvim'},
-{'folke/neodev.nvim'},
-{'nyngwang/NeoZoom.lua'},
-{'airblade/vim-gitgutter'},
-{'nvim-treesitter/nvim-treesitter-context', dependencies = {'nvim-treesitter/nvim-treesitter'}},
-{'github/copilot.vim'},
-{'lewis6991/impatient.nvim'},
-{'danilamihailov/beacon.nvim'},
-{'dhruvasagar/vim-prosession', dependencies= {'tpope/vim-obsession'}},
-{'whiteinge/diffconflicts'},
-{'vim-test/vim-test'},
-{
-  'axkirillov/hbac.nvim',
-  config = function ()
-    -- require("hbac").setup()
-  end
-},
-{'tpope/vim-repeat'},
 })
-
-
