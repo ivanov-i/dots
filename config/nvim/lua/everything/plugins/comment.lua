@@ -1,5 +1,7 @@
 return
 {
 	'terrortylor/nvim-comment',
-	setup = true,
+	config = function ()
+		require('nvim_comment').setup()
+	end,
 }
