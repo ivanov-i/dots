@@ -1,0 +1,30 @@
+theme = "zenburn"
+[editor]
+  auto-save=true
+  auto-pairs = false # defaults to `true`
+  gutters = ["diagnostics", "diff"]
+  true-color = true
+  [editor.indent-guides]
+    render = true
+    character = "┆" # Some characters that work well: "▏", "┆", "┊", "⸽"
+    skip-levels = 1
+
+[editor.soft-wrap]
+  enable = true
+
+# At most one section each of 'keys.normal', 'keys.insert' and 'keys.select'
+[keys.normal]
+#C-s = ":w" # Maps Ctrl-s to the typable command :w which is an alias for :write (save file)
+C-o = ":open ~/uconfig/helix/config.toml" # Maps Ctrl-o to opening of the helix config file
+#a = "move_char_right" # Maps the 'a' key to the move_char_left command
+#w = "move_line_up" # Maps the 'w' key move_line_up
+"C-S-esc" = "extend_line" # Maps Ctrl-Shift-Escape to extend_line
+g = { a = "code_action" } # Maps `ga` to show possible code actions
+#"ret" = ["open_below", "normal_mode"] # Maps the enter key to open_below then re-enter normal mode
+u = ["undo",":w"]
+U = ["redo", ":w"]
+
+[keys.insert]
+#"A-x" = "normal_mode"     # Maps Alt-X to enter normal mode
+j = { k = ["normal_mode", ":w"] } # Maps `jk` to exit insert mode
+

@@ -34,3 +34,7 @@ mkdir -p ~/.config/bat
 ln -f -s $PWD/config/bat/config ~/.config/bat/config
 
 ln -f -s $PWD/config/lsd ~/.config/
+
+mkdir -p ~/.config/helix
+ln -f -s $PWD/config/helix/config.toml ~/.config/helix/config.toml
+
