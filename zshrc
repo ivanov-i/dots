@@ -339,3 +339,6 @@ function preexec() {
   print -P "\n%F{$color}$(printf '·%.0s' {1..$ruler_length})%D{%H:%M:%S %Y-%m-%d}%f"
 }
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+fi
