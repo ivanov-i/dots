@@ -46,3 +46,5 @@ set relativenumber number
 
 set number
 syntax enable
+
+nnoremap ==  <s-V>:action ReformatCode<CR>
