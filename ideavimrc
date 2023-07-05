@@ -42,9 +42,12 @@ syntax on
 filetype plugin indent on
 set nojoinspaces
 set autoread
-set relativenumber number
+"set relativenumber number
 
 set number
 syntax enable
 
+let mapleader=" "
 nnoremap ==  <s-V>:action ReformatCode<CR>
+nnoremap <leader>z :action ToggleDistractionFreeMode<CR>
+nnoremap <leader>n :action MoveEditorToOppositeTabGroup<CR>
