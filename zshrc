@@ -172,7 +172,10 @@ update() {
   echo "[brew update]" && \
   brew update && \
   echo "[upgrade]" && \
-  brew upgrade && \
+  # don't check error code for the next line
+  # because some brew dev idiot considered it a good idea
+  # to return an error code when there is nothing to upgrade
+  brew upgrade || true && \
   echo "[autoremove]" && \
   brew autoremove && \
   echo "[cleanup]" && \
