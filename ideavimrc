@@ -51,3 +51,6 @@ let mapleader=" "
 nnoremap ==  <s-V>:action ReformatCode<CR>
 nnoremap <leader>z :action ToggleDistractionFreeMode<CR>
 nnoremap <leader>n :action MoveEditorToOppositeTabGroup<CR>
+
+nnoremap ]b :action NextTab<CR>
+nnoremap [b :action PreviousTab<CR>
