@@ -1,3 +1,11 @@
+-- indent tabs spaces
+vim.opt.copyindent=true
+vim.opt.expandtab=true
+vim.opt.preserveindent=true
+vim.opt.softtabstop=4
+vim.opt.tabstop=4
+vim.opt.shiftwidth=4
+
 vim.opt.inccommand="split"
 vim.opt.pumblend=0
 vim.opt.wildignorecase = true
@@ -13,8 +21,6 @@ vim.opt.termguicolors = true
 vim.opt.relativenumber = false
 vim.opt.number = false
 vim.opt.mouse="a"
-vim.opt.tabstop=4
-vim.opt.shiftwidth=4
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
