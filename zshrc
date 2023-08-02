@@ -347,5 +347,5 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-	export JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.7/libexec/openjdk.jdk/Contents/Home
+	export JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.8/libexec/openjdk.jdk/Contents/Home
 fi
