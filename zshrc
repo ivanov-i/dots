@@ -188,6 +188,8 @@ update() {
   sudo n latest && \
   echo "[tldr update]" && \
   tldr --update
+  echo "[oh my zsh update]"
+  omz update
 }
 
 else
@@ -212,6 +214,8 @@ update() {
 	  sudo n latest && \
 	  echo "[tldr update]" && \
 	  tldr --update
+      echo "[oh my zsh update]"
+      omz update
 }
 
 fi
