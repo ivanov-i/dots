@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mkdir .git/hooks
+cp ~/.git-templates/hooks/pre-push .git/hooks
