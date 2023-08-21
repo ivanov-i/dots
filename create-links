@@ -39,3 +39,5 @@ mkdir -p ~/.config/helix
 ln -f -s $PWD/config/helix/config.toml ~/.config/helix/config.toml
 
 ln -f -s $PWD/ideavimrc ~/.ideavimrc
+
+ln -f -s $PWD/git-templates ~/.git-templates

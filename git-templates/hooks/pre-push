@@ -1,0 +1,31 @@
+#!/bin/sh
+
+remote="$1"
+url="$2"
+
+z40=0000000000000000000000000000000000000000
+
+while read local_ref local_sha remote_ref remote_sha
+do
+    if [ "$local_sha" = $z40 ]
+    then
+        # Handle delete branch case
+        continue
+    elif [ "$remote_sha" = $z40 ]
+    then
+        # New branch, examine all commits
+        range="$local_sha"
+    else
+        # Update to existing branch, examine new commits
+        range="$remote_sha..$local_sha"
+    fi
+
+    if git diff "$range" | rg 'TODO\(ajalaimajalai\):'
+    then
+        echo "ERROR: Commits contain 'TODOs' in the code. Please address them before pushing."
+        exit 1
+    fi
+done
+
+exit 0
+
