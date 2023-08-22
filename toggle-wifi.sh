@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # vim:set filetype=bash :
 
 adapter=en1

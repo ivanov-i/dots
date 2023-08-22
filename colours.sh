@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# vim:set filetype=bash :
 
 # Script to show the colours used for different file types
 
