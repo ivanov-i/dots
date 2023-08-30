@@ -17,7 +17,7 @@ do
         range="$local_sha"
     else
         # Update to existing branch, examine new commits
-        range="$remote_sha..$local_sha"
+        range="$local_sha..$remote_sha"
     fi
 
     if git diff "$range" | rg 'TODO\(ajalaimajalai\):'
