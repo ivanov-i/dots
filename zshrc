@@ -221,7 +221,7 @@ update() {
 fi
 
 alias ll="lsd"
-alias lm="lsd --long"
+alias lm="lsd --long --git --gitsort"
 
 export PATH="/opt/homebrew/opt/llvm/bin/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
