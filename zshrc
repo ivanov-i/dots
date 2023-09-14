@@ -350,6 +350,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 fi
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-	export JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.8.1/libexec/openjdk.jdk/Contents/Home
-fi
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
