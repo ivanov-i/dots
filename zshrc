@@ -168,6 +168,9 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
 update() {
+  trap 'echo "Terminating..."; kill 0' SIGINT
+  set -e
+
   sudo echo "sudo" && \
   echo "[brew update]" && \
   brew update && \
@@ -190,6 +193,8 @@ update() {
   tldr --update
   echo "[oh my zsh update]"
   omz update
+
+  return $?
 }
 
 else
