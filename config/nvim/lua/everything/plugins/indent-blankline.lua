@@ -4,6 +4,9 @@ return
 	main = "ibl",
 	opts =
 	{
-		char =  "┊",
-	}
+	    indent =
+	    {
+		    char =  "┊"
+	    }
+    }
 }
