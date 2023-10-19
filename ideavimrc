@@ -33,10 +33,11 @@ set hlsearch
 set cmdheight=1
 set showtabline=2
 set winwidth=79
-set scrolloff=3
+set scrolloff=10
 set nobackup
 set nowritebackup
 set backspace=indent,eol,start
+set showmode
 set showcmd
 syntax on
 filetype plugin indent on
@@ -49,8 +50,13 @@ syntax enable
 
 let mapleader=" "
 nnoremap ==  <s-V>:action ReformatCode<CR>
-nnoremap <leader>z :action ToggleDistractionFreeMode<CR>
+nnoremap <leader>z:action ToggleDistractionFreeMode<CR>
 nnoremap <leader>n :action MoveEditorToOppositeTabGroup<CR>
 
-nnoremap ]b :action NextTab<CR>
-nnoremap [b :action PreviousTab<CR>
+nnoremap ]b :bn<CR>
+nnoremap [b :bp<CR>
+
+set highlightedyank
+set nerdtree
+
+set clipboard+=unnamedplus
