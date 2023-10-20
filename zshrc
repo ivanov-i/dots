@@ -17,6 +17,12 @@ fi
 
 #snap
 export PATH=$PATH:/snap/bin
+export PATH="/opt/homebrew/opt/llvm/bin/:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -100,12 +106,14 @@ export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-ran
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window right:hidden:wrap --bind '?:toggle-preview'"
 export FZF_TMUX=0
 
+zstyle ':omz:plugins:docker' legacy-completion yes
+
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf fzf-tab autoupdate zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git fzf fzf-tab autoupdate zsh-autosuggestions zsh-syntax-highlighting docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -163,7 +171,6 @@ export LANG="en_US.UTF-8"
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export QT_SCREEN_SCALE_FACTORS=1
 
-export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
@@ -228,9 +235,6 @@ fi
 alias ll="lsd"
 alias lm="lsd --long --git --gitsort"
 
-export PATH="/opt/homebrew/opt/llvm/bin/:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="/opt/homebrew/sbin:$PATH"
 if [ -e /home/q/.nix-profile/etc/profile.d/nix.sh ]; then . /home/q/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -242,8 +246,8 @@ zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
