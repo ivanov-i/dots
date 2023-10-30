@@ -5,6 +5,7 @@ lsp.ensure_installed({
 	'rust_analyzer',
 	'pyright',
 	'jsonls',
+	'jdtls'
 })
 
 -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
@@ -124,6 +125,23 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
   vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
   vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+
+  -- here are the vim scrip remaps
+  -- nnoremap("<leader>fr", "<cmd>Telescope lsp_references<cr>", "Find references (LSP)")
+  -- nnoremap("<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", "Find symbols (LSP)")
+  -- nnoremap("<leader>fc", "<cmd>Telescope lsp_incoming_calls<cr>", "Find incoming calls (LSP)")
+  -- nnoremap("<leader>fo", "<cmd>Telescope lsp_outgoing_calls<cr>", "Find outgoing calls (LSP)")
+  -- nnoremap("<leader>fi", "<cmd>Telescope lsp_implementations<cr>", "Find implementations (LSP)")
+  -- nnoremap("<leader>fx", "<cmd>Telescope diagnostics bufnr=0<cr>", "Find errors (LSP)")
+
+  -- here we implement them in lua
+  vim.keymap.set("n", "<leader>fr", function() require('telescope.builtin').lsp_references() end, opts)
+  vim.keymap.set("n", "<leader>fs", function() require('telescope.builtin').lsp_document_symbols() end, opts)
+  vim.keymap.set("n", "<leader>fc", function() require('telescope.builtin').lsp_incoming_calls() end, opts)
+  vim.keymap.set("n", "<leader>fo", function() require('telescope.builtin').lsp_outgoing_calls() end, opts)
+  vim.keymap.set("n", "<leader>fi", function() require('telescope.builtin').lsp_implementations() end, opts)
+  vim.keymap.set("n", "<leader>fx", function() require('telescope.builtin').lsp_document_diagnostics() end, opts)
+
 end)
 
 lsp.setup()
