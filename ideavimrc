@@ -59,4 +59,4 @@ nnoremap [b :bp<CR>
 set highlightedyank
 set nerdtree
 
-set clipboard+=unnamedplus
+"set clipboard+=unnamedplus
