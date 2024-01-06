@@ -366,3 +366,57 @@ eval "$(jenv init -)"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    deduplicate_impl()
+    {
+        join -t ' ' -1 1 -2 1 firsts others | cut -d ' ' -f 2- > duplicates
+
+        # show progress with percentage
+        total=$(wc -l < duplicates | tr -d '[:space:]') 
+        current=0
+
+        cat duplicates | while read orig dup ;
+        do
+            count=$((current++))
+            percent=$((count * 100 / total))
+            echo -n "[$percent% $current of $total]\t"
+
+            #skip empty filenames
+            if [ -z "$orig" ]; then
+                echo "skipping because orig is empty"
+                continue
+            fi
+            if [ -z "$dup" ]; then
+                echo "skipping because dup is empty"
+                continue
+            fi
+
+            fileSize=$(stat -f%z "$orig")
+            dupeSize=$(stat -f%z "$dup")
+
+            echo -n "[size = $fileSize]\t"
+
+
+            #skip if not a duplicate
+            if [ "$fileSize" -ne "$dupeSize" ]; then
+                echo "skipping $orig and $dup as they are not the same size"
+                continue
+            fi
+            #skip if cntents differs
+            if ! cmp -s "$orig" "$dup"; then
+                echo "skipping $orig and $dup as they are not the same"
+                continue
+            fi
+            cp -v -c "$orig" "$dup" || true
+        done
+    }
+        
+    deduplicate()
+    {
+        #brew install rdfind
+        rdfind -makeresultsfile true .
+        cat results.txt | grep DUPTYPE_FIRST_OCCURRENCE | cut -d ' ' -f 2,8- | sort | perl -pe 's/ (?!\.)/\\ /g' > firsts
+        cat results.txt | grep DUPTYPE_WITHIN_SAME_TREE | cut -d ' ' -f 2,8- | cut -c 2- | sort | perl -pe 's/ (?!\.)/\\ /g' > others
+        deduplicate_impl
+    }
+fi
