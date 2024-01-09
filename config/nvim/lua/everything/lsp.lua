@@ -169,10 +169,15 @@ vim.keymap.set(
 --debug
 
 vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
+vim.keymap.set("n", "<leader>kb", require("dap").toggle_breakpoint)
 vim.keymap.set("n", "<F5>", require("dap").continue)
+vim.keymap.set("n", "<leader>kc", require("dap").continue)
 vim.keymap.set("n", "<F10>", require("dap").step_over)
+vim.keymap.set("n", "<leader>ks", require("dap").step_over)
 vim.keymap.set("n", "<F11>", require("dap").step_into)
+vim.keymap.set("n", "<leader>ki", require("dap").step_into)
 vim.keymap.set("n", "<F12>", require("dap").step_out)
+vim.keymap.set("n", "<leader>ko", require("dap").step_out)
 vim.keymap.set("n", "<leader>de", function() require("dap").terminate() end)
 
 
