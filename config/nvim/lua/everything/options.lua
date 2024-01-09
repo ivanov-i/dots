@@ -56,3 +56,5 @@ vim.opt.splitright = true
 -- russian
 vim.opt.langmap="ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
 
+-- stop search at the end of the file
+vim.opt.wrapscan = false

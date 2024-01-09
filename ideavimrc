@@ -44,6 +44,7 @@ filetype plugin indent on
 set nojoinspaces
 set autoread
 "set relativenumber number
+set nowrapscan
 
 set number
 syntax enable
