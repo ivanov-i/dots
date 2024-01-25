@@ -61,3 +61,6 @@ set highlightedyank
 set nerdtree
 
 "set clipboard+=unnamedplus
+
+vnoremap v :action EditorSelectWord <CR>
+vnoremap V :action EditorUnSelectWord <CR>
