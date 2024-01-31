@@ -58,3 +58,7 @@ vim.opt.langmap="ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJ
 
 -- stop search at the end of the file
 vim.opt.wrapscan = false
+
+
+-- disable folds
+vim.opt.foldenable = false
