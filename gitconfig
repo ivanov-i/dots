@@ -58,6 +58,7 @@
     code-changes = "!git log --format=format: --name-only | egrep -v '^$' | sort | uniq -c | sort -rg | head -10"
     cc = "!git code-changes"
 	recentb = "!r() { refbranch=$2; git branch --remote --sort=-committerdate --format='%(refname:short)|%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)' --color=always |head -20| while read line; do branch=$(echo \"$line\" | awk 'BEGIN { FS = \"|\" }; { print $1 }' | tr -d '*'); colorline=$(echo \"$line\" | sed 's/^[^|]*|//'); echo \"$colorline\" | awk -F'|' -vOFS='|' '{$5=substr($5,1,70)}1' ; done | ( echo \"branch|lastcommit|message|author\\n\" && cat) | column -ts'|';}; r"
+	pp = push
 	pf = push --force-with-lease
 [diff]
 	tool = p4merge
