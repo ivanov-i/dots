@@ -1,0 +1,121 @@
+[includeIf "gitdir:~/wrk/"]
+    path = ~/.git.wrk
+[includeIf "gitdir:~/"]
+    path = ~/.git.my
+[core]
+	editor = nvim
+	#pager = less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
+	pager=delta
+[interactive]
+	diffFilter = delta --color-only --features=interactive
+[delta]
+	navigate=true
+	features = decorations
+	line-numbers = true
+	side-by-side = true
+	#hyperlinks = true
+[delta "interactive"]
+    keep-plus-minus-markers = false
+[delta "decorations"]
+    commit-decoration-style = blue ol
+    commit-style = raw
+    file-style = omit
+    hunk-header-decoration-style = blue box
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file line-number syntax
+[color]
+	ui = auto
+[alias]
+	st = status
+	ci = commit --verbose
+	co = checkout
+	di = diff
+	dc = diff --cached
+	amend = commit --amend
+	aa = add --all
+    ds = diff --stat=160,120
+	dh1 = diff HEAD~1
+
+    # Fancy logging.
+    #   h = head
+    #   hp = head with patch
+    #   r = recent commits, only current branch
+    #   ra = recent commits, all reachable refs
+    #   l = all commits, only current branch
+    #   la = all commits, all reachable refs
+	head = !git r -1
+	h = !git head
+	hp = !. ~/.githelpers && show_git_head
+	r = !GIT_NO_PAGER=1 git l -20
+	ra = !git r --all
+	l = !. ~/.githelpers && pretty_git_log
+	la = !git l --all
+	sh = !git show HEAD --ext-diff
+    su = !git stash show -p | git apply --reverse
+    fa = fetch --all --prune --tags --prune-tags
+	#fa = fetch --all --tags
+    code-changes = "!git log --format=format: --name-only | egrep -v '^$' | sort | uniq -c | sort -rg | head -10"
+    cc = "!git code-changes"
+	recentb = "!r() { refbranch=$2; git branch --remote --sort=-committerdate --format='%(refname:short)|%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)' --color=always |head -20| while read line; do branch=$(echo \"$line\" | awk 'BEGIN { FS = \"|\" }; { print $1 }' | tr -d '*'); colorline=$(echo \"$line\" | sed 's/^[^|]*|//'); echo \"$colorline\" | awk -F'|' -vOFS='|' '{$5=substr($5,1,70)}1' ; done | ( echo \"branch|lastcommit|message|author\\n\" && cat) | column -ts'|';}; r"
+[diff]
+	tool = p4merge
+	external = difft --syntax-highlight off --tab-width 4
+	colormoved=default
+	renamelimit = 999999
+[difftool]
+	prompt = true
+[difftool "vsdiffmerge"]
+	cmd = \"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\IDE\\CommonExtensions\\Microsoft\\TeamFoundation\\Team Explorer\\vsdiffmerge.exe\" \"$LOCAL\" \"$REMOTE\" //t
+	keepBackup = false
+[merge]
+	renamelimit = 999999
+	tool = p4merge
+#    conflictstyle = diff3
+[mergetool]
+	prompt = true
+	keepBackup = false
+[mergetool "vsdiffmerge"]
+	cmd = \"C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/Common7/IDE/CommonExtensions/Microsoft/TeamFoundation/Team Explorer/vsdiffmerge.exe\" \"$REMOTE\" \"$LOCAL\" \"$BASE\" \"$MERGED\" //m
+	keepBackup = false
+	trustExitCode = true
+
+[rerere]
+	enabled = true
+	autoupdate = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[gui]
+	recentrepo = C:/WorkFolder/eft
+[winUpdater]
+	recentlySeenVersion = 2.25.0.windows.1
+#[credential]
+    #helper = /c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-manager.exe
+[difftool "sourcetree"]
+	cmd = '' \"$LOCAL\" \"$REMOTE\"
+[mergetool "sourcetree"]
+	cmd = "'' "
+	trustExitCode = true
+[credential]
+	helper = cache --timeout=360000
+[pull]
+	ff = only
+[init]
+	defaultBranch = main
+	templatedir = ~/.git-templates
+[safe]
+	directory = /home/q/neovim
+	directory = /mnt/n/S5_EFT_SSH
+	directory = /mnt/g
+	directory = /mnt/n/dmz
+[pager]
+        difftool = true
+[mergetool "diffconflicts"]
+	cmd = nvim -c DiffConflicts \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
+	trustExitCode = true
+[mergetool "p4merge"]
+	path = /Applications/p4merge.app/Contents/Resources/launchp4merge
+	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
