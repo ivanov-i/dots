@@ -424,3 +424,5 @@ fi
 
 # add ~/bin to PATH
 export PATH="$HOME/bin:$PATH"
+
+eval "$(zoxide init zsh)"
