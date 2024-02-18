@@ -1,7 +1,7 @@
-[includeIf "gitdir:~/wrk/"]
-    path = ~/.git.wrk
 [includeIf "gitdir:~/"]
     path = ~/.git.my
+[includeIf "gitdir:~/wrk/"]
+    path = ~/.git.wrk
 [core]
 	editor = nvim
 	#pager = less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
