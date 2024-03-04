@@ -119,22 +119,11 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
   vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
   vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
   vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
   vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
   vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
   vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 
-  -- here are the vim scrip remaps
-  -- nnoremap("<leader>fr", "<cmd>Telescope lsp_references<cr>", "Find references (LSP)")
-  -- nnoremap("<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", "Find symbols (LSP)")
-  -- nnoremap("<leader>fc", "<cmd>Telescope lsp_incoming_calls<cr>", "Find incoming calls (LSP)")
-  -- nnoremap("<leader>fo", "<cmd>Telescope lsp_outgoing_calls<cr>", "Find outgoing calls (LSP)")
-  -- nnoremap("<leader>fi", "<cmd>Telescope lsp_implementations<cr>", "Find implementations (LSP)")
-  -- nnoremap("<leader>fx", "<cmd>Telescope diagnostics bufnr=0<cr>", "Find errors (LSP)")
-
-  -- here we implement them in lua
   vim.keymap.set("n", "<leader>fr", function() require('telescope.builtin').lsp_references() end, opts)
   vim.keymap.set("n", "<leader>fs", function() require('telescope.builtin').lsp_document_symbols() end, opts)
   vim.keymap.set("n", "<leader>fc", function() require('telescope.builtin').lsp_incoming_calls() end, opts)
@@ -147,17 +136,6 @@ end)
 lsp.setup()
 
 -- diagnostics
-
-vim.diagnostic.config({
-	virtual_text = false,
-	severity_sort = true,
-	float = {
-		border = 'rounded',
-		source = 'always',
-		header = '',
-		prefix = '',
-	},
-})
 
 vim.keymap.set(
 	"",
