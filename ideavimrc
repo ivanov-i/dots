@@ -66,4 +66,4 @@ vnoremap v :action EditorSelectWord <CR>
 vnoremap V :action EditorUnSelectWord <CR>
 
 set ideajoin
-set showmodewidget
+
