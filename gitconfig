@@ -36,6 +36,7 @@
 	aa = add --all
     ds = diff --stat=160,120
 	dh1 = diff HEAD~1
+	yolo = !git commit -m \""$(curl -s https://whatthecommit.com/index.txt)"\"
 
     # Fancy logging.
     #   h = head
