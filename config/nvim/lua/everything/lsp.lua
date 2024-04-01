@@ -44,6 +44,11 @@ cmp.setup({
 	window = {
 		documentation = cmp.config.window.bordered()
 	},
+	view = {
+	    entries = {
+	        follow_cursor = true,
+	    },
+	},
 })
 
 local select_opts = {behavior = cmp.SelectBehavior.Select}
