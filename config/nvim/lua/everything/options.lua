@@ -63,6 +63,10 @@ vim.opt.wrapscan = true
 -- disable folds
 vim.opt.foldenable = false
 
+-- giu font
+
+vim.opt.guifont="VictorMono Nerd Font:h16"
+
 -- neovide
 if vim.g.neovide then
     -- copy paste
@@ -87,6 +91,12 @@ if vim.g.neovide then
     vim.keymap.set("n", "<C-->", function()
         change_scale_factor(1/1.25)
     end)
+
+    -- 120 fps
+    vim.g.neovide_refresh_rate = 120
+
+    -- Cursor blink
+
 end
 
 -- Allow clipboard copy paste in neovim
@@ -96,3 +106,14 @@ vim.api.nvim_set_keymap('t', '<D-v>', '<C-R>+', { noremap = true, silent = true}
 vim.api.nvim_set_keymap('v', '<D-v>', '<C-R>+', { noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<D-c>', '"+y', { noremap = true, silent = true})
 
+--red cursor
+vim.opt.termguicolors = true
+vim.api.nvim_set_hl(0, 'Cursor', { fg = 'black', bg = 'red' })
+vim.api.nvim_set_hl(0, 'Cursor2', { fg = 'black', bg = 'red' })
+vim.opt.guicursor = {
+    'n-v-c:block-Cursor/lCursor',
+    'i-ci-ve:ver25-Cursor2/lCursor2',
+    'r-cr:hor20',
+    'o:hor50',
+    'a:blinkwait700-blinkoff400-blinkon0-Cursor/lCursor',
+}
