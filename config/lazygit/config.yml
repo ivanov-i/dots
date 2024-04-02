@@ -4,9 +4,7 @@ git:
   autoFetch: false
   autoRefresh: false
   paging:
-    colorArg: always
-    useConfig: false
-    pager: delta --paging=never --line-numbers
+    externalDiffCommand: difft --color=always
 update:
   method: prompt
   days: 1
