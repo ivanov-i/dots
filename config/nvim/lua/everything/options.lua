@@ -6,6 +6,8 @@ vim.opt.softtabstop=4
 vim.opt.tabstop=4
 vim.opt.shiftwidth=4
 
+vim.opt.scrolloff=10
+
 vim.opt.inccommand="split"
 vim.opt.pumblend=0
 vim.opt.wildignorecase = true
