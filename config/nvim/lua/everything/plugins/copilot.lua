@@ -23,7 +23,7 @@ return
                 auto_trigger = true,
                 debounce = 75,
                 keymap = {
-                    accept = "<leader>f",
+                    accept = "<leader><Tab>",
                     accept_word = false,
                     accept_line = false,
                     next = "<C-]>",
