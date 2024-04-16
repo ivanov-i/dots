@@ -8,7 +8,7 @@ return
     },
     config = function()
         require("oil").setup({
-            skip_confirm_for_simple_edits = false,
+            skip_confirm_for_simple_edits = true,
         })
         vim.api.nvim_create_autocmd("User", {
             pattern = "OilEnter",
