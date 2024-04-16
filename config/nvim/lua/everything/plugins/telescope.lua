@@ -10,7 +10,12 @@ return
 		defaults =
 		{
 			layout_strategy = 'vertical',
-			layout_config = { width = 0.999, height = 0.999}
+			layout_config = { width = 0.999, height = 0.999},
+			mappings = {
+                i = {
+                    ["<Esc>"] = "close",
+                },
+		    },
 		},
 	},
 }
