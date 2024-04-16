@@ -11,7 +11,7 @@ return
                     jump_next = "]]",
                     accept = "<CR>",
                     refresh = "gr",
-                    open = "<M-CR>"
+                    open = "<C-CR>"
                 },
                 layout = {
                     position = "bottom", -- | top | left | right
@@ -23,11 +23,11 @@ return
                 auto_trigger = true,
                 debounce = 75,
                 keymap = {
-                    accept = "<M-l>",
+                    accept = "<leader>f",
                     accept_word = false,
                     accept_line = false,
-                    next = "<M-]>",
-                    prev = "<M-[>",
+                    next = "<C-]>",
+                    prev = "<C-[>",
                     dismiss = "<C-]>",
                 },
             },
