@@ -1,6 +1,7 @@
 return
 {
 	'axkirillov/hbac.nvim',
+	event = "SessionLoadPost",
 	dependencies = {
 		-- these are optional, add them, if you want the telescope module
 		'nvim-telescope/telescope.nvim',
