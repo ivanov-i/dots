@@ -40,6 +40,7 @@ return
                 hgcommit = false,
                 svn = false,
                 cvs = false,
+                sql = true,
                 ["."] = false,
             },
             copilot_node_command = 'node', -- Node.js version must be > 18.x
