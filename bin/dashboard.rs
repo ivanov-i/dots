@@ -1,5 +1,7 @@
 #!/usr/bin/env rust-script
 
+#![allow(non_snake_case)]
+
 use std::env;
 use std::fs;
 use std::io::prelude::*;
@@ -18,7 +20,14 @@ fn main() {
 
 fn handle_connection(mut stream: TcpStream) {
     let free_space = get_free_disk_space().unwrap_or_else(|e| e);
+    let trashSize = get_trash_size().unwrap_or_else(|e| e);
+
+    let freSpaceGb : i64 = free_space.trim_end_matches(|c: char| !c.is_numeric()).parse().unwrap();
+    let trashSizeGb : i64 = trashSize.trim_end_matches(|c: char| !c.is_numeric()).parse().unwrap();
+    let availableSpace = freSpaceGb + trashSizeGb;
+
     let batteries_output = call_batteries_script().unwrap_or_else(|e| e);
+
     let response = format!(
         "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n\
         <!DOCTYPE html>\
@@ -29,13 +38,17 @@ fn handle_connection(mut stream: TcpStream) {
         <title>System Info</title>\
         </head>\
         <body>\
+        <h1>Available Space</h1>\
+        <p>{}</p>\
         <h1>Free Disk Space</h1>\
+        <p>{}</p>\
+        <h1>Trash Size</h1>\
         <p>{}</p>\
         <h1>Batteries</h1>\
         <pre>{}</pre>\
         </body>\
         </html>\r\n",
-        free_space, batteries_output
+        availableSpace, free_space, trashSize, batteries_output
     );
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
@@ -52,6 +65,21 @@ fn get_free_disk_space() -> Result<String, String> {
         return Err(format!("df command failed: {}", error_message));
     }
     Ok(parse_free_space(&String::from_utf8_lossy(&output.stdout)))
+}
+
+fn get_trash_size() -> Result<String, String> {
+    let output = Command::new("du")
+        .arg("-sh")
+        .arg(env::var("HOME").unwrap() + "/.Trash")
+        .output()
+        .map_err(|e| e.to_string())?;
+    if !output.status.success() {
+        let error_message = String::from_utf8_lossy(&output.stderr);
+        return Err(format!("du command failed: {}", error_message));
+    }
+    let outputString = String::from_utf8_lossy(&output.stdout);
+    let firstWord = outputString.split_whitespace().next().unwrap();
+    Ok(firstWord.to_string())
 }
 
 fn parse_free_space(output: &str) -> String {
