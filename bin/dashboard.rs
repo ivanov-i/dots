@@ -19,12 +19,17 @@ fn main() {
 }
 
 fn handle_connection(mut stream: TcpStream) {
-    let free_space = get_free_disk_space().unwrap_or_else(|e| e);
-    let trashSize = get_trash_size().unwrap_or_else(|e| e);
+    let freeSpaceStr = get_free_disk_space().unwrap_or_else(|e| e);
+    let trashSizeStr = get_trash_size().unwrap_or_else(|e| e);
 
-    let freSpaceGb : i64 = free_space.trim_end_matches(|c: char| !c.is_numeric()).parse().unwrap();
-    let trashSizeGb : i64 = trashSize.trim_end_matches(|c: char| !c.is_numeric()).parse().unwrap();
-    let availableSpace = freSpaceGb + trashSizeGb;
+    let freeSpaceInBlocks: i64 = freeSpaceStr.trim_end_matches(|c: char| !c.is_numeric()).parse().unwrap();
+    let freeSpace = freeSpaceInBlocks * 512;
+    let trashSize: i64 = trashSizeStr.trim_end_matches(|c: char| !c.is_numeric()).parse().unwrap();
+    let availableSpace = freeSpace + trashSize;
+
+    let freeSpaceHuman = toHumanReadable(freeSpace);
+    let trashSizeHuman = toHumanReadable(trashSize);
+    let availableSpaceHuman = toHumanReadable(availableSpace);
 
     let batteries_output = call_batteries_script().unwrap_or_else(|e| e);
 
@@ -48,15 +53,25 @@ fn handle_connection(mut stream: TcpStream) {
         <pre>{}</pre>\
         </body>\
         </html>\r\n",
-        availableSpace, free_space, trashSize, batteries_output
+        availableSpaceHuman, freeSpaceHuman, trashSizeHuman, batteries_output
     );
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
 }
 
+fn toHumanReadable(bytes: i64) -> String {
+    let units = ["B", "KB", "MB", "GB", "TB", "PB", "EB"];
+    let mut unitIndex = 0;
+    let mut size = bytes as f64;
+    while size >= 1024.0 && unitIndex < units.len() - 1 {
+        size /= 1024.0;
+        unitIndex += 1;
+    }
+    format!("{:.1} {}", size, units[unitIndex])
+}
+
 fn get_free_disk_space() -> Result<String, String> {
     let output = Command::new("df")
-        .arg("-h")
         .arg("/")
         .output()
         .map_err(|e| e.to_string())?;
@@ -69,7 +84,7 @@ fn get_free_disk_space() -> Result<String, String> {
 
 fn get_trash_size() -> Result<String, String> {
     let output = Command::new("du")
-        .arg("-sh")
+        .arg("-s")
         .arg(env::var("HOME").unwrap() + "/.Trash")
         .output()
         .map_err(|e| e.to_string())?;
