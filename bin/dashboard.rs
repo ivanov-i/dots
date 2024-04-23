@@ -24,7 +24,8 @@ fn handle_connection(mut stream: TcpStream) {
 
     let freeSpaceInBlocks: i64 = freeSpaceStr.trim_end_matches(|c: char| !c.is_numeric()).parse().unwrap();
     let freeSpace = freeSpaceInBlocks * 512;
-    let trashSize: i64 = trashSizeStr.trim_end_matches(|c: char| !c.is_numeric()).parse().unwrap();
+    let trashSizeInBlocks: i64 = trashSizeStr.trim_end_matches(|c: char| !c.is_numeric()).parse().unwrap();
+    let trashSize = trashSizeInBlocks * 512;
     let availableSpace = freeSpace + trashSize;
 
     let freeSpaceHuman = toHumanReadable(freeSpace);
