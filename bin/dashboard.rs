@@ -19,8 +19,9 @@ fn main() {
 }
 
 fn handle_connection(mut stream: TcpStream) {
-    let freeSpaceStr = get_free_disk_space().unwrap_or_else(|e| e);
-    let trashSizeStr = get_trash_size().unwrap_or_else(|e| e);
+    let freeSpaceStr = get_free_disk_space(&"/".to_string()).unwrap_or_else(|e| e);
+    let trashPath = env::var("HOME").unwrap() + "/.Trash";
+    let trashSizeStr = get_trash_size(&trashPath.to_string()).unwrap_or_else(|e| e);
 
     let freeSpaceInBlocks: i64 = freeSpaceStr.trim_end_matches(|c: char| !c.is_numeric()).parse().unwrap();
     let freeSpace = freeSpaceInBlocks * 512;
@@ -31,6 +32,45 @@ fn handle_connection(mut stream: TcpStream) {
     let freeSpaceHuman = toHumanReadable(freeSpace);
     let trashSizeHuman = toHumanReadable(trashSize);
     let availableSpaceHuman = toHumanReadable(availableSpace);
+
+    let skipVolumes = Vec::from([String::from("Backup"), String::from(".timemachine"), String::from("macintosh hd")]);
+    let mut volumes: Vec<(String, String, String, String)> = Vec::new();
+    for volume in fs::read_dir("/Volumes").unwrap() {
+        let volume = volume.unwrap();
+        let volume_name = volume.file_name().into_string().unwrap();
+        if skipVolumes.iter().any(|s| volume_name.to_lowercase().contains(&s.to_lowercase())) {
+            continue;
+        }
+        let path = volume.path().to_str().unwrap().to_string();
+        let freeSpaceStr = get_free_disk_space(&path).unwrap_or_else(|e| e);
+        let uid = env::var("UID").unwrap_or_else(|_| "501".to_string());
+        let trashPath = path + "/.Trashes/" + uid.as_str();
+        let trashSizeStr = get_trash_size(&trashPath).unwrap_or_else(|_| 0.to_string());
+
+        let freeSpaceInBlocks: i64 = freeSpaceStr.trim_end_matches(|c: char| !c.is_numeric()).parse().unwrap();
+        let freeSpace = freeSpaceInBlocks * 512;
+        let trashSizeInBlocks: i64 = trashSizeStr.trim_end_matches(|c: char| !c.is_numeric()).parse().unwrap();
+        let trashSize = trashSizeInBlocks * 512;
+        let availableSpace = freeSpace + trashSize;
+
+        let freeSpaceHuman = toHumanReadable(freeSpace);
+        let trashSizeHuman = toHumanReadable(trashSize);
+        let availableSpaceHuman = toHumanReadable(availableSpace);
+
+        volumes.push((volume_name, availableSpaceHuman, freeSpaceHuman, trashSizeHuman));
+    }
+
+    let mut volumes_table = String::new();
+    volumes_table.push_str("<table>");
+    volumes_table.push_str("<tr><th>Volume</th><th>Available Space</th><th>Free Disk Space</th><th>Trash Size</th></tr>");
+    for volume in volumes {
+        volumes_table.push_str("<tr>");
+        volumes_table.push_str(&format!("<td>{}</td>", volume.0));
+        volumes_table.push_str(&format!("<td>{}</td>", volume.1));
+        volumes_table.push_str(&format!("<td>{}</td>", volume.2));
+        volumes_table.push_str(&format!("<td>{}</td>", volume.3));
+        volumes_table.push_str("</tr>");
+    }
 
     let batteries_output = call_batteries_script().unwrap_or_else(|e| e);
 
@@ -52,9 +92,11 @@ fn handle_connection(mut stream: TcpStream) {
         <p>{}</p>\
         <h1>Batteries</h1>\
         <pre>{}</pre>\
+        <h1>Volumes</h1>\
+        {}\
         </body>\
         </html>\r\n",
-        availableSpaceHuman, freeSpaceHuman, trashSizeHuman, batteries_output
+        availableSpaceHuman, freeSpaceHuman, trashSizeHuman, batteries_output, volumes_table
     );
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
@@ -71,9 +113,9 @@ fn toHumanReadable(bytes: i64) -> String {
     format!("{:.1} {}", size, units[unitIndex])
 }
 
-fn get_free_disk_space() -> Result<String, String> {
+fn get_free_disk_space(path: &String) -> Result<String, String> {
     let output = Command::new("df")
-        .arg("/")
+        .arg(path)
         .output()
         .map_err(|e| e.to_string())?;
     if !output.status.success() {
@@ -83,10 +125,10 @@ fn get_free_disk_space() -> Result<String, String> {
     Ok(parse_free_space(&String::from_utf8_lossy(&output.stdout)))
 }
 
-fn get_trash_size() -> Result<String, String> {
+fn get_trash_size(path: &String) -> Result<String, String> {
     let output = Command::new("du")
         .arg("-s")
-        .arg(env::var("HOME").unwrap() + "/.Trash")
+        .arg(path)
         .output()
         .map_err(|e| e.to_string())?;
     if !output.status.success() {
