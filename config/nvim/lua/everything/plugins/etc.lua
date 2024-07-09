@@ -7,7 +7,6 @@ return
 			vim.cmd('colorscheme distilled')
 		end
 	},
-	{'tpope/vim-fugitive'},
 	{
 		'VonHeikemen/lsp-zero.nvim',
 		branch = 'v1.x',
