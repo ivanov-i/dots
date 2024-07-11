@@ -51,6 +51,15 @@ cmp.setup({
 	},
 })
 
+cmp.setup.filetype({"sql"},
+    {
+        sources = {
+            {name = "vim_dadbod_completion", keyword_length = 3},
+            {name = "buffer", keyword_length = 3},
+        },
+    }
+)
+
 local select_opts = {behavior = cmp.SelectBehavior.Select}
 -- local cmp_enable = {cmp.setup.enabled = true }
 local cmp_mappings = lsp.defaults.cmp_mappings({
