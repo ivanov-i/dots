@@ -176,7 +176,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
 update() {
   trap 'echo "Terminating..."; kill 0' SIGINT
-  set -e
+  # set -e
 
   sudo echo "sudo" && \
   echo "[brew update]" && \
