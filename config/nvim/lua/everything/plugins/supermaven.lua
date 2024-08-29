@@ -9,7 +9,7 @@ return {
             keymaps = {
                 accept_suggestion = "<leader><Tab>",
                 clear_suggestion = "<C-]>",
-                accept_word = "<leader>j",
+                accept_word = "<leader><leader><Tab>",
             },
         },
     },
