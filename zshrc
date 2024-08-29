@@ -329,16 +329,11 @@ fi
 FILE=/Users/ivanov/.docker/init-zsh.sh; [ -f $FILE ] && . $FILE
 
 fix-mosh-server() {
-  local fw='/usr/libexec/ApplicationFirewall/socketfilterfw'
-  local mosh_sym="$(which mosh-server)"
-  local mosh_abs="$(greadlink -f $mosh_sym)"
-
-  sudo "$fw" --setglobalstate off
-  sudo "$fw" --add "$mosh_sym"
-  sudo "$fw" --unblockapp "$mosh_sym"
-  sudo "$fw" --add "$mosh_abs"
-  sudo "$fw" --unblockapp "$mosh_abs"
-  sudo "$fw" --setglobalstate on
+  fw=/usr/libexec/ApplicationFirewall/socketfilterfw
+  mosh=$(/opt/homebrew/bin/brew info mosh|grep Cellar|awk '{print $1}')/bin/mosh-server
+  echo $mosh
+  sudo $fw --add $mosh
+  sudo $fw --unblockapp $mosh
 }
 
 function preexec() {
