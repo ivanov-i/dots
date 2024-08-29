@@ -5,6 +5,8 @@ function ColorMyPencils(color)
 	vim.api.nvim_set_hl(0, "Normal", {bg = "None"})
 	vim.api.nvim_set_hl(0, "NormalFloat", {bg = "None"})
 	vim.opt.termguicolors = true
+
+	vim.api.nvim_set_hl(0, "JavaConceptKind", {link = "Type"})
 end
 
  ColorMyPencils()
