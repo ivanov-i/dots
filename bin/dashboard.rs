@@ -75,31 +75,34 @@ fn handle_connection(mut stream: TcpStream) {
     let batteries_output = call_batteries_script().unwrap_or_else(|e| e);
 
     let response = format!(
-        "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n\
-        <!DOCTYPE html>\
-        <html lang=\"en\">\
-        <head>\
-        <meta charset=\"UTF-8\">\
-        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\
-        <title>System Info</title>\
-        </head>\
-        <body>\
-        <h1>Available Space</h1>\
-        <p>{}</p>\
-        <h1>Free Disk Space</h1>\
-        <p>{}</p>\
-        <h1>Trash Size</h1>\
-        <p>{}</p>\
-        <h1>Batteries</h1>\
-        <pre>{}</pre>\
-        <h1>Volumes</h1>\
-        {}\
-        </body>\
-        </html>\r\n",
+        r#"HTTP/1.1 200 OK
+        Content-Type: text/html; charset=UTF-8
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>System Info</title>
+        </head>
+        <body>
+            <h1>Available Space</h1>
+            <p>{}</p>
+            <h1>Free Disk Space</h1>
+            <p>{}</p>
+            <h1>Trash Size</h1>
+            <p>{}</p>
+            <h1>Batteries</h1>
+            <pre>{}</pre>
+            <h1>Volumes</h1>
+            {}
+        </body>
+        </html>"#,
         availableSpaceHuman, freeSpaceHuman, trashSizeHuman, batteries_output, volumes_table
-    );
+        );
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
+    stream.shutdown(std::net::Shutdown::Both).unwrap();
 }
 
 fn toHumanReadable(bytes: i64) -> String {
