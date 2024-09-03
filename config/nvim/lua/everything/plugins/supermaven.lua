@@ -2,8 +2,8 @@ return {
     {
         "supermaven-inc/supermaven-nvim",
         opts = {
-	        ignoredFiletypes = {
-	            oil = true
+	        ignore_filetypes = {
+	            oil = true,
 	        },
 
             keymaps = {
