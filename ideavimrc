@@ -2,7 +2,7 @@ Plug 'tpope/vim-commentary'
 
 set nocompatible
 
-imap jj <Esc>
+imap jk <Esc>
 
 filetype off   " required
 

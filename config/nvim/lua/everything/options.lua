@@ -101,6 +101,8 @@ if vim.g.neovide then
 
 end
 
+if not vim.g.vscode then
+
 -- Allow clipboard copy paste in neovim
 vim.api.nvim_set_keymap('', '<D-v>', '+p<CR>', { noremap = true, silent = true})
 vim.api.nvim_set_keymap('!', '<D-v>', '<C-R>+', { noremap = true, silent = true})
@@ -131,3 +133,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+end
