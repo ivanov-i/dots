@@ -122,6 +122,8 @@ vim.opt.guicursor = {
     'a:blinkwait700-blinkoff400-blinkon0-Cursor/lCursor',
 }
 
+end
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
@@ -133,4 +135,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-end
