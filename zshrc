@@ -421,3 +421,6 @@ fi
 export PATH="$HOME/bin:$PATH"
 
 eval "$(zoxide init zsh)"
+
+#github copilot cli
+eval "$(gh copilot alias -- zsh)"
