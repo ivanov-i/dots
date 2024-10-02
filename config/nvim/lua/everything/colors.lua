@@ -7,6 +7,7 @@ function ColorMyPencils(color)
 	vim.opt.termguicolors = true
 
 	vim.api.nvim_set_hl(0, "JavaConceptKind", {link = "Type"})
+	vim.api.nvim_set_hl(0, "JavaOperator", {link = "type"})
 end
 
  ColorMyPencils()
