@@ -13,14 +13,15 @@ return
 			require("lsp_lines").setup()
 		end,
 	}},
+	{'nvim-java/nvim-java'},
 
-	'onsails/lspkind.nvim',
-	{'jayp0521/mason-nvim-dap.nvim',
-	dependencies = {
-		{'williamboman/mason.nvim'},
-		{'mfussenegger/nvim-dap'},
-	}
-},
+	-- 'onsails/lspkind.nvim',
+	-- {'jayp0521/mason-nvim-dap.nvim',
+	-- dependencies = {
+	-- 	{'williamboman/mason.nvim'},
+	-- 	{'mfussenegger/nvim-dap'},
+	-- }
+    -- },
 {'theHamsta/nvim-dap-virtual-text', dependencies = {'nvim-treesitter/nvim-treesitter', 'mfussenegger/nvim-dap'} },
 {'folke/neodev.nvim'},
 {'airblade/vim-gitgutter'},
