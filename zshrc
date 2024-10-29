@@ -424,3 +424,6 @@ eval "$(zoxide init zsh)"
 
 #github copilot cli
 eval "$(gh copilot alias -- zsh)"
+
+source ~/.secrets
+
