@@ -62,7 +62,7 @@ fn handle_connection(mut stream: TcpStream) {
 
     let mut volumes_table = String::new();
     volumes_table.push_str("<table>");
-    volumes_table.push_str("<tr><th>Volume</th><th>Available Space</th><th>Free Disk Space</th><th>Trash Size</th></tr>");
+    volumes_table.push_str("<tr><th>Volume Name</th><th>Total Available</th><th>Free Space</th><th>Trash Size</th></tr>");
     for volume in volumes {
         volumes_table.push_str("<tr>");
         volumes_table.push_str(&format!("<td>{}</td>", volume.0));
@@ -75,34 +75,98 @@ fn handle_connection(mut stream: TcpStream) {
     let batteries_output = call_batteries_script().unwrap_or_else(|e| e);
 
     let response = format!(
-        r#"HTTP/1.1 200 OK
-        Content-Type: text/html; charset=UTF-8
-
-        <!DOCTYPE html>
-        <html lang="en">
+        "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n<!DOCTYPE html>\n\
+        <html lang=\"en\">
         <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta charset=\"UTF-8\">
+            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
             <title>System Info</title>
+            <style>
+                body {{
+                    font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Oxygen, Ubuntu, sans-serif;
+                    line-height: 1.6;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background: #f5f5f7;
+                    color: #1d1d1f;
+                }}
+                h1 {{
+                    color: #1d1d1f;
+                    border-bottom: 2px solid #0066cc;
+                    padding-bottom: 8px;
+                    margin-top: 30px;
+                }}
+                table {{
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    background: white;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                    border-radius: 8px;
+                }}
+                th, td {{
+                    padding: 12px 15px;
+                    text-align: left;
+                    border-bottom: 1px solid #eee;
+                }}
+                th {{
+                    background: #f8f8f8;
+                    font-weight: 600;
+                }}
+                tr:last-child td {{
+                    border-bottom: none;
+                }}
+                pre {{
+                    background: white;
+                    padding: 15px;
+                    border-radius: 8px;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                    overflow-x: auto;
+                }}
+                p {{
+                    background: white;
+                    padding: 15px;
+                    border-radius: 8px;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                    margin: 10px 0;
+                }}
+                tr:hover {{
+                    background: #f5f5f7;
+                }}
+            </style>
         </head>
         <body>
-            <h1>Available Space</h1>
-            <p>{}</p>
-            <h1>Free Disk Space</h1>
-            <p>{}</p>
-            <h1>Trash Size</h1>
-            <p>{}</p>
-            <h1>Batteries</h1>
-            <pre>{}</pre>
-            <h1>Volumes</h1>
-            {}
+            <h1>System Storage Overview</h1>
+            <div class=\"stats\">
+                <h1>Main Drive Status</h1>
+                <p><strong>Available Space:</strong> {}</p>
+                <p><strong>Free Disk Space:</strong> {}</p>
+                <p><strong>Trash Size:</strong> {}</p>
+                
+                <h1>Battery Status</h1>
+                <pre>{}</pre>
+                
+                <h1>Connected Volumes</h1>
+                {}
+            </div>
         </body>
-        </html>"#,
+        </html>",
         availableSpaceHuman, freeSpaceHuman, trashSizeHuman, batteries_output, volumes_table
         );
-    stream.write(response.as_bytes()).unwrap();
-    stream.flush().unwrap();
-    stream.shutdown(std::net::Shutdown::Both).unwrap();
+    if let Err(e) = stream.write(response.as_bytes()) {
+        eprintln!("Error writing to stream: {}", e);
+        return;
+    }
+
+    if let Err(e) = stream.flush() {
+        eprintln!("Error flushing stream: {}", e);
+        return;
+    }
+
+    if let Err(e) = stream.shutdown(std::net::Shutdown::Both) {
+        eprintln!("Error shutting down stream: {}", e);
+    }
 }
 
 fn toHumanReadable(bytes: i64) -> String {
