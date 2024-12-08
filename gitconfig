@@ -12,7 +12,7 @@
 	navigate=true
 	features = decorations
 	line-numbers = true
-	side-by-side = true
+	side-by-side = false
 	#hyperlinks = true
 [delta "interactive"]
     keep-plus-minus-markers = false
@@ -61,6 +61,7 @@
 	recentb = "!r() { refbranch=$2; git branch --remote --sort=-committerdate --format='%(refname:short)|%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)' --color=always |head -20| while read line; do branch=$(echo \"$line\" | awk 'BEGIN { FS = \"|\" }; { print $1 }' | tr -d '*'); colorline=$(echo \"$line\" | sed 's/^[^|]*|//'); echo \"$colorline\" | awk -F'|' -vOFS='|' '{$5=substr($5,1,70)}1' ; done | ( echo \"branch|lastcommit|message|author\\n\" && cat) | column -ts'|';}; r"
 	pp = push
 	pf = push --force-with-lease
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 [diff]
 	tool = p4merge
 	external = difft --syntax-highlight off --tab-width 4
