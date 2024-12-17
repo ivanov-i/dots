@@ -144,7 +144,7 @@ zstyle ':omz:plugins:docker' legacy-completion yes
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf fzf-tab autoupdate zsh-autosuggestions zsh-syntax-highlighting docker)
+plugins=(git fzf fzf-tab autoupdate zsh-autosuggestions zsh-syntax-highlighting docker zsh-lazyload)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -353,8 +353,8 @@ fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	PATH=$(pyenv root)/shims:$PATH
 	export PYENV_ROOT="$HOME/.pyenv"
-	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-	eval "$(pyenv init -)"
+	lazyload pyenv -- 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+	eval "$(pyenv init -)"'
 fi
 
 FILE=/Users/ivanov/.docker/init-zsh.sh; [ -f $FILE ] && . $FILE
@@ -386,11 +386,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+lazyload jenv -- 'eval "$(jenv init -)"'
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+#lazy load this:
+lazyload nvm -- '[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"'  # This loads nvm bash_completion
+
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     deduplicate_impl()
@@ -451,10 +453,10 @@ fi
 # add ~/bin to PATH
 export PATH="$HOME/bin:$PATH"
 
-eval "$(zoxide init zsh)"
+lazyload zoxide -- 'eval "$(zoxide init zsh)"'
 
 #github copilot cli
-eval "$(gh copilot alias -- zsh)"
+lazyload gh -- 'eval "$(gh copilot alias -- zsh)"'
 
 source ~/.secrets
 
