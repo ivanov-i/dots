@@ -1,3 +1,5 @@
+# zmodload zsh/zprof
+
 export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY
@@ -427,3 +429,4 @@ eval "$(gh copilot alias -- zsh)"
 
 source ~/.secrets
 
+# zprof
