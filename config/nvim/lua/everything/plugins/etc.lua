@@ -26,7 +26,6 @@ return
 {'folke/neodev.nvim'},
 {'airblade/vim-gitgutter'},
 {'lewis6991/impatient.nvim'},
-{'dhruvasagar/vim-prosession', dependencies= {'tpope/vim-obsession'}},
 {'whiteinge/diffconflicts'},
 {'tpope/vim-repeat'},
 }
