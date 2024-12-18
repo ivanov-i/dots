@@ -386,7 +386,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 export PATH="$HOME/.jenv/bin:$PATH"
-lazyload jenv -- 'eval "$(jenv init -)"'
+lazyload jenv java mvn gradle gradlew javac -- 'eval "$(jenv init -)"'
 
 export NVM_DIR="$HOME/.nvm"
 #lazy load this:
