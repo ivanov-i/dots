@@ -390,7 +390,7 @@ lazyload jenv java mvn gradle gradlew javac -- 'eval "$(jenv init -)"'
 
 export NVM_DIR="$HOME/.nvm"
 #lazy load this:
-lazyload nvm -- '[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+lazyload nvm yarn -- '[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"'  # This loads nvm bash_completion
 
 
