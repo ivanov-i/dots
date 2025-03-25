@@ -49,7 +49,7 @@
 	h = !git head
 	hp = !. ~/.githelpers && show_git_head
 	r = !GIT_NO_PAGER=1 git l -20
-	ra = !git r --all
+	ra = !GIT_NO_PAGER=1 git l -20
 	l = !. ~/.githelpers && pretty_git_log
 	la = !git l --all
 	sh = !git show HEAD --ext-diff

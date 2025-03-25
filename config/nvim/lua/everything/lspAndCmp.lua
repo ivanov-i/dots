@@ -31,7 +31,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-require('java').setup()
+require('java').setup{
+    spring_boot_tools = {
+        enable = true,
+        version = '1.61.1',
+    }
+  }
 require('lspconfig').jdtls.setup({})
 require('lspconfig').lua_ls.setup({})
 
