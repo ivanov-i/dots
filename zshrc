@@ -460,4 +460,6 @@ lazyload gh -- 'eval "$(gh copilot alias -- zsh)"'
 
 source ~/.secrets
 
+export AIDER_ANALYTICS_DISABLED=True
+
 # zprof
