@@ -225,8 +225,10 @@ update() {
   rustup update && \
   echo "[cargo update]" && \
   cargo install-update -a && \
-  echo "[npm update]" && \
+  echo "[n update]" && \
   sudo n latest && \
+  echo "[npm update]" && \
+  npx npm-check --global --update-all
   echo "[tldr update]" && \
   tldr --update
   echo "[oh my zsh update]"
@@ -253,8 +255,10 @@ update() {
 	  cargo install-update -a && \
 	  echo "[yt-dlp update]" && \
 	  yt-dlp -U && \
-	  echo "[npm update]" && \
-	  sudo n latest && \
+      echo "[n update]" && \
+      sudo n latest && \
+      echo "[npm update]" && \
+      npx npm-check --global --update-all
 	  echo "[tldr update]" && \
 	  tldr --update
       echo "[oh my zsh update]"
