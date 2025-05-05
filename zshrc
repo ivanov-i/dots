@@ -267,8 +267,8 @@ update() {
 
 fi
 
-alias ll="lsd"
-alias lm="lsd --long --git --gitsort"
+alias ll="eza --classify"
+alias lm="eza --classify --long --sort=changed"
 
 if [ -e /home/q/.nix-profile/etc/profile.d/nix.sh ]; then . /home/q/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
