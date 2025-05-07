@@ -16,6 +16,7 @@ ln -f -s $PWD/fzf.zsh ~/.fzf.zsh
 mkdir -p ~/.config/nvim 
 ln -f -s $PWD/config/nvim/lua ~/.config/nvim/
 ln -f -s $PWD/config/nvim/after ~/.config/nvim/
+ln -f -s $PWD/config/nvim/ftplugin ~/.config/nvim/
 ln -f -s $PWD/config/nvim/init.lua ~/.config/nvim/init.lua
 
 mkdir -p ~/.config/zellij
