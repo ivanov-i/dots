@@ -56,6 +56,9 @@ vim.g.gitgutter_sign_allow_clobber = 0
 cmp.setup({
   sources = {
     {name = 'nvim_lsp'},
+    {name = 'luasnip'},
+    {name = 'buffer'},
+    {name = 'path'},
   },
   snippet = {
     expand = function(args)
