@@ -471,3 +471,7 @@ source ~/.secrets
 export AIDER_ANALYTICS_DISABLED=True
 
 # zprof
+
+# disable yarn messing with files
+export COREPACK_ENABLE_AUTO_PIN=0
+
