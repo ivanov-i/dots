@@ -477,3 +477,8 @@ export COREPACK_ENABLE_AUTO_PIN=0
 
 # disable telemetry (claude)
 export DISABLE_TELEMETRY=1
+
+# claude code
+
+export BASH_MAX_TIMEOUT_MS=`expr 30 \* 60 \* 1000`
+export BASH_DEFAULT_TIMEOUT_MS=`expr 10 \* 60 \* 1000`
