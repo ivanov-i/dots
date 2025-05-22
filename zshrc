@@ -475,3 +475,5 @@ export AIDER_ANALYTICS_DISABLED=True
 # disable yarn messing with files
 export COREPACK_ENABLE_AUTO_PIN=0
 
+# disable telemetry (claude)
+export DISABLE_TELEMETRY=1
