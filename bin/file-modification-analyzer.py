@@ -3,31 +3,61 @@
 # requires-python = ">=3.8"
 # dependencies = []
 # ///
-"""
-File modification analyzer - uses Claude to check for comments in code
-"""
 
 import json
 import sys
 import subprocess
 import re
 import os
+from textwrap import dedent
 
 DEBUG = os.environ.get('HOOK_DEBUG', '').lower() == 'true'
 
-ANALYSIS_PROMPT = """Does this code contain any comments?
+ANALYSIS_PROMPT = """You are analyzing a Claude Code hook request to enforce a no-comments policy.
 
-{content}
+Claude Code is attempting to modify a file. Here is the complete hook input:
+
+```json
+{hook_input}
+```
+
+Examine the JSON to understand what modification is being attempted:
+- tool_name: tells you which tool (Edit, Write, or MultiEdit)
+- tool_input: contains the modification details
+
+Your task: Check if the NEW content contains programming comments that should be blocked.
+
+Remember that comments inside strings are NOT comments to block. Also, functional directives and metadata that control program behavior are NOT comments.
+
+For Edit tool: Check the "new_string" field
+For Write tool: Check the "content" field
+For MultiEdit tool: Check all "new_string" fields in the "edits" array
+
+IMPORTANT: Distinguish between functional directives and actual comments.
+
+ALLOW functional directives like:
+- Shebangs (#!/usr/bin/env python, #!/bin/bash, etc.)
+- Encoding declarations (# -*- coding: utf-8 -*-)
+- PEP 723 script metadata blocks
+- Pragmas, directives, and other language-specific functional annotations
+- Any syntax that controls program behavior rather than explaining it
+
+BLOCK actual comments like:
+- Explanatory comments that describe what code does
+- TODO/FIXME/NOTE comments
+- Commented-out code
+- Documentation comments
+- Any text meant for human readers rather than the interpreter/compiler
 
 Respond with ONLY valid JSON:
 {{
-  "has_comments": true or false
+  "has_comments": true or false,
+  "comment_details": "description of actual comments found (not functional directives)"
 }}"""
 
-def analyze_with_claude(content):
-    """Use claude to check for comments"""
+def analyze_with_claude(data):
     analysis_prompt = ANALYSIS_PROMPT.format(
-        content=content.replace('"', '\\"')
+        hook_input=json.dumps(data, indent=2)
     )
     
     try:
@@ -36,7 +66,7 @@ def analyze_with_claude(content):
             input=analysis_prompt,
             capture_output=True,
             text=True,
-            timeout=10
+            timeout=None
         )
         
         if result.returncode == 0:
@@ -61,33 +91,59 @@ def analyze_with_claude(content):
         return None
 
 def main():
-    if DEBUG:
-        print("Script started", file=sys.stderr)
     try:
         stdin_data = sys.stdin.read()
+        
         if DEBUG:
             print(f"Raw stdin: {stdin_data}", file=sys.stderr)
         data = json.loads(stdin_data)
-        tool_input = data.get('tool_input', {})
         
         if DEBUG:
             print(f"Input: {json.dumps(data)}", file=sys.stderr)
         
-        content = tool_input.get('content', '') or tool_input.get('new_string', '')
-        if not content and 'edits' in tool_input:
-            edits = tool_input.get('edits', [])
-            content = '\n'.join(edit.get('new_string', '') for edit in edits)
-        
-        if not content.strip():
-            print(json.dumps({}))
-            return
-        
-        analysis = analyze_with_claude(content)
+        analysis = analyze_with_claude(data)
         
         if analysis and analysis.get('has_comments'):
+            comment_details = analysis.get('comment_details', 'No details provided')
+            
+            tool_name = data.get('tool_name', '')
+            if tool_name in ['Edit', 'MultiEdit']:
+                reason = dedent(f"""
+                    Comments found: {comment_details}
+
+                    Reminder: Don't forget the no-comments rule.
+
+                    Note: The {tool_name} tool only shows fragments without surrounding context. This detection may be incorrect if:
+                    - The content is inside a string literal
+                    - The content is data rather than code
+                    - The fragment is part of a larger non-comment structure
+
+
+                    If this is a false positive, try using a different approach that provides more context.
+
+                    If you believe these comments are essential, ask the user to add them manually.
+                """).strip()
+            else:
+                reason = dedent(f"""
+                    Comments found: {comment_details}
+
+                    Reminder: Don't forget the no-comments rule.
+
+                    If you believe these comments are essential, ask the user to add them manually.
+                """).strip()
+            
             print(json.dumps({
                 "decision": "block",
-                "reason": "🚫 Comments detected. Rule: Do not add any comments.\n💡 If you believe these comments are essential, ask the user to add them manually."
+                "reason": reason
+            }))
+        elif analysis is None:
+            print(json.dumps({
+                "decision": "block",
+                "reason": dedent("""
+                    Analysis service unavailable. Cannot determine if content contains comments.
+
+                    The comment detection service failed to respond. Blocking the operation as a precaution.
+                """).strip()
             }))
         else:
             print(json.dumps({}))

@@ -1,45 +1,30 @@
 {
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "osascript -e 'display notification \"Requires input\" with title \"Claude code\" subtitle \"Processing is complete.\" sound name \"Frog\"'"
-          },
-          {
-            "type": "command",
-            "command": "jq -r '.message' | xargs -I {} say \"{}\""
-          }
+    "hooks": {
+        "Notification": [
+            {
+                "matcher": "",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "afplay /System/Library/Sounds/Submarine.aiff"
+                    },
+                    {
+                        "type": "command",
+                        "command": "jq -r '.message' | say"
+                    }
+                ]
+            }
+        ],
+        "PreToolUse": [
+            {
+                "matcher": "Write|Edit|MultiEdit",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "~/bin/file-modification-analyzer.py"
+                    }
+                ]
+            }
         ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "osascript -e 'display notification \"Done\" with title \"Claude code\" subtitle \"Processing is complete.\" sound name \"Frog\"'"
-          },
-          {
-            "type": "command",
-            "command": "echo \"Work complete.|Job's done.|Construction complete.|Ready to work!|Mission accomplished.|It is done.|I'llbe back... but the task is done.|The deed is done.|Taskcompleted successfully.|All systems nominal.|Objective complete.|Roger that, task finished.|Affirmative, work complete.|By your command, it is done.\" | tr '|' '\\n' | shuf -n 1 | say"
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/bin/file-modification-analyzer.py"
-          }
-        ]
-      }
-    ]
-  }
+    }
 }
