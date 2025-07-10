@@ -477,3 +477,6 @@ export COREPACK_ENABLE_AUTO_PIN=0
 
 # disable telemetry (claude)
 export DISABLE_TELEMETRY=1
+
+#jujutsu, jj
+source <(COMPLETE=zsh jj)
