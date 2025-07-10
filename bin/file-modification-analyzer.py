@@ -41,18 +41,18 @@ ALLOW functional directives like:
 - PEP 723 script metadata blocks
 - Pragmas, directives, and other language-specific functional annotations
 - Any syntax that controls program behavior rather than explaining it
+- TODO/FIXME/NOTE comments
+- good documentation comments for tricky algorithms
 
 BLOCK actual comments like:
-- Explanatory comments that describe what code does
-- TODO/FIXME/NOTE comments
+- Explanatory comments that describe what code does.
 - Commented-out code
-- Documentation comments
 - Any text meant for human readers rather than the interpreter/compiler
 
 Respond with ONLY valid JSON:
 {{
   "has_comments": true or false,
-  "comment_details": "description of actual comments found (not functional directives)"
+  "comment_details": "description of actual comments found together with explanations why do you report them"
 }}"""
 
 def analyze_with_claude(data):
