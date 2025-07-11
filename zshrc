@@ -478,6 +478,7 @@ export COREPACK_ENABLE_AUTO_PIN=0
 # claude code
 export DISABLE_TELEMETRY=1
 alias cc="claude --dangerously-skip-permissions"
+alias gcauto='git commit -m "$(claude -p "Look at the staged git changes and create a summarizing git commit title. Only respond with the title and no affirmation.")"'
 
 #jujutsu, jj
 source <(COMPLETE=zsh jj)
