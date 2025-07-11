@@ -475,8 +475,9 @@ export AIDER_ANALYTICS_DISABLED=True
 # disable yarn messing with files
 export COREPACK_ENABLE_AUTO_PIN=0
 
-# disable telemetry (claude)
+# claude code
 export DISABLE_TELEMETRY=1
+alias cc="claude --dangerously-skip-permissions"
 
 #jujutsu, jj
 source <(COMPLETE=zsh jj)
