@@ -26,6 +26,7 @@ Examine the JSON to understand what modification is being attempted:
 - tool_input: contains the modification details
 
 Your task: Check if the NEW content contains programming comments that should be blocked.
+Consider the fite type. For example, you should allow comments in non-code files (e.g. Markdown)
 
 Remember that comments inside strings are NOT comments to block. Also, functional directives and metadata that control program behavior are NOT comments.
 
@@ -62,7 +63,7 @@ def analyze_with_claude(data):
     
     try:
         result = subprocess.run(
-            ['claude', '-p', '--model', 'claude-sonnet-4-20250514'],
+            ['claude', '-p', '--model', 'sonnet'],
             input=analysis_prompt,
             capture_output=True,
             text=True,
