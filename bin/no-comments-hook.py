@@ -33,6 +33,8 @@ Remember that comments inside strings are NOT comments to block. Also, functiona
 For Edit tool: Check the "new_string" field
 For Write tool: Check the "content" field
 For MultiEdit tool: Check all "new_string" fields in the "edits" array
+Also check old string to make sure you only block new comments
+Allow comments removal
 
 IMPORTANT: Distinguish between functional directives and actual comments.
 
@@ -98,8 +100,7 @@ def is_non_code_file(data):
     non_code_extensions = {
         '.md', '.markdown', '.txt', '.rst', '.adoc', '.org',
         '.pdf', '.doc', '.docx', '.odt',
-        '.json', '.yaml', '.yml', '.toml', '.ini', '.cfg', '.conf',
-        '.csv', '.tsv', '.xml', '.html', '.htm',
+        '.csv', '.tsv',
         '.log', '.out', '.err',
         '.gitignore', '.dockerignore', '.editorconfig',
         'LICENSE', 'README', 'CHANGELOG', 'AUTHORS', 'CONTRIBUTORS'
