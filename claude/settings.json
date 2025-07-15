@@ -21,7 +21,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "~/bin/file-modification-analyzer.py"
+                        "command": "~/bin/no-comments-hook.py"
                     }
                 ]
             }

@@ -26,7 +26,7 @@ Examine the JSON to understand what modification is being attempted:
 - tool_input: contains the modification details
 
 Your task: Check if the NEW content contains programming comments that should be blocked.
-Consider the fite type. For example, you should allow comments in non-code files (e.g. Markdown)
+Consider the file type. For example, you should allow comments in non-code files (e.g. Markdown)
 
 Remember that comments inside strings are NOT comments to block. Also, functional directives and metadata that control program behavior are NOT comments.
 
@@ -91,6 +91,43 @@ def analyze_with_claude(data):
     except Exception:
         return None
 
+def is_non_code_file(data):
+    tool_name = data.get('tool_name', '')
+    tool_input = data.get('tool_input', {})
+    
+    non_code_extensions = {
+        '.md', '.markdown', '.txt', '.rst', '.adoc', '.org',
+        '.pdf', '.doc', '.docx', '.odt',
+        '.json', '.yaml', '.yml', '.toml', '.ini', '.cfg', '.conf',
+        '.csv', '.tsv', '.xml', '.html', '.htm',
+        '.log', '.out', '.err',
+        '.gitignore', '.dockerignore', '.editorconfig',
+        'LICENSE', 'README', 'CHANGELOG', 'AUTHORS', 'CONTRIBUTORS'
+    }
+    
+    file_paths = []
+    
+    if tool_name in ['Edit', 'Write']:
+        file_path = tool_input.get('file_path', '')
+        if file_path:
+            file_paths.append(file_path)
+    elif tool_name == 'MultiEdit':
+        file_path = tool_input.get('file_path', '')
+        if file_path:
+            file_paths.append(file_path)
+    
+    for file_path in file_paths:
+        file_name = os.path.basename(file_path)
+        _, ext = os.path.splitext(file_path)
+        
+        if ext.lower() in non_code_extensions:
+            return True
+        
+        if file_name.upper() in non_code_extensions:
+            return True
+    
+    return False
+
 def main():
     try:
         stdin_data = sys.stdin.read()
@@ -101,6 +138,12 @@ def main():
         
         if DEBUG:
             print(f"Input: {json.dumps(data)}", file=sys.stderr)
+        
+        if is_non_code_file(data):
+            if DEBUG:
+                print("Skipping analysis for non-code file", file=sys.stderr)
+            print(json.dumps({}))
+            return
         
         analysis = analyze_with_claude(data)
         
