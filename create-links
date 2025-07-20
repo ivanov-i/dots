@@ -48,8 +48,8 @@ ln -f -s $PWD/coding-standards.md ~/.coding-standards.md
 
 mkdir -p ~/.claude
 ln -f -s $PWD/claude/CLAUDE.md ~/.claude/CLAUDE.md
-ln -f -s $PWD/claude/commands ~/.claude/commands
-ln -f -s $PWD/claude/scripts ~/.claude/scripts
+ln -f -s $PWD/claude/commands ~/.claude/
+ln -f -s $PWD/claude/scripts ~/.claude/
 ln -f -s $PWD/claude/settings.json ~/.claude/settings.json
 
 ln -f -s $PWD/config/wezterm ~/.config/
