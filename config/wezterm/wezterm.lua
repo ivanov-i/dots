@@ -13,16 +13,7 @@ local config = wezterm.config_builder()
 -- or, changing the font size and color scheme.
 config.font_size = 16
 
--- config.color_scheme = 'Azu (Gogh)'
--- config.color_scheme = 'Base4Tone Classic D (Gogh)'
--- config.color_scheme = 'Brogrammer (Gogh)'
--- config.color_scheme = 'Cai (Gogh)'
-config.color_scheme = 'Campbell (Gogh)'
--- config.color_scheme = 'Dark Pastel (Gogh)'
--- config.color_scheme = 'Catppuccin Mocha (Gogh)'
-
 config.font = wezterm.font('VictorMono Nerd Font Mono')
-
 -- config.font_rules = {
 --     {
 --         intensity = 'Bold',
@@ -37,6 +28,14 @@ config.visual_bell = {
   fade_out_duration_ms = 75,
   target = 'CursorColor',
 }
+
+config.window_close_confirmation = "NeverPrompt"
+
+-- config.color_scheme = 'Azu (Gogh)'
+-- config.color_scheme = 'Base4Tone Classic D (Gogh)'
+config.color_scheme = 'Brogrammer (Gogh)'
+-- config.color_scheme = 'Dark Pastel (Gogh)'
+-- config.color_scheme = 'Catppuccin Mocha (Gogh)'
 
 -- Finally, return the configuration to wezterm:
 return config
