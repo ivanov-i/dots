@@ -33,8 +33,7 @@ Remember that comments inside strings are NOT comments to block. Also, functiona
 For Edit tool: Check the "new_string" field
 For Write tool: Check the "content" field
 For MultiEdit tool: Check all "new_string" fields in the "edits" array
-Also check old string to make sure you only block new comments
-Allow comments removal
+Also check old string to make sure you only block new comments, not comment removal or the comments that are going to be left intact (around the actual change)
 
 IMPORTANT: Distinguish between functional directives and actual comments.
 
