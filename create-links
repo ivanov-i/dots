@@ -54,5 +54,3 @@ ln -f -s $PWD/claude/agents ~/.claude/
 ln -f -s $PWD/claude/settings.json ~/.claude/settings.json
 
 ln -f -s $PWD/config/wezterm ~/.config/
-
-ln -f -s $PWD/config/aerospace ~/.config/
