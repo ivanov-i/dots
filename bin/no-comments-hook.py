@@ -64,7 +64,7 @@ def analyze_with_claude(data):
     
     try:
         result = subprocess.run(
-            ['claude', '-p', '--model', 'sonnet'],
+            ['claude', '-p', '--model', 'haiku'],
             input=analysis_prompt,
             capture_output=True,
             text=True,
