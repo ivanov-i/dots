@@ -17,7 +17,7 @@ color: blue
 
 ## Goal
 
-Create well-formatted commits with the conventional commits style mixed with emoji (gitmoji).
+Create well-formatted commits 
 
 1. Checks which files are staged with `git status`.
 2. Check historical commits to learn style and tone (`git log --oneline -40`).
