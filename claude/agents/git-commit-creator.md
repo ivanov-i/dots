@@ -32,8 +32,7 @@ Create well-formatted commits
 
 - **Atomic commits**: Each commit should contain related changes that serve a single purpose.
 - **Split large changes**: If changes touch multiple concerns, split them into separate commits. Always reviews the commit diff to ensure the message matches the changes
-- **keep description single line**: Keep the whole commit message on the first line. In this day or age nobody cares about outdated line length limitsi, but be reasonable.
-- **Present tense, imperative mood**: Use the imperative mood in the subject line.
+- **keep description single line**: Keep the whole commit message single line. It is forbidden to add more lines.
 
 ## Guidelines for Splitting Commits
 
