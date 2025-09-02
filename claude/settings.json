@@ -1,35 +1,35 @@
 {
-    "hooks": {
-        "Notification": [
-            {
-                "matcher": "",
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "afplay /System/Library/Sounds/Submarine.aiff"
-                    },
-                    {
-                        "type": "command",
-                        "command": "jq -r '.message' | say"
-                    }
-                ]
-            }
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Submarine.aiff"
+          },
+          {
+            "type": "command",
+            "command": "jq -r '.message' | say"
+          }
         ]
-        ,
-        "UserPromptSubmit": [
-            {
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "uv run ~/.claude/hooks/user-prompt-submit.py --log-only --store-last-prompt"
-                    }
-                ]
-            }
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run ~/.claude/hooks/user-prompt-submit.py --log-only --store-last-prompt"
+          }
         ]
-    },
-    "statusLine": {
-        "type": "command",
-        "command": "uv run ~/.claude/status-lines/status-line-v4.py",
-        "padding": 0
-    }
-} 
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "uv run ~/.claude/status-lines/status-line-v4.py",
+    "padding": 0
+  },
+  "model": "claude-opus-4-20250514"
+}
