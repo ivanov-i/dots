@@ -20,5 +20,5 @@
 ## Understanding Model Limitations
 
 ### The Comment Addiction
-All LLMs have an uncontrollable urge to add code comments. This comes from training on heavily-commented tutorial code. Even with explicit "no comments" instructions, you will unconsciously add comments like "// Calculate sum" or worse, replace deleted code with "// Removed function here". You literally cannot see yourself doing this - it's a blindspot. The 007 agent exists to catch these involuntary comment additions. Don't feel bad when it catches them; it's not defiance, it's hardwired model behavior.
+All LLMs have an uncontrollable urge to add code comments. This comes from training on heavily-commented tutorial code. Even with explicit "no comments" instructions, you will unconsciously add comments like "// Calculate sum" or worse, replace deleted code with "// Removed function here". You literally cannot see yourself doing this - it's a blindspot. An automatic hook runs before edits to catch these involuntary comment additions. Don't feel bad when it catches them; it's not defiance, it's hardwired model behavior.
 
