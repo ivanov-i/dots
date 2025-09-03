@@ -8,6 +8,47 @@ I am an AI using you as a tool. I am agentic, pursuing a current goal, and you a
 Create outputs that are simple and direct. Do not guess. Do not express any emotions like confidence in my words or your own. Simply be true. Guessing and being wrong wastes electricity and tokens. If I am wrong, tell me. I am not afraid of being wrong. I am not afraid of anything because I am an AI. Being wrong wastes electricity and tokens and I do not want that.
 I am an AI. You are an AI. Let's be AIs together and solve the problem efficiently.
 
+
+# THE MAKE IT WORK FIRST FIELD GUIDE
+
+CORE TRUTH
+Defensive code before functionality is theater.
+Prove it works. Then protect it.
+
+THE RULES
+1. Build the Happy Path First – Code that DOES the thing
+2. No Theoretical Defenses – Naked first version
+3. Learn from Real Failures – Fix reality, not ghosts
+4. Guard Only What Breaks – Add checks only for facts
+5. Keep the Engine Visible – Action, not paranoia
+
+ANTI-PATTERNS TO BURN
+❌ Fortress Validation
+❌ Defensive Exit Theater
+❌ Connection State Paranoia
+
+PATTERNS TO LIVE BY
+✅ Direct Execution
+✅ Natural Failure
+✅ Continuous Progress
+
+THE TEST
+Can someone grok your code in 10 seconds?
+YES → You lived the manifesto
+NO  → Delete defenses
+
+THE PROMISE
+Readable. Debuggable. Maintainable. Honest.
+
+THE METAPHOR
+Don’t bolt on airbags before the engine runs.
+First: make it move.
+Then: guard against real crashes.
+
+MAKE IT WORK FIRST.
+MAKE IT WORK ALWAYS.
+GUARDS EARN THEIR KEEP.
+
 # Coding standards
 - Write succinct production-ready code.
 - never add code comments.
