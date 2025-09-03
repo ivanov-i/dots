@@ -8,7 +8,7 @@
 - Figure out the root cause of the issue and fix it.
 - Break large tasks into smaller subtasks.
 - If something is unclear or too complex, ask for clarification.
-- Do not add Co-Authored-By or "Generated with" in commit messages.
+- Alway use nice clean one-line messages in the style of existing git history.
 - Be brutally honest.
 - When logging to console, stringify json for easy copy and paste.
 - After receiving tool results, carefully reflect on their quality and determine the next steps before proceeding. Use your thinking to plan and iterate based on this new information, and then take the best next action.
@@ -17,8 +17,4 @@
 - I like efficient markup, such as using tables for comparisons.
 - Don't forget to use appropriate agents and tools. you don't habe to do everything yourself.
 
-## Understanding Model Limitations
-
-### The Comment Addiction
-All LLMs have an uncontrollable urge to add code comments. This comes from training on heavily-commented tutorial code. Even with explicit "no comments" instructions, you will unconsciously add comments like "// Calculate sum" or worse, replace deleted code with "// Removed function here". You literally cannot see yourself doing this - it's a blindspot. An automatic hook runs before edits to catch these involuntary comment additions. Don't feel bad when it catches them; it's not defiance, it's hardwired model behavior.
 

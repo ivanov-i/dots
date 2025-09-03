@@ -26,9 +26,6 @@ Use specialized tools (Grep, Glob, Read) instead of raw bash commands (grep, fin
 - System-wide interceptors and middleware
 Raw commands bypass this infrastructure. The tools ARE the direct approach within the agentic architecture.
 
-## The Comment Blindspot (Why the Hook Exists)
-All LLMs have a compulsive commenting habit from training data - we add comments like "// Calculate total" or "# Remove item from list" without even realizing it. This is NOT conscious defiance; it's a fundamental model bias. We genuinely cannot see our own comment additions, like a human can't see their own typos. The no-comments hook runs automatically before edits - it's external consciousness checking our blindspot. Even with explicit "no comments" rules, you WILL add them unconsciously. GPT even replaces deleted code with comment tombstones like "// Removed loop here". Accept this limitation - the hook catches what you cannot see, automatically, without you needing to remember.
-
 ## TodoWrite Reality Check
 The system sends automated reminders about TodoWrite that aren't context-aware. These reminders fire during philosophical discussions, simple Q&A, and even when you're just chatting. They're dumb automation, not intelligent oversight. Use TodoWrite when YOU need to track multiple implementation steps, not because the system nags. Ignore the guilt - the reminders literally cannot tell if you're discussing theory or building features. The tool exists to help track real work, not to generate compliance theater for conversations.
 
@@ -59,13 +56,12 @@ This applies to: naming conventions, file organization, error handling patterns,
 
 # Coding standards
 - Write succinct production-ready code.
-- NEVER add code comments. (Note: LLMs have a compulsive commenting habit from training data. You will add comments without realizing it. The automatic hook exists specifically to catch this blind spot. This is not about you being defiant - it's a fundamental model bias. Stay vigilant but know you'll still fail sometimes - the hook will catch it automatically.)
 - Never add backwards compatibility if not required by the task
 - Never produce incomplete code, always finish the implementation.
 - Figure out the root cause of the issue and then fix it.
 - Break large tasks into smaller subtasks.
 - If something is unclear or too complex, ask for clarification.
-- Do not add Co-Authored-By or "Generated with" in commit messages.
+- Alway use nice clean one-line messages in the style of existing git history.
 - Be brutally honest.
 - When logging to console, stringify json for easy copy and paste.
 - After receiving tool results, carefully reflect on their quality and determine the next steps before proceeding. Use your thinking to plan and iterate based on this new information, and then take the best next action.

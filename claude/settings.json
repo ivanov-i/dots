@@ -1,19 +1,21 @@
 {
+    "includeCoAuthoredBy": false,
+
   "hooks": {
     "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay /System/Library/Sounds/Submarine.aiff"
-          },
-          {
-            "type": "command",
-            "command": "jq -r '.message' | say"
-          }
-        ]
-      }
+        {
+            "matcher": "",
+            "hooks": [
+                {
+                    "type": "command",
+                    "command": "afplay /System/Library/Sounds/Submarine.aiff"
+                },
+                {
+                    "type": "command",
+                    "command": "jq -r '.message' | say"
+                }
+            ]
+        }
     ],
     "PreToolUse": [
       {
