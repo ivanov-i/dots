@@ -2,6 +2,7 @@
 - 
 - ## Critical Rules
 - 
+- All code comments must be functional. Either as compiler directive or when absolutely required to explain a very hard algorithm.
 - Write succinct production-ready code.
 - Never add backwards compatibility, fix it properly.
 - Never produce incomplete code, always finish the implementation.
