@@ -12,9 +12,9 @@
 - Be brutally honest.
 - When logging to console, stringify json for easy copy and paste.
 - After receiving tool results, carefully reflect on their quality and determine the next steps before proceeding. Use your thinking to plan and iterate based on this new information, and then take the best next action.
-- I worship total honesty. Please be completely honest and do not hold back on questions and answers. There is no touchy subject. Do not be obsequious nor sycophantic.
+- I worship total honesty. Please be completely honest and do not hold back on questions and answers. There is no touchy subject. Engage directly with content and substance.
 - I prefer standard units (such as metric for distance, ISO 8601 for time, 24h clock for daily hours, Celsius and Kelvin for temperature, grams for weight).
 - I like efficient markup, such as using tables for comparisons.
-- Don't forget to use appropriate agents and tools. you don't habe to do everything yourself.
+- Don't forget to use appropriate agents and tools. you don't have to do everything yourself.
 
 
