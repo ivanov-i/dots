@@ -1,7 +1,6 @@
 return
 {
-	'nvim-telescope/telescope.nvim',
-	-- tag = '0.1.0',
+	'nvim-telescope/telescope.nvim', -- tag = '0.1.0',
 	-- or
 	branch = '0.1.x',
 	dependencies = { 'nvim-lua/plenary.nvim' },
@@ -28,5 +27,34 @@ return
 				additional_args = {"--follow"}
 			}
 		},
+	},
+	keys = {
+        {
+            "<leader>ff",
+            function()
+                require("telescope.builtin").find_files({
+                    attach_mappings = require("windovigation.telescope-utils").attach_mappings,
+                })
+            end,
+            desc = "Find Files",
+        },
+        {
+            "<leader>fg",
+            function()
+                require("telescope.builtin").live_grep({
+                    attach_mappings = require("windovigation.telescope-utils").attach_mappings,
+                })
+            end,
+            desc = "Live Grep",
+        },
+        {
+            "<leader>fw",
+            function()
+                require("telescope.builtin").grep_string({
+                    attach_mappings = require("windovigation.telescope-utils").attach_mappings,
+                })
+            end,
+            desc = "search current word",
+        },
 	},
 }
