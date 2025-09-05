@@ -56,4 +56,6 @@ ln -f -s $PWD/claude/status-lines ~/.claude/
 ln -f -s $PWD/claude/hooks ~/.claude/
 ln -f -s $PWD/claude/settings.json ~/.claude/settings.json
 
+ln -f -s $PWD/claude/CLAUDE.md ~/.claude/AGENTS.md
+
 ln -f -s $PWD/config/wezterm ~/.config/
