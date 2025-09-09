@@ -1,46 +1,47 @@
 {
-  "includeCoAuthoredBy": false,
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay /System/Library/Sounds/Submarine.aiff"
-          },
-          {
-            "type": "command",
-            "command": "jq -r '.message' | say"
-          }
+    "outputStyle": "Neutral",
+    "includeCoAuthoredBy": false,
+    "hooks": {
+        "Notification": [
+            {
+                "matcher": "",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "afplay /System/Library/Sounds/Submarine.aiff"
+                    },
+                    {
+                        "type": "command",
+                        "command": "jq -r '.message' | say"
+                    }
+                ]
+            }
+        ],
+        "PreToolUse": [
+            {
+                "matcher": "Write|Edit|MultiEdit",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "~/bin/no-comments-hook.py"
+                    }
+                ]
+            }
+        ],
+        "UserPromptSubmit": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "uv run ~/.claude/hooks/user-prompt-submit.py --log-only --store-last-prompt"
+                    }
+                ]
+            }
         ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/bin/no-comments-hook.py"
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "uv run ~/.claude/hooks/user-prompt-submit.py --log-only --store-last-prompt"
-          }
-        ]
-      }
-    ]
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "npx -y ccstatusline@latest",
-    "padding": 0
-  }
+    },
+    "statusLine": {
+        "type": "command",
+        "command": "npx -y ccstatusline@latest",
+        "padding": 0
+    }
 }
