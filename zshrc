@@ -225,8 +225,6 @@ update() {
   rustup update && \
   echo "[cargo update]" && \
   cargo install-update -a && \
-  echo "[n update]" && \
-  sudo n latest && \
   echo "[npm update]" && \
   npx npm-check --global --update-all
   echo "[tldr update]" && \
@@ -255,8 +253,6 @@ update() {
 	  cargo install-update -a && \
 	  echo "[yt-dlp update]" && \
 	  yt-dlp -U && \
-      echo "[n update]" && \
-      sudo n latest && \
       echo "[npm update]" && \
       npx npm-check --global --update-all
 	  echo "[tldr update]" && \
@@ -399,7 +395,7 @@ __load-nvm() {
     # [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 }
 # lazyload nvm yarn -- '__load-nvm'
-__load-nvm
+lazyload nvm node npm npx yarn -- "__load-nvm"
 
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
