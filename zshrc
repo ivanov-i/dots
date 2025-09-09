@@ -55,6 +55,8 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
+skip_global_compinit=1
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -479,3 +481,15 @@ alias gcauto='git commit -m "$(claude -p "Look at the staged git changes and cre
 
 #jujutsu, jj
 source <(COMPLETE=zsh jj)
+
+_lazy_load_completions() {
+  bindkey '^I' expand-or-complete
+  
+  autoload -U compinit && compinit -C
+  
+  zle expand-or-complete
+}
+
+zle -N .lazy-complete _lazy_load_completions
+
+bindkey '^I' .lazy-complete
