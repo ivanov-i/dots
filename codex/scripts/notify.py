@@ -1,0 +1,57 @@
+# for uvx:
+
+#!/usr/bin/env python3
+
+import json
+import subprocess
+import sys
+
+
+def main() -> int:
+    #print to stderr
+    print("notify", file=sys.stderr)
+    if len(sys.argv) != 2:
+        print("Usage: notify.py <NOTIFICATION_JSON>")
+        return 1
+
+    try:
+        notification = json.loads(sys.argv[1])
+    except json.JSONDecodeError:
+        return 1
+
+    match notification_type := notification.get("type"):
+        case "agent-turn-complete":
+            subprocess.check_output(
+                    [
+                        "say",
+                        "Turn Complete!",
+                        ]
+                    )
+            # assistant_message = notification.get("last-assistant-message")
+            # if assistant_message:
+            #     title = f"Codex: {assistant_message}"
+            # else:
+            #     title = "Codex: Turn Complete!"
+            # input_messages = notification.get("input_messages", [])
+            # message = " ".join(input_messages)
+            # title += message
+        case _:
+            # print(f"not sending a push notification for: {notification_type}")
+            # print(f"not sending a push notification for: {notification_type}", file=sys.stderr)
+            return 0
+
+    # print("saying:", message, file=sys.stderr)
+    # print("title:", title, file=sys.stderr)
+
+    # subprocess.check_output(
+    #     [
+    #         "say",
+    #         title,
+    #     ]
+    # )
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

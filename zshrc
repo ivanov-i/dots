@@ -493,3 +493,7 @@ _lazy_load_completions() {
 zle -N .lazy-complete _lazy_load_completions
 
 bindkey '^I' .lazy-complete
+
+#codex
+
+alias cx="codex"
