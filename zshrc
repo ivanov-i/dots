@@ -503,4 +503,4 @@ bindkey '^I' .lazy-complete
 
 #codex
 
-alias cx="codex"
+alias cx="codex --full-auto"
