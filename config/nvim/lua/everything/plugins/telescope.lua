@@ -48,7 +48,7 @@ return
             desc = "Live Grep",
         },
         {
-            "<leader>fw",
+            "<leader>w",
             function()
                 require("telescope.builtin").grep_string({
                     attach_mappings = require("windovigation.telescope-utils").attach_mappings,
