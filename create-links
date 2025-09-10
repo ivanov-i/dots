@@ -44,8 +44,6 @@ ln -f -s $PWD/ideavimrc ~/.ideavimrc
 
 ln -f -s $PWD/bin ~
 
-ln -f -s $PWD/coding-standards.md ~/.coding-standards.md
-
 mkdir -p ~/.claude
 ln -f -s $PWD/claude/CLAUDE.md ~/.claude/CLAUDE.md
 ln -f -s $PWD/claude/commands ~/.claude/
