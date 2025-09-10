@@ -9,6 +9,7 @@ return
     config = function()
         require("oil").setup({
             skip_confirm_for_simple_edits = true,
+            watch_for_changes = true,
         })
         vim.api.nvim_create_autocmd("User", {
             pattern = "OilEnter",
