@@ -54,6 +54,7 @@ export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 
 skip_global_compinit=1
 
@@ -482,11 +483,17 @@ alias gcauto='git commit -m "$(claude -p "Look at the staged git changes and cre
 #jujutsu, jj
 source <(COMPLETE=zsh jj)
 
+#lazy load compinit on first tab key pressed
 _lazy_load_completions() {
   bindkey '^I' expand-or-complete
-  
-  autoload -U compinit && compinit -C
-  
+
+  autoload -U compinit
+  if [[ -n "$ZSH_COMPDUMP" ]]; then
+    compinit -i -d "$ZSH_COMPDUMP"
+  else
+    compinit -i
+  fi
+
   zle expand-or-complete
 }
 
