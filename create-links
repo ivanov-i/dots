@@ -61,5 +61,5 @@ ln -f -s $PWD/claude/CLAUDE.md ~/.claude/AGENTS.md
 ln -f -s $PWD/config/wezterm ~/.config/
 
 mkdir -p ~/.codex
-ln -f -s $PWD/codex/scripts ~/.codex/scripts
-ln -f -s $PWD/codex/prompts ~/.codex/prompts
+ln -f -s $PWD/codex/scripts ~/.codex/
+ln -f -s $PWD/codex/prompts ~/.codex/
