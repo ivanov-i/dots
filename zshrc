@@ -503,4 +503,4 @@ bindkey '^I' .lazy-complete
 
 #codex
 
-alias cx="codex --full-auto"
+alias cx="codex --full-auto -c 'sandbox_workspace_write.writable_roots=[\".git\"]'"
