@@ -45,6 +45,7 @@ ALLOW functional directives like:
 - Any syntax that controls program behavior rather than explaining it
 - TODO/FIXME/NOTE comments
 - good documentation comments for tricky algorithms
+- actually useful debug logs. sometimes they do printf or log-based debugging. allow this
 
 BLOCK actual comments like:
 - Explanatory comments that describe what code does.
@@ -61,41 +62,61 @@ def analyze_with_claude(data):
     analysis_prompt = ANALYSIS_PROMPT.format(
         hook_input=json.dumps(data, indent=2)
     )
-    
+
     try:
+        # Use --settings to override MAX_THINKING_TOKENS for Haiku
+        settings_override = json.dumps({"env": {"MAX_THINKING_TOKENS": "0"}})
+        
         result = subprocess.run(
-            ['claude', '-p', '--model', 'haiku'],
+            ['claude', '-p', '--model', 'haiku', '--settings', settings_override],
             input=analysis_prompt,
             capture_output=True,
             text=True,
             timeout=None
         )
-        
+
         if result.returncode == 0:
             output = result.stdout.strip()
-            
+
             if DEBUG:
                 print(f"Claude output: {output}", file=sys.stderr)
-            
+
             json_block = re.search(r'```json\s*(\{.*?\})\s*```', output, re.DOTALL)
             if json_block:
                 try:
-                    return json.loads(json_block.group(1))
-                except json.JSONDecodeError:
-                    pass
+                    return {"success": True, "data": json.loads(json_block.group(1))}
+                except json.JSONDecodeError as e:
+                    return {"success": False, "error": f"Failed to parse JSON from Claude response: {str(e)}"}
             json_match = re.search(r'\{.*\}', output, re.DOTALL)
             if json_match:
-                return json.loads(json_match.group())
-        
-        return None
+                try:
+                    return {"success": True, "data": json.loads(json_match.group())}
+                except json.JSONDecodeError as e:
+                    return {"success": False, "error": f"Failed to parse JSON from Claude response: {str(e)}"}
+            return {"success": False, "error": "No valid JSON found in Claude response"}
+        else:
+            # Combine stdout and stderr for better error reporting
+            stdout = result.stdout.strip() if result.stdout else ""
+            stderr = result.stderr.strip() if result.stderr else ""
+            error_output = stderr if stderr else stdout if stdout else "No error details"
             
-    except Exception:
-        return None
+            # Try to extract API error messages from the output
+            if "API Error" in stdout or "API Error" in stderr:
+                error_output = stdout + stderr
+            
+            return {"success": False, "error": f"Claude command failed with exit code {result.returncode}: {error_output[:500]}"}
+
+    except subprocess.TimeoutExpired:
+        return {"success": False, "error": "Claude analysis timed out"}
+    except FileNotFoundError:
+        return {"success": False, "error": "Claude CLI not found. Please ensure 'claude' is installed and in PATH"}
+    except Exception as e:
+        return {"success": False, "error": f"Unexpected error during analysis: {str(e)}"}
 
 def is_non_code_file(data):
     tool_name = data.get('tool_name', '')
     tool_input = data.get('tool_input', {})
-    
+
     non_code_extensions = {
         '.md', '.markdown', '.txt', '.rst', '.adoc', '.org',
         '.pdf', '.doc', '.docx', '.odt',
@@ -104,9 +125,9 @@ def is_non_code_file(data):
         '.gitignore', '.dockerignore', '.editorconfig',
         'LICENSE', 'README', 'CHANGELOG', 'AUTHORS', 'CONTRIBUTORS'
     }
-    
+
     file_paths = []
-    
+
     if tool_name in ['Edit', 'Write']:
         file_path = tool_input.get('file_path', '')
         if file_path:
@@ -115,83 +136,90 @@ def is_non_code_file(data):
         file_path = tool_input.get('file_path', '')
         if file_path:
             file_paths.append(file_path)
-    
+
     for file_path in file_paths:
         file_name = os.path.basename(file_path)
         _, ext = os.path.splitext(file_path)
-        
+
         if ext.lower() in non_code_extensions:
             return True
-        
+
         if file_name.upper() in non_code_extensions:
             return True
-    
+
     return False
 
 def main():
     try:
         stdin_data = sys.stdin.read()
-        
+
         if DEBUG:
             print(f"Raw stdin: {stdin_data}", file=sys.stderr)
         data = json.loads(stdin_data)
-        
+
         if DEBUG:
             print(f"Input: {json.dumps(data)}", file=sys.stderr)
-        
+
         if is_non_code_file(data):
             if DEBUG:
                 print("Skipping analysis for non-code file", file=sys.stderr)
             print(json.dumps({}))
             return
-        
+
         analysis = analyze_with_claude(data)
-        
-        if analysis and analysis.get('has_comments'):
-            comment_details = analysis.get('comment_details', 'No details provided')
-            
-            tool_name = data.get('tool_name', '')
-            if tool_name in ['Edit', 'MultiEdit']:
-                reason = dedent(f"""
-                    Comments found: {comment_details}
 
-                    Reminder: Don't forget the no-comments rule.
+        if analysis and analysis.get('success'):
+            analysis_data = analysis.get('data', {})
+            if analysis_data.get('has_comments'):
+                comment_details = analysis_data.get('comment_details', 'No details provided')
 
-                    Note: The {tool_name} tool only shows fragments without surrounding context. This detection may be incorrect if:
-                    - The content is inside a string literal
-                    - The content is data rather than code
-                    - The fragment is part of a larger non-comment structure
+                tool_name = data.get('tool_name', '')
+                if tool_name in ['Edit', 'MultiEdit']:
+                    reason = dedent(f"""
+                        Comments found: {comment_details}
+
+                        Reminder: Don't forget the no-comments rule.
+
+                        Note: The {tool_name} tool only shows fragments without surrounding context. This detection may be incorrect if:
+                        - The content is inside a string literal
+                        - The content is data rather than code
+                        - The fragment is part of a larger non-comment structure
 
 
-                    If this is a false positive, try using a different approach that provides more context.
+                        If this is a false positive, try using a different approach that provides more context.
 
-                    If you believe these comments are essential, ask the user to add them manually.
-                """).strip()
+                        If you believe these comments are essential, ask the user to add them manually.
+                    """).strip()
+                else:
+                    reason = dedent(f"""
+                        Comments found: {comment_details}
+
+                        Reminder: Don't forget the no-comments rule.
+
+                        If you believe these comments are essential, ask the user to add them manually.
+                    """).strip()
+
+                print(json.dumps({
+                    "decision": "block",
+                    "reason": reason
+                }))
             else:
-                reason = dedent(f"""
-                    Comments found: {comment_details}
-
-                    Reminder: Don't forget the no-comments rule.
-
-                    If you believe these comments are essential, ask the user to add them manually.
-                """).strip()
-            
+                print(json.dumps({}))
+        elif analysis and not analysis.get('success'):
+            error_msg = analysis.get('error', 'Unknown error')
             print(json.dumps({
                 "decision": "block",
-                "reason": reason
-            }))
-        elif analysis is None:
-            print(json.dumps({
-                "decision": "block",
-                "reason": dedent("""
-                    Analysis service unavailable. Cannot determine if content contains comments.
+                "reason": dedent(f"""
+                    Analysis service unavailable: {error_msg}
 
-                    The comment detection service failed to respond. Blocking the operation as a precaution.
+                    The comment detection service failed. Blocking the operation as a precaution.
+
+                    To debug, you can set HOOK_DEBUG=true environment variable.
                 """).strip()
             }))
         else:
             print(json.dumps({}))
-            
+
     except Exception as e:
         if DEBUG:
             print(f"Exception: {e}", file=sys.stderr)
