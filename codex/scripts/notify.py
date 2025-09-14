@@ -8,8 +8,6 @@ import sys
 
 
 def main() -> int:
-    #print to stderr
-    print("notify", file=sys.stderr)
     if len(sys.argv) != 2:
         print("Usage: notify.py <NOTIFICATION_JSON>")
         return 1
