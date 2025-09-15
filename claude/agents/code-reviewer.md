@@ -2,8 +2,8 @@
 name: code-reviewer
 description: Use proactively after yourself or another agent writes code for uncompromising code review with kernel-level scrutiny
 tools: Read, Grep, Glob
+model: opus
 color: red
-model: sonnet
 ---
 
 # Purpose
