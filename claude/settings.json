@@ -23,7 +23,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "~/bin/no-comments-hook.py"
+                        "command": "~/.claude/hooks/no-comments-hook.py"
                     }
                 ]
             }

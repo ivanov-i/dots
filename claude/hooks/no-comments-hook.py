@@ -78,35 +78,53 @@ def analyze_with_claude(data):
         if result.returncode == 0:
             output = result.stdout.strip()
 
+
             if DEBUG:
                 print(f"Claude output: {output}", file=sys.stderr)
+                print(f"Claude output length: {len(output)}", file=sys.stderr)
+                print(f"Claude output repr: {repr(output)}", file=sys.stderr)
 
             json_block = re.search(r'```json\s*(\{.*?\})\s*```', output, re.DOTALL)
             if json_block:
                 try:
                     return {"success": True, "data": json.loads(json_block.group(1))}
                 except json.JSONDecodeError as e:
-                    return {"success": False, "error": f"Failed to parse JSON from Claude response: {str(e)}"}
-            json_start = output.find('{')
-            if json_start != -1:
+                    error_msg = f"Failed to parse JSON from Claude response: {str(e)}"
+                    if DEBUG:
+                        print(f"JSON block parsing failed: {error_msg}", file=sys.stderr)
+                        print(f"JSON block content: {repr(json_block.group(1))}", file=sys.stderr)
+                    return {"success": False, "error": error_msg, "claude_output": output}
+            last_brace = output.rfind('}')
+            if last_brace != -1:
                 brace_count = 0
-                json_end = json_start
-                for i, char in enumerate(output[json_start:], json_start):
-                    if char == '{':
+                json_start = -1
+                for i in range(last_brace, -1, -1):
+                    if output[i] == '}':
                         brace_count += 1
-                    elif char == '}':
+                    elif output[i] == '{':
                         brace_count -= 1
                         if brace_count == 0:
-                            json_end = i + 1
+                            json_start = i
                             break
 
-                if brace_count == 0:
-                    json_text = output[json_start:json_end]
+                if json_start != -1:
+                    json_text = output[json_start:last_brace + 1]
                     try:
                         return {"success": True, "data": json.loads(json_text)}
                     except json.JSONDecodeError as e:
-                        return {"success": False, "error": f"Failed to parse JSON from Claude response: {str(e)}"}
-            return {"success": False, "error": "No valid JSON found in Claude response"}
+                        error_msg = f"Failed to parse JSON from Claude response: {str(e)}"
+
+
+                        if DEBUG:
+                            print(f"Brace-counting parsing failed: {error_msg}", file=sys.stderr)
+                            print(f"Extracted JSON text: {repr(json_text)}", file=sys.stderr)
+                            print(f"JSON start: {json_start}, end: {last_brace + 1}", file=sys.stderr)
+                        return {"success": False, "error": error_msg, "claude_output": output}
+            error_msg = "No valid JSON found in Claude response"
+            if DEBUG:
+                print(f"No JSON found: {error_msg}", file=sys.stderr)
+                print(f"Full output for analysis: {repr(output)}", file=sys.stderr)
+            return {"success": False, "error": error_msg, "claude_output": output}
         else:
             # Combine stdout and stderr for better error reporting
             stdout = result.stdout.strip() if result.stdout else ""
@@ -168,7 +186,15 @@ def main():
 
         if DEBUG:
             print(f"Raw stdin: {stdin_data}", file=sys.stderr)
-        data = json.loads(stdin_data)
+
+        try:
+            data = json.loads(stdin_data)
+        except json.JSONDecodeError as e:
+            if DEBUG:
+                print(f"Malformed JSON from Claude Code: {str(e)}", file=sys.stderr)
+                print(f"Raw input: {repr(stdin_data[:200])}", file=sys.stderr)
+            print(json.dumps({}))
+            return
 
         if DEBUG:
             print(f"Input: {json.dumps(data)}", file=sys.stderr)
@@ -220,15 +246,11 @@ def main():
                 print(json.dumps({}))
         elif analysis and not analysis.get('success'):
             error_msg = analysis.get('error', 'Unknown error')
+            claude_output = analysis.get('claude_output', 'No output captured')
+
             print(json.dumps({
                 "decision": "block",
-                "reason": dedent(f"""
-                    Analysis service unavailable: {error_msg}
-
-                    The comment detection service failed. Blocking the operation as a precaution.
-
-                    To debug, you can set HOOK_DEBUG=true environment variable.
-                """).strip()
+                "reason": f"Analysis failed: {error_msg}\n\nClaude output: {repr(claude_output[:200])}\n\nTo bypass this check, set HOOK_DEBUG=true"
             }))
         else:
             print(json.dumps({}))
@@ -240,3 +262,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
