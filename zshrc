@@ -398,7 +398,7 @@ __load-nvm() {
     # [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 }
 # lazyload nvm yarn -- '__load-nvm'
-lazyload nvm node npm npx yarn -- "__load-nvm"
+lazyload nvm node npm npx yarn claude -- "__load-nvm"
 
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
