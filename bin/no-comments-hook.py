@@ -87,12 +87,25 @@ def analyze_with_claude(data):
                     return {"success": True, "data": json.loads(json_block.group(1))}
                 except json.JSONDecodeError as e:
                     return {"success": False, "error": f"Failed to parse JSON from Claude response: {str(e)}"}
-            json_match = re.search(r'\{.*\}', output, re.DOTALL)
-            if json_match:
-                try:
-                    return {"success": True, "data": json.loads(json_match.group())}
-                except json.JSONDecodeError as e:
-                    return {"success": False, "error": f"Failed to parse JSON from Claude response: {str(e)}"}
+            json_start = output.find('{')
+            if json_start != -1:
+                brace_count = 0
+                json_end = json_start
+                for i, char in enumerate(output[json_start:], json_start):
+                    if char == '{':
+                        brace_count += 1
+                    elif char == '}':
+                        brace_count -= 1
+                        if brace_count == 0:
+                            json_end = i + 1
+                            break
+
+                if brace_count == 0:
+                    json_text = output[json_start:json_end]
+                    try:
+                        return {"success": True, "data": json.loads(json_text)}
+                    except json.JSONDecodeError as e:
+                        return {"success": False, "error": f"Failed to parse JSON from Claude response: {str(e)}"}
             return {"success": False, "error": "No valid JSON found in Claude response"}
         else:
             # Combine stdout and stderr for better error reporting
