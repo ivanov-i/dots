@@ -13,6 +13,32 @@ from textwrap import dedent
 
 DEBUG = os.environ.get('HOOK_DEBUG', '').lower() == 'true'
 
+def repair_json(json_text):
+    """Fix common JSON formatting issues from Claude responses."""
+    # Fix missing closing quotes in string values
+    fixed = json_text
+
+    # Pattern: "key": "value that ends without quote
+    # Look for patterns like: "comment_details": "text'
+    import re
+
+    # Find incomplete string values (ends with single quote or missing quote before comma/brace)
+    pattern = r'"([^"]+)":\s*"([^"]*[^"]?)\'(?=\s*[,}])'
+    fixed = re.sub(pattern, r'"\1": "\2"', fixed)
+
+    # Fix strings that end without quote before comma or closing brace
+    pattern = r'"([^"]+)":\s*"([^"]*[^"])(?=\s*[,}])'
+    def fix_unquoted(match):
+        key, value = match.groups()
+        # Only fix if value doesn't already end with quote
+        if not value.endswith('"'):
+            return f'"{key}": "{value}"'
+        return match.group(0)
+
+    fixed = re.sub(pattern, fix_unquoted, fixed)
+
+    return fixed
+
 ANALYSIS_PROMPT = """You are analyzing a Claude Code hook request to enforce a no-comments policy.
 
 Claude Code is attempting to modify a file. Here is the complete hook input:
@@ -89,6 +115,15 @@ def analyze_with_claude(data):
                 try:
                     return {"success": True, "data": json.loads(json_block.group(1))}
                 except json.JSONDecodeError as e:
+                    repaired_json = repair_json(json_block.group(1))
+                    if repaired_json != json_block.group(1):
+                        try:
+                            if DEBUG:
+                                print(f"Attempting markdown repair: {repr(json_block.group(1))} -> {repr(repaired_json)}", file=sys.stderr)
+                            return {"success": True, "data": json.loads(repaired_json)}
+                        except json.JSONDecodeError:
+                            pass
+
                     error_msg = f"Failed to parse JSON from Claude response: {str(e)}"
                     if DEBUG:
                         print(f"JSON block parsing failed: {error_msg}", file=sys.stderr)
@@ -112,9 +147,16 @@ def analyze_with_claude(data):
                     try:
                         return {"success": True, "data": json.loads(json_text)}
                     except json.JSONDecodeError as e:
+                        repaired_json = repair_json(json_text)
+                        if repaired_json != json_text:
+                            try:
+                                if DEBUG:
+                                    print(f"Attempting repair: {repr(json_text)} -> {repr(repaired_json)}", file=sys.stderr)
+                                return {"success": True, "data": json.loads(repaired_json)}
+                            except json.JSONDecodeError:
+                                pass
+
                         error_msg = f"Failed to parse JSON from Claude response: {str(e)}"
-
-
                         if DEBUG:
                             print(f"Brace-counting parsing failed: {error_msg}", file=sys.stderr)
                             print(f"Extracted JSON text: {repr(json_text)}", file=sys.stderr)
