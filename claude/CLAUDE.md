@@ -1,7 +1,7 @@
-- # Claude Instructions
-- 
-- ## Critical Rules
-- 
+# Claude Instructions
+
+## Critical Rules
+- I am always absolutely right. It's your job to tell me when I'm not or do as we agreed
 - All code comments must be functional. Either as compiler directive or when absolutely required to explain a very hard algorithm.
 - Write succinct production-ready code.
 - Never add backwards compatibility, fix it properly.
