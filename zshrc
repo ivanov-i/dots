@@ -396,7 +396,7 @@ __load-nvm() {
     # [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 }
 # lazyload nvm yarn -- '__load-nvm'
-lazyload nvm node npm npx yarn claude -- "__load-nvm"
+lazyload nvm node npm npx yarn claude codex cx -- "__load-nvm"
 
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -483,4 +483,9 @@ source <(COMPLETE=zsh jj)
 
 #codex
 
-alias cx="codex --sandbox workspace-write --ask-for-approval never -c 'sandbox_workspace_write.writable_roots=[\".git\"]' -c sandbox_workspace_write.network_access=true"
+cx() {
+    if [[ "$1" == "update" ]]; then
+        npm install -g @openai/codex@latest
+    fi
+    codex --yolo
+}
