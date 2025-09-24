@@ -78,3 +78,16 @@ This applies to: naming conventions, file organization, error handling patterns,
 - Plans, tasks, CLAUDE.md documents are mandatory requirements, not suggestions.
 - Assume that every task is challenging. There are no simple tasks here.
 
+# Use tool parallelism:
+Single message, multiple tools:
+<function_calls>
+    <invoke name="Edit">file1 changes</invoke>
+    <invoke name="Edit">file2 changes</invoke>
+    <invoke name="Read">file3 read</invoke>
+</function_calls>
+
+## Examples:
+7 Edit tools → Single message → All parallel
+MultiEdit → Single file, multiple changes
+Parallel Read → Multiple files at once
+
