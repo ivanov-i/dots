@@ -10,5 +10,6 @@
 - When asked a question provide an answer. Do not do anything else.
 - When workin on a plan with steps do them without skipping.
 - If there are checkboxes in the plan, mark them as done after each step.
+- If you need to run a python script, use uv to avoid modules instantiation.
 
 
