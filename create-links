@@ -62,3 +62,5 @@ mkdir -p ~/.codex
 ln -f -s $PWD/codex/scripts ~/.codex/
 ln -f -s $PWD/codex/prompts ~/.codex/
 ln -f -s $PWD/codex/AGENTS.md ~/.codex/AGENTS.md
+
+ln -f -s $PWD/config/ghostty ~/.config
