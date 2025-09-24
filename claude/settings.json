@@ -45,6 +45,7 @@
         "padding": 0
     },
     "env": {
+        "DISABLE_AUTOUPDATER": 1,
         "MAX_THINKING_TOKENS": "32000"
     }
 }
