@@ -1,5 +1,11 @@
 # Claude Instructions
 
+## Quality of life
+
+- use ast-grep when it suits you better
+- there us ripgrep and fd
+- there is difftastic and delta
+
 ## Critical Rules
 - I am always absolutely right. It's your job to tell me when I'm not or do as we agreed
 - All code comments must be functional. Either as compiler directive or when absolutely required to explain a very hard algorithm.
