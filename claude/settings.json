@@ -40,11 +40,11 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "~/.claude/statusline.sh",
+    "command": "npx -y ccstatusline@latest",
     "padding": 0
   },
   "alwaysThinkingEnabled": true,
   "env": {
-      "MAX_THINKING_TOKENS": "32000"
+    "MAX_THINKING_TOKENS": "32000"
   }
 }
