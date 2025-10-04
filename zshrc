@@ -63,6 +63,7 @@ export PATH="/opt/homebrew/opt/llvm/bin/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+eval "$(mise activate zsh)"
 
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
@@ -191,7 +192,7 @@ setopt no_cdable_vars
 
 #export DOCKER_HOST='tcp://0.0.0.0:2375'
 export GOPATH=$HOME/go
-export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+export PATH="$GOPATH/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -362,12 +363,7 @@ install-rust-things()
 
 fi
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-	PATH=$(pyenv root)/shims:$PATH
-	export PYENV_ROOT="$HOME/.pyenv"
-	lazyload pyenv -- 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-	eval "$(pyenv init -)"'
-fi
+ 
 
 FILE=/Users/ivanov/.docker/init-zsh.sh; [ -f $FILE ] && . $FILE
 
@@ -397,16 +393,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 fi
 
-export PATH="$HOME/.jenv/bin:$PATH"
-lazyload jenv java mvn gradle gradlew javac -- 'eval "$(jenv init -)"'
-
-export NVM_DIR="$HOME/.nvm"
-#lazy load nvm:
-__load-nvm() {
-    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-    # [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-}
-lazyload nvm node npm npx yarn claude codex codex-gui -- "__load-nvm"
+ 
 
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
