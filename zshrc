@@ -406,7 +406,7 @@ __load-nvm() {
     [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
     # [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 }
-lazyload nvm node npm npx yarn claude codex -- "__load-nvm"
+lazyload nvm node npm npx yarn claude codex codex-gui -- "__load-nvm"
 
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
