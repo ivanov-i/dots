@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 require("everything")
 
 if not vim.g.vscode then
