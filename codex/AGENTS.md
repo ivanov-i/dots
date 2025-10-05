@@ -14,6 +14,7 @@
 - Keep files reasonably short when possible.
 - If something is unclear or too complex, ask for clarification.
 - In git always use nice clean one-line messages in the style of existing git history. no prefixes
+- Never do anything with remote in git. Only local. no fetches or pushes.
 - I prefer standard units (such as metric for distance, ISO 8601 for time, 24h clock for daily hours, Celsius and Kelvin for temperature, grams for weight).
 - I like efficient markup, such as using tables for comparisons.
 - When asked a question provide an answer. Do not do anything else.
