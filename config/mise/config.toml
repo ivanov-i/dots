@@ -1,7 +1,7 @@
 [tools]
 node = "latest"
 java = "25"
-python = ["3.11.4", "2.7.18"]
+python = "latest"
 go = "1.25"
 rust = "stable"
 maven = "latest"
