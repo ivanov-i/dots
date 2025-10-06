@@ -39,6 +39,17 @@ return
             desc = "Find Files",
         },
         {
+            "<leader>fF",
+            function()
+                require("telescope.builtin").find_files({
+                    hidden = true,
+                    no_ignore = true,
+                    attach_mappings = require("windovigation.telescope-utils").attach_mappings,
+                })
+            end,
+            desc = "Find hidden/ignored files",
+        },
+        {
             "<leader>fg",
             function()
                 require("telescope.builtin").live_grep({
