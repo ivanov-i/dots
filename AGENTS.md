@@ -26,4 +26,3 @@
 
 ## Tooling Hints
 - Fast search: `rg`, `fd`; structured code queries: `ast-grep`.
-- Diff review: `delta` or `difftastic` for readable, semantic diffs.

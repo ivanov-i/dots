@@ -4,7 +4,6 @@
 
 - use ast-grep when it suits you better
 - there is ripgrep and fd
-- there is difftastic and delta
 
 ## Critical Rules
 - All code comments must be functional. Either as compiler directive or when absolutely required to explain a very hard algorithm.
