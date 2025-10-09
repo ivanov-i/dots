@@ -2,7 +2,10 @@
 description: Plan according to the user's request, without starting the implementation.
 ---
 
-$INSTRUCTIONS
+Great. I need your help to write out a comprehensive  implementation plan.
 
-Follow the instructions given by the user. You have to come up with a plan first, User will review the plan and let you know what to change or ok to proceed. You can record the plan using your own way like using the todo tool, but in additional, give user a text version of the plan to read. Only start implementing after getting the approval.
+Assume that the engineer has zero context for our codebase and questionable taste. document everything they need to know. which files to touch for each task, code, testing, docs they might need to check. how to test it.give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. frequent commits.
 
+Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. assume they don't know good test design very well.  
+
+please write out this plan, in full detail, into $INSTRUCTIONS
