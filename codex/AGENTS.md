@@ -4,7 +4,6 @@
 
 - use ast-grep when it suits you better
 - there us ripgrep and fd
-- there is difftastic and delta
 
 ## Critical Rules
 
