@@ -473,6 +473,7 @@ export COREPACK_ENABLE_AUTO_PIN=0
 export DISABLE_TELEMETRY=1
 export DISABLE_ERROR_REPORTING=1
 alias cc="claude --dangerously-skip-permissions"
+alias ccc="claude --dangerously-skip-permissions -p"
 alias gcauto='git commit -m "$(claude -p "Look at the staged git changes and create a summarizing git commit title. Only respond with the title and no affirmation.")"'
 
 #jujutsu, jj
@@ -486,3 +487,7 @@ cx() {
     fi
     codex --yolo --search
 }
+
+#gemini
+
+alias gg="gemini --yolo"
