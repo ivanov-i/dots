@@ -1,0 +1,603 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+import os
+import pathlib
+import re
+import subprocess
+import sys
+import time
+
+CACHE_ROOT = pathlib.Path(os.environ.get("TMPDIR", "/tmp")) / "tmux-status"
+CACHE_ROOT.mkdir(parents=True, exist_ok=True)
+
+STYLES: dict[str, tuple[str, ...]] = {
+    "path": ("bold",),
+    "git": ("bold",),
+    "dirty": ("bold",),
+    "python": ("italics",),
+    "node": ("italics",),
+    "java": ("italics",),
+    "go": ("italics",),
+    "rust": ("italics",),
+    "tf": ("italics",),
+    "kube": ("italics",),
+    "aws": ("italics",),
+    "jobs": ("bold",),
+    "disk": ("bold",),
+    "error": ("bold",),
+}
+
+LIMITS: dict[str, int] = {
+    "path": 24,
+    "git": 26,
+    "dirty": 12,
+    "python": 18,
+    "node": 18,
+    "java": 18,
+    "go": 16,
+    "rust": 18,
+    "kube": 22,
+    "aws": 18,
+    "tf": 16,
+    "jobs": 10,
+    "disk": 12,
+    "error": 40,
+}
+
+SEPARATOR = " · "
+MAX_WIDTH_PADDING = 28
+
+
+def tmux_fmt(fmt: str, target: str | None = None) -> str:
+    cmd = ["tmux", "display-message", "-p"]
+    if target:
+        cmd.extend(["-t", target])
+    cmd.append(fmt)
+    return subprocess.check_output(cmd, text=True).strip()
+
+
+def cache_fetch(key: str, ttl: int, loader):
+    digest = hashlib.sha1(key.encode()).hexdigest()
+    path = CACHE_ROOT / f"{digest}.json"
+    now = time.time()
+    if path.exists() and now - path.stat().st_mtime < ttl:
+        return json.loads(path.read_text())
+    data = loader()
+    tmp_path = path.with_suffix(".tmp")
+    tmp_path.write_text(json.dumps(data))
+    tmp_path.replace(path)
+    return data
+
+
+def read_env(pid: str) -> dict[str, str]:
+    try:
+        raw = subprocess.check_output(
+            ["ps", "e", "-p", pid, "-o", "command="], text=True
+        )
+    except subprocess.CalledProcessError:
+        return {}
+    text = " " + raw.strip()
+    pattern = re.compile(r"\s([A-Z0-9_]+)=")
+    matches = list(pattern.finditer(text))
+    env: dict[str, str] = {}
+    for idx, match in enumerate(matches):
+        start = match.end()
+        end = matches[idx + 1].start() if idx + 1 < len(matches) else len(text)
+        env[match.group(1)] = text[start:end].strip()
+    return env
+
+
+def git_status(path: str) -> dict[str, str] | None:
+    def loader():
+        proc = subprocess.run(
+            [
+                "git",
+                "status",
+                "--porcelain=2",
+                "--branch",
+            ],
+            cwd=path,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if proc.returncode != 0:
+            return {}
+        head = ""
+        ahead = 0
+        behind = 0
+        staged = 0
+        unstaged = 0
+        for line in proc.stdout.splitlines():
+            if line.startswith("# branch.head "):
+                head = line.split(" ", 2)[2]
+            elif line.startswith("# branch.ab "):
+                parts = line.split(" ")
+                ahead = int(parts[-2])
+                behind = int(parts[-1])
+            elif line.startswith(("1 ", "2 ", "7 ")):
+                _, xy, *_ = line.split(" ")
+                if xy[0] != ".":
+                    staged += 1
+                if xy[1] != ".":
+                    unstaged += 1
+            elif line.startswith("? "):
+                unstaged += 1
+        return {
+            "head": head or "detached",
+            "ahead": ahead,
+            "behind": behind,
+            "staged": staged,
+            "unstaged": unstaged,
+        }
+
+    info = cache_fetch(f"git:{path}", 5, loader)
+    return info or None
+
+
+def kube_context(env: dict[str, str], path: str) -> str | None:
+    if env.get("KUBE_PS1_CONTEXT"):
+        return env["KUBE_PS1_CONTEXT"]
+    kube = env.get("KUBECONFIG")
+    if not kube:
+        default_config = pathlib.Path.home() / ".kube" / "config"
+        if default_config.exists():
+            kube = str(default_config)
+    if not kube:
+        return None
+
+    def loader():
+        try:
+            proc = subprocess.run(
+                ["kubectl", "config", "current-context"],
+                cwd=path,
+                env={**os.environ, **env},
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=1.5,
+            )
+        except FileNotFoundError:
+            return ""
+        if proc.returncode != 0:
+            return ""
+        return proc.stdout.strip()
+
+    ctx = cache_fetch(f"kube:{kube}:{path}", 20, loader)
+    return ctx or None
+
+
+def aws_profile(env: dict[str, str]) -> str | None:
+    if env.get("AWS_VAULT"):
+        return env["AWS_VAULT"]
+    if env.get("AWS_PROFILE"):
+        return env["AWS_PROFILE"]
+    return None
+
+
+def terraform_workspace(env: dict[str, str], path: str) -> str | None:
+    if env.get("TF_WORKSPACE"):
+        return env["TF_WORKSPACE"]
+    tf_dir = pathlib.Path(path) / ".terraform" / "environment"
+    if tf_dir.exists():
+        return tf_dir.read_text().strip()
+    return None
+
+
+def disk_usage(path: str) -> str | None:
+    def loader():
+        proc = subprocess.run(
+            ["df", "-h", path],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if proc.returncode != 0:
+            return ""
+        lines = proc.stdout.splitlines()
+        if len(lines) < 2:
+            return ""
+        fields = lines[1].split()
+        return fields[4]
+
+    data = cache_fetch(f"disk:{path}", 60, loader)
+    return data or None
+
+
+def job_count(pid: str) -> int:
+    try:
+        proc = subprocess.run(
+            ["pgrep", "-P", pid],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except FileNotFoundError:
+        return 0
+    if proc.returncode != 0:
+        return 0
+    total = 0
+    for item in proc.stdout.split():
+        child = item.strip()
+        if not child:
+            continue
+        stat = subprocess.run(
+            ["ps", "-o", "state=", "-p", child],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if stat.returncode != 0:
+            continue
+        state = stat.stdout.strip()
+        if state and state[0] != "Z":
+            total += 1
+    return total
+
+
+def ancestors(path: pathlib.Path, limit: int = 12) -> list[pathlib.Path]:
+    items: list[pathlib.Path] = []
+    current = path
+    depth = 0
+    while True:
+        items.append(current)
+        if current.parent == current or depth >= limit:
+            break
+        current = current.parent
+        depth += 1
+    return items
+
+
+def tree_has_file(path: pathlib.Path, names: set[str]) -> bool:
+    for candidate in ancestors(path):
+        for name in names:
+            if (candidate / name).exists():
+                return True
+    return False
+
+
+def detect_project_kinds(path: pathlib.Path, env: dict[str, str]) -> dict[str, bool]:
+    flags = {
+        "python": False,
+        "node": False,
+        "java": False,
+        "go": False,
+        "rust": False,
+        "terraform": False,
+    }
+    if env.get("VIRTUAL_ENV") or env.get("CONDA_PREFIX") or (
+        env.get("PYENV_VERSION") and env["PYENV_VERSION"] != "system"
+    ):
+        flags["python"] = True
+    elif tree_has_file(
+        path,
+        {
+            "pyproject.toml",
+            "requirements.txt",
+            "requirements.in",
+            "setup.py",
+            "setup.cfg",
+            "Pipfile",
+            "poetry.lock",
+        },
+    ):
+        flags["python"] = True
+
+    if env.get("NODENV_VERSION") or env.get("NVM_BIN") or env.get("NODE_VIRTUAL_ENV"):
+        flags["node"] = True
+    elif tree_has_file(
+        path,
+        {
+            "package.json",
+            "pnpm-workspace.yaml",
+            "yarn.lock",
+            "package-lock.json",
+            ".nvmrc",
+            ".node-version",
+        },
+    ):
+        flags["node"] = True
+
+    if env.get("JAVA_HOME"):
+        flags["java"] = True
+    elif tree_has_file(
+        path,
+        {
+            "pom.xml",
+            "build.gradle",
+            "build.gradle.kts",
+            "settings.gradle",
+            "settings.gradle.kts",
+            "gradlew",
+            "mvnw",
+            ".java-version",
+        },
+    ):
+        flags["java"] = True
+
+    if env.get("GOROOT") or env.get("GOMOD"):
+        flags["go"] = True
+    elif tree_has_file(path, {"go.mod", "go.work"}):
+        flags["go"] = True
+
+    if env.get("RUSTUP_TOOLCHAIN"):
+        flags["rust"] = True
+    elif tree_has_file(path, {"Cargo.toml", "rust-toolchain", "rust-toolchain.toml"}):
+        flags["rust"] = True
+
+    if env.get("TF_WORKSPACE"):
+        flags["terraform"] = True
+    elif tree_has_file(path, {"main.tf", "terraform.tf", "terragrunt.hcl"}):
+        flags["terraform"] = True
+
+    return flags
+
+
+def apply_style(text: str, key: str) -> str:
+    attrs = STYLES.get(key)
+    if not attrs:
+        return text
+    prefix = "".join(f"#[{attr}]" for attr in attrs)
+    suffix = ""
+    for attr in attrs:
+        if attr == "bold":
+            suffix += "#[nobold]"
+        elif attr == "italics":
+            suffix += "#[noitalics]"
+        elif attr == "underscore":
+            suffix += "#[nounderscore]"
+    return f"{prefix}{text}{suffix}"
+
+
+def truncate_middle(text: str, limit: int | None) -> str:
+    if not limit or len(text) <= limit:
+        return text
+    if limit <= 3:
+        return text[:limit]
+    keep = limit - 3
+    left = keep // 2
+    right = keep - left
+    return f"{text[:left]}...{text[-right:]}"
+
+
+def compute_max_width() -> int | None:
+    try:
+        width = int(tmux_fmt("#{client_width}"))
+    except Exception:  # noqa: BLE001
+        return None
+    return max(0, width - MAX_WIDTH_PADDING)
+
+
+def build_segments(data: dict[str, str], max_width: int | None) -> str:
+    parts: list[str] = []
+    order = [
+        "path",
+        "git",
+        "dirty",
+        "python",
+        "node",
+        "java",
+        "go",
+        "rust",
+        "kube",
+        "aws",
+        "tf",
+        "jobs",
+        "disk",
+    ]
+    consumed = 0
+    for key in order:
+        value = data.get(key)
+        if not value:
+            continue
+        limit = LIMITS.get(key)
+        display = truncate_middle(value, limit)
+        plain_len = len(display)
+        sep_len = len(SEPARATOR) if parts else 0
+        if max_width is not None and consumed + sep_len + plain_len > max_width:
+            remaining = max_width - consumed - sep_len
+            if remaining >= 4:
+                display = truncate_middle(value, remaining)
+                plain_len = len(display)
+            else:
+                continue
+        parts.append(apply_style(display, key))
+        consumed += sep_len + plain_len
+    return SEPARATOR.join(parts)
+
+
+def assemble() -> str:
+    pane = os.environ.get("TMUX_PANE") or tmux_fmt("#{pane_id}")
+    path = tmux_fmt("#{pane_current_path}", pane)
+    pwd = pathlib.Path(path)
+    data: dict[str, str] = {}
+    data["path"] = pwd.name or str(pwd)
+    git = git_status(path)
+    if git:
+        branch = git["head"]
+        markers: list[str] = []
+        if git["ahead"]:
+            markers.append(f"↑{git['ahead']}")
+        if git["behind"]:
+            markers.append(f"↓{git['behind']}")
+        data["git"] = branch + (" " + " ".join(markers) if markers else "")
+        counts = []
+        if git["staged"]:
+            counts.append(f"s{git['staged']}")
+        if git["unstaged"]:
+            counts.append(f"u{git['unstaged']}")
+        if counts:
+            data["dirty"] = ",".join(counts)
+    pid = tmux_fmt("#{pane_pid}", pane)
+    env = read_env(pid)
+    flags = detect_project_kinds(pwd, env)
+    if flags["python"]:
+        py = python_version(env)
+        if py:
+            data["python"] = f"py:{py}"
+    if flags["node"]:
+        node = node_version(env, path)
+        if node:
+            data["node"] = f"node:{node}"
+    if flags["java"]:
+        java = java_version(env)
+        if java:
+            data["java"] = f"java:{java}"
+    if flags["go"]:
+        go = go_version(env)
+        if go:
+            data["go"] = f"go:{go}"
+    if flags["rust"]:
+        rust = rust_version(env)
+        if rust:
+            data["rust"] = f"rust:{rust}"
+    kube = kube_context(env, path)
+    if kube:
+        data["kube"] = f"k8s:{kube}"
+    aws = aws_profile(env)
+    if aws:
+        data["aws"] = f"aws:{aws}"
+    if flags["terraform"]:
+        tf = terraform_workspace(env, path)
+        if tf:
+            data["tf"] = f"tf:{tf}"
+    jobs = job_count(pid)
+    if jobs:
+        data["jobs"] = f"jobs:{jobs}"
+    disk = disk_usage(path)
+    if disk:
+        data["disk"] = f"disk:{disk}"
+    max_width = compute_max_width()
+    return build_segments(data, max_width)
+
+
+def version_from_text(text: str) -> str | None:
+    match = re.search(r"([0-9]+(?:\.[0-9]+)+)", text)
+    if match:
+        return match.group(1)
+    return None
+
+
+def cached_command_version(key: str, cmd: list[str], env_vars: dict[str, str], ttl: int = 90) -> str | None:
+    def loader():
+        merged_env = {**os.environ, **env_vars}
+        try:
+            proc = subprocess.run(
+                cmd,
+                env=merged_env,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=2.0,
+            )
+        except (FileNotFoundError, PermissionError):
+            return ""
+        if proc.returncode != 0:
+            output = (proc.stdout + "\n" + proc.stderr).strip()
+            if not output:
+                return ""
+        output = (proc.stdout + "\n" + proc.stderr).strip()
+        return output
+
+    raw = cache_fetch(key, ttl, loader)
+    if not raw:
+        return None
+    return version_from_text(raw)
+
+
+def python_version(env: dict[str, str]) -> str | None:
+    venv = env.get("VIRTUAL_ENV")
+    if venv:
+        cfg = pathlib.Path(venv) / "pyvenv.cfg"
+        if cfg.exists():
+            for line in cfg.read_text().splitlines():
+                if line.lower().startswith("version ="):
+                    return line.split("=", 1)[1].strip()
+        ver = cached_command_version(f"python:{venv}", [str(pathlib.Path(venv) / "bin" / "python"), "--version"], env)
+        if ver:
+            return ver
+        return pathlib.Path(venv).name
+    conda = env.get("CONDA_PREFIX")
+    if conda:
+        ver = cached_command_version(f"python:{conda}", [str(pathlib.Path(conda) / "bin" / "python"), "--version"], env)
+        if ver:
+            return ver
+        name = env.get("CONDA_DEFAULT_ENV")
+        if name:
+            return name
+    pyenv_version = env.get("PYENV_VERSION")
+    if pyenv_version:
+        return pyenv_version
+    ver = cached_command_version("python:System", ["python3", "--version"], env)
+    if ver:
+        return ver
+    return None
+
+
+def node_version(env: dict[str, str], path: str) -> str | None:
+    nodenv = env.get("NODENV_VERSION")
+    if nodenv:
+        return nodenv
+    nvm_bin = env.get("NVM_BIN")
+    if nvm_bin:
+        candidate = pathlib.Path(nvm_bin).parent.name
+        return candidate.lstrip("v")
+    nodeenv = env.get("NODE_VIRTUAL_ENV")
+    if nodeenv:
+        return pathlib.Path(nodeenv).name
+    pkg_json = pathlib.Path(path) / "package.json"
+    if pkg_json.exists():
+        def loader():
+            try:
+                return json.loads(pkg_json.read_text())
+            except json.JSONDecodeError:
+                return {}
+
+        data = cache_fetch(f"node-pkg:{pkg_json}", 90, loader)
+        engines = data.get("engines", {})
+        if isinstance(engines, dict) and "node" in engines:
+            return engines["node"]
+    return cached_command_version("node:System", ["node", "-v"], env)
+
+
+def java_version(env: dict[str, str]) -> str | None:
+    home = env.get("JAVA_HOME")
+    if home:
+        release = pathlib.Path(home) / "release"
+        if release.exists():
+            for line in release.read_text().splitlines():
+                if line.startswith("JAVA_VERSION="):
+                    value = line.split("=", 1)[1].strip().strip('"')
+                    if value.startswith("1."):
+                        return value[2:]
+                    return value
+    return cached_command_version("java:System", ["java", "-version"], env)
+
+
+def go_version(env: dict[str, str]) -> str | None:
+    goroot = env.get("GOROOT")
+    if goroot:
+        ver_file = pathlib.Path(goroot) / "VERSION"
+        if ver_file.exists():
+            return ver_file.read_text().strip().lstrip("go")
+    return cached_command_version("go:System", ["go", "version"], env)
+
+
+def rust_version(env: dict[str, str]) -> str | None:
+    toolchain = env.get("RUSTUP_TOOLCHAIN")
+    if toolchain:
+        return toolchain
+    return cached_command_version("rust:System", ["rustc", "--version"], env)
+
+
+def main() -> None:
+    try:
+        line = assemble()
+    except Exception as exc:  # noqa: BLE001
+        line = apply_style(str(exc), "error")
+    sys.stdout.write(line + " ")
+
+
+if __name__ == "__main__":
+    main()
