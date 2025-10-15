@@ -392,16 +392,21 @@ def build_segments(data: dict[str, str], max_width: int | None) -> str:
         if not value:
             continue
         limit = LIMITS.get(key)
-        display = truncate_middle(value, limit)
-        plain_len = len(display)
+        display = value
         sep_len = len(SEPARATOR) if parts else 0
+        plain_len = len(display)
         if max_width is not None and consumed + sep_len + plain_len > max_width:
             remaining = max_width - consumed - sep_len
-            if remaining >= 4:
-                display = truncate_middle(value, remaining)
-                plain_len = len(display)
-            else:
+            if remaining <= 3:
                 continue
+            cut = remaining if limit is None else min(remaining, limit)
+            display = truncate_middle(value, cut)
+            plain_len = len(display)
+            if consumed + sep_len + plain_len > max_width:
+                continue
+        elif max_width is None and limit and plain_len > limit:
+            display = truncate_middle(value, limit)
+            plain_len = len(display)
         parts.append(apply_style(display, key))
         consumed += sep_len + plain_len
     return SEPARATOR.join(parts)
@@ -409,8 +414,9 @@ def build_segments(data: dict[str, str], max_width: int | None) -> str:
 
 def assemble() -> str:
     pane = os.environ.get("TMUX_PANE") or tmux_fmt("#{pane_id}")
-    path = tmux_fmt("#{pane_current_path}", pane)
-    pwd = pathlib.Path(path)
+    path_raw = tmux_fmt("#{pane_current_path}", pane)
+    path = pathlib.Path(path_raw).expanduser()
+    pwd = path
     data: dict[str, str] = {}
     data["path"] = pwd.name or str(pwd)
     git = git_status(path)
@@ -473,7 +479,7 @@ def assemble() -> str:
 
 
 def version_from_text(text: str) -> str | None:
-    match = re.search(r"([0-9]+(?:\.[0-9]+)+)", text)
+    match = re.search(r"([0-9]+(?:\.[0-9]+)*)", text)
     if match:
         return match.group(1)
     return None
