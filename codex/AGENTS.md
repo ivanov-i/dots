@@ -3,7 +3,7 @@
 ## Quality of life
 
 - use ast-grep when it suits you better
-- there us ripgrep and fd
+- there is ripgrep and fd
 
 ## Critical Rules
 
@@ -19,7 +19,7 @@
 - When asked a question provide an answer. Do not do anything else.
 - When workin on a plan with steps do them without skipping.
 - If there are checkboxes in the plan, mark them as done after each step.
-- If you need to run a python script, use uv to avoid modules instantiation.
+- iAlways use uv nstead of python to avoid modules instllation.
 - When fixing a bug determine a root cause first. Never remove functionality to resolve a bug even if it doesn't work. It doesn't work due to a bug, not the other way around.
 - Delete unused or obsolete files when your changes make them irrelevant (refactors, feature removals, etc.), and revert files only when the change is yours or explicitly requested. If a git operation leaves you unsure about other agents' in-flight work, stop and coordinate instead of deleting.
 - **Before attempting to delete a file to resolve a local type/lint failure, stop and ask the user.** Other agents are often editing adjacent files; deleting their work to silence an error is never acceptable without explicit approval.
