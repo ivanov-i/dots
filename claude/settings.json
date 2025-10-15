@@ -1,4 +1,7 @@
 {
+  "env": {
+    "MAX_THINKING_TOKENS": "32000"
+  },
   "includeCoAuthoredBy": false,
   "hooks": {
     "Notification": [
@@ -43,8 +46,5 @@
     "command": "npx -y ccstatusline@latest",
     "padding": 0
   },
-  "alwaysThinkingEnabled": true,
-  "env": {
-    "MAX_THINKING_TOKENS": "32000"
-  }
+  "alwaysThinkingEnabled": true
 }
