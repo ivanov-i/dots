@@ -439,23 +439,23 @@ def assemble() -> str:
     env = read_env(pid)
     flags = detect_project_kinds(pwd, env)
     if flags["python"]:
-        py = python_version(env)
+        py = mise_version("python", pwd, env) or python_version(env)
         if py:
             data["python"] = f"py:{py}"
     if flags["node"]:
-        node = node_version(env, path)
+        node = mise_version("node", pwd, env) or node_version(env, str(pwd))
         if node:
             data["node"] = f"node:{node}"
     if flags["java"]:
-        java = java_version(env)
+        java = mise_version("java", pwd, env) or java_version(env)
         if java:
             data["java"] = f"java:{java}"
     if flags["go"]:
-        go = go_version(env)
+        go = mise_version("go", pwd, env) or go_version(env)
         if go:
             data["go"] = f"go:{go}"
     if flags["rust"]:
-        rust = rust_version(env)
+        rust = mise_version("rust", pwd, env) or rust_version(env)
         if rust:
             data["rust"] = f"rust:{rust}"
     kube = kube_context(env, path)
@@ -465,7 +465,8 @@ def assemble() -> str:
     if aws:
         data["aws"] = f"aws:{aws}"
     if flags["terraform"]:
-        tf = terraform_workspace(env, path)
+        tf_mise = mise_version("terraform", pwd, env)
+        tf = tf_mise or terraform_workspace(env, str(pwd))
         if tf:
             data["tf"] = f"tf:{tf}"
     jobs = job_count(pid)
@@ -483,6 +484,42 @@ def version_from_text(text: str) -> str | None:
     if match:
         return match.group(1)
     return None
+
+
+def sanitize_version(raw: str) -> str | None:
+    cleaned = raw.strip()
+    if not cleaned:
+        return None
+    first = cleaned.split()[0]
+    version = version_from_text(first)
+    return version or first
+
+
+def mise_version(plugin: str, cwd: pathlib.Path, env_vars: dict[str, str], ttl: int = 45) -> str | None:
+    def loader():
+        merged_env = {**os.environ, **env_vars}
+        try:
+            proc = subprocess.run(
+                ["mise", "current", plugin, "-C", str(cwd), "-q"],
+                env=merged_env,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=1.5,
+            )
+        except (FileNotFoundError, PermissionError):
+            return ""
+        if proc.returncode != 0:
+            return ""
+        output = proc.stdout.strip()
+        lines = [line.strip() for line in output.splitlines() if line.strip()]
+        if not lines:
+            return ""
+        version = sanitize_version(lines[0]) or ""
+        return version
+
+    raw = cache_fetch(f"mise:{plugin}:{cwd}", ttl, loader)
+    return raw or None
 
 
 def cached_command_version(key: str, cmd: list[str], env_vars: dict[str, str], ttl: int = 90) -> str | None:
@@ -509,7 +546,7 @@ def cached_command_version(key: str, cmd: list[str], env_vars: dict[str, str], t
     raw = cache_fetch(key, ttl, loader)
     if not raw:
         return None
-    return version_from_text(raw)
+    return sanitize_version(raw) or None
 
 
 def python_version(env: dict[str, str]) -> str | None:
