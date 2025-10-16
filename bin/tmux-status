@@ -65,8 +65,15 @@ def cache_fetch(key: str, ttl: int, loader):
         return json.loads(path.read_text())
     data = loader()
     tmp_path = path.with_suffix(".tmp")
+    path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path.write_text(json.dumps(data))
-    tmp_path.replace(path)
+    try:
+        os.replace(tmp_path, path)
+    except FileNotFoundError:
+        if not path.parent.exists():
+            path.parent.mkdir(parents=True, exist_ok=True)
+        if tmp_path.exists():
+            os.replace(tmp_path, path)
     return data
 
 
