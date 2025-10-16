@@ -7,27 +7,25 @@ import re
 import subprocess
 import sys
 import time
-from fractions import Fraction
 
 CACHE_ROOT = pathlib.Path(os.environ.get("TMPDIR", "/tmp")) / "tmux-status"
 CACHE_ROOT.mkdir(parents=True, exist_ok=True)
 
-STYLE_TOKENS: dict[str, tuple[str, str]] = {
-    "path": ("#[bold]", "#[nobold]"),
-    "git": ("#[bold]", "#[nobold]"),
-    "dirty": ("#[bold]", "#[nobold]"),
-    "python": ("#[italics]", "#[noitalics]"),
-    "node": ("#[italics]", "#[noitalics]"),
-    "java": ("#[italics]", "#[noitalics]"),
-    "go": ("#[italics]", "#[noitalics]"),
-    "rust": ("#[italics]", "#[noitalics]"),
-    "tf": ("#[italics]", "#[noitalics]"),
-    "kube": ("#[italics]", "#[noitalics]"),
-    "aws": ("#[italics]", "#[noitalics]"),
-    "jobs": ("#[bold]", "#[nobold]"),
-    "disk": ("#[bold]", "#[nobold]"),
-    "error": ("#[bold]", "#[nobold]"),
-    "separator": ("", ""),
+STYLES: dict[str, tuple[str, ...]] = {
+    "path": ("bold",),
+    "git": ("bold",),
+    "dirty": ("bold",),
+    "python": ("italics",),
+    "node": ("italics",),
+    "java": ("italics",),
+    "go": ("italics",),
+    "rust": ("italics",),
+    "tf": ("italics",),
+    "kube": ("italics",),
+    "aws": ("italics",),
+    "jobs": ("bold",),
+    "disk": ("bold",),
+    "error": ("bold",),
 }
 
 LIMITS: dict[str, int] = {
@@ -50,28 +48,6 @@ LIMITS: dict[str, int] = {
 SEPARATOR = " · "
 MAX_WIDTH_PADDING = 28
 KITTY_SCALE = os.environ.get("TMUX_KITTY_STATUS_SCALE", "0.9")
-
-
-def compute_kitty_params(scale: str) -> tuple[int, int, int]:
-    try:
-        value = float(scale)
-    except (TypeError, ValueError):
-        value = 0.9
-    value = max(0.25, min(value, 1.0))
-    if value <= 0:
-        value = 0.9
-
-    s = 1
-    frac = Fraction(value).limit_denominator(15)
-    n = frac.numerator
-    d = frac.denominator
-    if n == d:
-        n = 0
-        d = 0
-    return s, n, d
-
-
-KITTY_PARAMS = compute_kitty_params(KITTY_SCALE)
 
 
 def tmux_fmt(fmt: str, target: str | None = None) -> str:
@@ -262,7 +238,7 @@ def job_count(pid: str) -> int:
 
 
 def kitty_osc(payload: str) -> str:
-    seq = f"\u001b]66;{payload}\u0007"
+    seq = f"\u001b]1337;{payload}\u0007"
     return f"\u001bPtmux;{seq}\u001b\\"
 
 
@@ -364,26 +340,20 @@ def detect_project_kinds(path: pathlib.Path, env: dict[str, str]) -> dict[str, b
     return flags
 
 
-def style_tokens(key: str) -> tuple[str, str]:
-    return STYLE_TOKENS.get(key, ("", ""))
-
-
-def kitty_text_segment(text: str) -> str:
-    s, n, d = KITTY_PARAMS
-    meta: list[str] = []
-    if s != 1:
-        meta.append(f"s={s}")
-    if n and d:
-        meta.append(f"n={n}")
-        meta.append(f"d={d}")
-    metadata = ":".join(meta) if meta else "s=1"
-    return kitty_osc(f"{metadata};{text}")
-
-
-def apply_style(text: str, key: str, *, kitty: bool = False) -> str:
-    before, after = style_tokens(key)
-    body = kitty_text_segment(text) if kitty else text
-    return f"{before}{body}{after}"
+def apply_style(text: str, key: str) -> str:
+    attrs = STYLES.get(key)
+    if not attrs:
+        return text
+    prefix = "".join(f"#[{attr}]" for attr in attrs)
+    suffix = ""
+    for attr in attrs:
+        if attr == "bold":
+            suffix += "#[nobold]"
+        elif attr == "italics":
+            suffix += "#[noitalics]"
+        elif attr == "underscore":
+            suffix += "#[nounderscore]"
+    return f"{prefix}{text}{suffix}"
 
 
 def truncate_middle(text: str, limit: int | None) -> str:
@@ -405,7 +375,7 @@ def compute_max_width() -> int | None:
     return max(0, width - MAX_WIDTH_PADDING)
 
 
-def build_segments(data: dict[str, str], max_width: int | None, *, kitty: bool = False) -> str:
+def build_segments(data: dict[str, str], max_width: int | None) -> str:
     parts: list[str] = []
     order = [
         "path",
@@ -443,13 +413,12 @@ def build_segments(data: dict[str, str], max_width: int | None, *, kitty: bool =
         elif max_width is None and limit and plain_len > limit:
             display = truncate_middle(value, limit)
             plain_len = len(display)
-        parts.append(apply_style(display, key, kitty=kitty))
+        parts.append(apply_style(display, key))
         consumed += sep_len + plain_len
-    sep_render = apply_style(SEPARATOR, "separator", kitty=kitty)
-    return sep_render.join(parts) if parts else ""
+    return SEPARATOR.join(parts)
 
 
-def assemble(*, kitty: bool = False) -> str:
+def assemble() -> str:
     pane = os.environ.get("TMUX_PANE") or tmux_fmt("#{pane_id}")
     path_raw = tmux_fmt("#{pane_current_path}", pane)
     path = pathlib.Path(path_raw).expanduser()
@@ -513,7 +482,7 @@ def assemble(*, kitty: bool = False) -> str:
     if disk:
         data["disk"] = f"disk:{disk}"
     max_width = compute_max_width()
-    return build_segments(data, max_width, kitty=kitty)
+    return build_segments(data, max_width)
 
 
 def version_from_text(text: str) -> str | None:
@@ -673,9 +642,12 @@ def rust_version(env: dict[str, str]) -> str | None:
 
 def main() -> None:
     try:
-        term = tmux_fmt("#{client_termname}").lower()
-        kitty = "kitty" in term
-        line = assemble(kitty=kitty)
+        term = tmux_fmt("#{client_termname}")
+        line = assemble()
+        if "kitty" in term:
+            push = kitty_osc(f"SetTextSize={KITTY_SCALE}")
+            pop = kitty_osc("SetTextSize=reset")
+            line = f"{push}{line}{pop}"
     except Exception as exc:  # noqa: BLE001
         line = apply_style(str(exc), "error")
     sys.stdout.write(line + " ")
