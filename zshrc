@@ -234,6 +234,14 @@ update() {
   brew autoremove && \
   echo "[cleanup]" && \
   brew cleanup && \
+  echo "[cargo cache cleanup]" && \
+  cargo cache --autoclean && \
+  echo "[npm cache cleanup]" && \
+  npm cache clean --force && \
+  echo "[uv cache cleanup]" && \
+  uv cache clean && \
+  echo "[pip cache cleanup]" && \
+  pip cache purge && \
   echo "[rustup update]" && \
   rustup update && \
   echo "[cargo update]" && \
@@ -260,6 +268,14 @@ update() {
 	  sudo apt upgrade -y && \
 	  echo "[apt autoremove]" && \
 	  sudo apt autoremove -y && \
+	  echo "[cargo cache cleanup]" && \
+	  cargo cache --autoclean && \
+	  echo "[npm cache cleanup]" && \
+	  npm cache clean --force && \
+	  echo "[uv cache cleanup]" && \
+	  uv cache clean && \
+	  echo "[pip cache cleanup]" && \
+	  pip cache purge && \
 	  echo "[rustup update]" && \
 	  rustup update && \
 	  echo "[cargo install-update -a]" && \
