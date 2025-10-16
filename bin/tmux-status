@@ -47,7 +47,6 @@ LIMITS: dict[str, int] = {
 
 SEPARATOR = " · "
 MAX_WIDTH_PADDING = 28
-KITTY_SCALE = os.environ.get("TMUX_KITTY_STATUS_SCALE", "0.9")
 
 
 def tmux_fmt(fmt: str, target: str | None = None) -> str:
@@ -235,11 +234,6 @@ def job_count(pid: str) -> int:
         if state and state[0] != "Z":
             total += 1
     return total
-
-
-def kitty_osc(payload: str) -> str:
-    seq = f"\u001b]1337;{payload}\u0007"
-    return f"\u001bPtmux;{seq}\u001b\\"
 
 
 def ancestors(path: pathlib.Path, limit: int = 12) -> list[pathlib.Path]:
@@ -642,12 +636,7 @@ def rust_version(env: dict[str, str]) -> str | None:
 
 def main() -> None:
     try:
-        term = tmux_fmt("#{client_termname}")
         line = assemble()
-        if "kitty" in term:
-            push = kitty_osc(f"SetTextSize={KITTY_SCALE}")
-            pop = kitty_osc("SetTextSize=reset")
-            line = f"{push}{line}{pop}"
     except Exception as exc:  # noqa: BLE001
         line = apply_style(str(exc), "error")
     sys.stdout.write(line + " ")
