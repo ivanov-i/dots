@@ -66,3 +66,6 @@ ln -f -s $PWD/codex/prompts ~/.codex/
 ln -f -s $PWD/codex/AGENTS.md ~/.codex/AGENTS.md
 
 ln -f -s $PWD/config/ghostty ~/.config
+mkdir -p ~/.config/kitty
+ln -f -s $PWD/config/kitty/kitty.conf ~/.config/kitty/kitty.conf
+ln -f -s $PWD/config/kitty/current-theme.conf ~/.config/kitty/current-theme.conf
