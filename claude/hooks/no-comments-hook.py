@@ -90,11 +90,8 @@ def analyze_with_claude(data):
     )
 
     try:
-        # Use --settings to override MAX_THINKING_TOKENS
-        settings_override = json.dumps({"env": {"MAX_THINKING_TOKENS": "0"}})
-        
         result = subprocess.run(
-            ['claude', '-p', '--settings', settings_override],
+            ['claude', '-p', '--model', 'haiku'],
             input=analysis_prompt,
             capture_output=True,
             text=True,
