@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+in="${1:-README.md}"
+out="$(mktemp -t kmd.XXXXXX).html"
+pandoc "$in" --standalone --embed-resources -o "$out"
+exec w3m -I utf-8 -O utf-8 -s -v -T text/html -o confirm_qq=false -o display_borders=1 "$out"
