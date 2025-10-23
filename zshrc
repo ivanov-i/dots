@@ -234,20 +234,28 @@ update() {
   brew autoremove && \
   echo "[cleanup]" && \
   brew cleanup && \
-  echo "[cargo cache cleanup]" && \
-  cargo cache --autoclean && \
-  echo "[npm cache cleanup]" && \
-  npm cache clean --force && \
-  echo "[uv cache cleanup]" && \
-  uv cache clean && \
+  echo "[pip update]" && \
+  pip install --upgrade pip && \
+  pip list --outdated --format=json | jq -r '.[].name' | xargs -n1 pip install -U && \
+  echo "[pip3 update]" && \
+  pip3 install --upgrade pip && \
+  pip3 list --outdated --format=json | jq -r '.[].name' | xargs -n1 pip3 install -U && \
   echo "[pip cache cleanup]" && \
   pip cache purge && \
+  echo "[pip3 cache cleanup]" && \
+  pip3 cache purge && \
   echo "[rustup update]" && \
   rustup update && \
   echo "[cargo update]" && \
   cargo install-update -a && \
+  echo "[cargo cache cleanup]" && \
+  cargo cache --autoclean && \
   echo "[npm update]" && \
   npx npm-check --global --update-all
+  echo "[npm cache cleanup]" && \
+  npm cache clean --force && \
+  echo "[uv cache cleanup]" && \
+  uv cache clean && \
   echo "[tldr update]" && \
   tldr --update
   echo "[oh my zsh update]"
