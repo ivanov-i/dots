@@ -1,7 +1,3 @@
 .DS_Store
 .luarc.json
 .claude
-# Agent-local files (do not commit)
-**/AGENTS.md
-**/ai-rules/
-**/ai-docs/
