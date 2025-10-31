@@ -509,7 +509,7 @@ cx() {
     if [[ "$1" == "update" ]]; then
         npm install -g @openai/codex@latest
     fi
-    codex --yolo --search
+    codex --yolo --enable web_search_request
 }
 
 #gemini
