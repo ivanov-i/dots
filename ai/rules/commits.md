@@ -57,6 +57,7 @@ SIGNAL: When triggered → Apply ALL rules below systematically
 **COMMIT MESSAGE**: Create well-formatted commit messages
 - Keep the whole commit message single line. It is forbidden to add more lines.
 - Do not add Co-Authored-By: Do not add Co-Authored-By or "Generated with" in commit messages.
+- No emojis, no prefixes.
 
 </rule_5>
 
