@@ -36,7 +36,7 @@ do
         rs) TEXT="Reset to \"normal\" color";;
         mh) TEXT="Multi-Hardlink";;
         ca) TEXT="File with capability";;
-        *) TEXT="${TYPE} (TODO: get description)";;
+        *) TEXT="Unknown LS_COLORS key: ${TYPE}";;
     esac
 
     printf "Type: %-10s Colour: %-10s \e[${COLOUR}m${TEXT}\e[0m\n" "${TYPE}" "${COLOUR}"
