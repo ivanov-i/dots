@@ -203,13 +203,13 @@ bd automatically syncs with git:
 
 ### MCP Server (Recommended)
 
-If using Claude or MCP-compatible clients, install the beads MCP server:
+If using Claude or Codex (or any MCP‑compatible client), install and configure the Beads MCP server so agents can manage `bd` issues programmatically.
 
 ```
 pip install beads-mcp
 ```
 
-Add to MCP config (e.g., `~/.config/claude/config.json`):
+Claude setup (example: `~/.config/claude/config.json`):
 
 ```
 {
@@ -221,6 +221,25 @@ Add to MCP config (e.g., `~/.config/claude/config.json`):
 ```
 
 Then use `mcp__beads__*` functions instead of CLI commands.
+
+Codex setup (example: `~/.codex/config.toml`):
+
+```
+[mcp_servers.beads]
+command = "uvx"
+args = ["--from", "beads-mcp", "beads-mcp"]
+startup_timeout_sec = 30.0
+```
+
+Verify Codex sees the server:
+
+```
+codex mcp list
+codex mcp get beads
+```
+
+Notes:
+- Beads MCP enables JSON-friendly issue ops from Codex sessions. For `bd` subcommands that don’t support `--json` (e.g., `update`, `close`), validate state with `bd ready --json` after the call.
 
 ### Important Rules
 
