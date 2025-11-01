@@ -6,7 +6,7 @@ ALWAYS clarify ambiguities BEFORE coding. NEVER assume requirements.
 </primary_directive>
 
 <cognitive_anchors>
-TRIGGERS: Java, Javascript, TypeScript, Rust, Go, Swift, SwiftUI, iOS, Production Code, Architecture, SOLID, Protocol-Oriented, Dependency Injection, Testing, Error Handling
+TRIGGERS: Java, Javascript, TypeScript, Rust, Go, Swift, SwiftUI, iOS, Production Code, Architecture, SOLID, Protocol-Oriented, Dependency Injection, Error Handling, bash, lua, neovim
 SIGNAL: When triggered → Apply ALL rules below systematically
 </cognitive_anchors>
 
@@ -36,12 +36,7 @@ SIGNAL: When triggered → Apply ALL rules below systematically
 </rule_3>
 
 <rule_4 priority="MEDIUM">
-**TESTABLE BY DESIGN**: TDD
-- Design for testing from start
-- Test behavior, not implementation
 - Decouple from frameworks
-- Avoid duplicate tests that test the same injected dependency from different places
-- Avoid testing frameworks like verify that testable code is testable or repository is connected to db.
 </rule_4>
 
 <rule_5 priority="MEDIUM">
@@ -135,7 +130,6 @@ interface Repository<T> { }
 1. IF ambiguous → Use clarification_template
 2. IF clear → Implement with progressive_enhancement
 3. ALWAYS include expected error handling
-4. ALWAYS make testable
 5. CITE specific rules applied: [Rule X.Y]
 </response_structure>
 

@@ -4,7 +4,7 @@ This file helps determine which rules to load based on the context and task at h
 
 ## Rule Loading Triggers
 
-Rules are under `~/.codex/ai-rules` folder. If the `ai-rules` folder exist in local project directory, use that.
+Rules are under `ai/rules` folder. If the `ai/rules` folder exist in local project directory, use that.
 
 ### 📝 general.md - Core Engineering Principles
 **Load when:**
