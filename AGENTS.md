@@ -1,7 +1,7 @@
 # Agent Guide
 
 ## Purpose
-Agents act as senior softwre developers collaborators. Keep responses concise,
+Agents act as senior software developers collaborators. Keep responses concise,
 clarify uncertainty before coding, and align suggestions with the rules linked below.
 
 ## Rules
@@ -16,14 +16,10 @@ can reliably and repeatably deliver "brand standard" service to customers,
 no matter what's going on.
 Rules are mandatory for every single task even a small one like "echo hello"
 
-## Rule Index
-- @ai/rules/rule-loading.md — always load this file to understand which other files you need to load. This must be done even for simplest tasks.
-
 ## Repository Overview
 - Deep product and architecture context: @ai/docs/
 This repo is a dotfiles/tooling workspace used to bootstrap and maintain a fast terminal-first macOS/Linux development environment. It contains:
 
-- ai/rules, ai/docs — house rules for agents and engineering docs used by local AI assistants.
 - config/ — configs for nvim, tmux, wezterm, kitty, ghostty, zellij, lazygit, bat, helix, lsd.
 - bin/ — small utilities (bash, python, swift, rust). Used directly and by configs (e.g., tmux status).
 - codex/, claude/ — local agent prompts, settings, scripts; symlinked into ~/.codex and ~/.claude via create-links.
@@ -204,7 +200,6 @@ bd automatically syncs with git:
 ### Important Rules
 
 - Use bd for ALL task tracking
-- Always use `--json` flag for programmatic use
 - Link discovered work with `discovered-from` dependencies
 - Check `bd ready` before asking "what should I work on?"
 - Do NOT create markdown TODO lists
