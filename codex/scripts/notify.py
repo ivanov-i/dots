@@ -1,9 +1,6 @@
-# for uvx:
-
 #!/usr/bin/env python3
 
 import json
-import os
 import subprocess
 import sys
 
@@ -12,10 +9,9 @@ def _summ(text: str) -> str:
     if not text:
         return ""
     prompt = (
-        "Return exactly one JSON object with a single key 's'. "
-        "'s' must be a short, speech-friendly summary of the ASSISTANT MESSAGE below, max 160 characters, plain language, no quotes/URLs/code/disclaimers.\n\n"
-        "ASSISTANT MESSAGE:\n" + text + "\n\n"
-        "Output ONLY JSON like {\"s\":\"...\"}."
+        "Summarize the entire assistant message below into one short, clear, speech-friendly sentence (max 160 chars). "
+        "Rewrite concisely; do not clip. Keep key outcome, action, or numbers. No code, URLs, quotes, or disclaimers.\n\n"
+        "ASSISTANT MESSAGE:\n" + text
     )
     cmd = [
         "codex",
@@ -24,12 +20,15 @@ def _summ(text: str) -> str:
         "-s",
         "read-only",
         "exec",
+        "--json",
         "-m",
         "gpt-5",
         "-c",
-        "model_verbosity=low",
+        "model_reasoning_effort=minimal",
         "-c",
-        "model_reasoning_effort=low",
+        "model_reasoning_summary=none",
+        "-c",
+        "model_verbosity=low",
         "-c",
         "notify=[]",
         "--skip-git-repo-check",
@@ -43,25 +42,33 @@ def _summ(text: str) -> str:
             stderr=subprocess.DEVNULL,
             check=False,
         )
-        out = p.stdout.decode("utf-8", errors="ignore").strip()
-        s = _parse_one_json_field(out, "s")
+        out = p.stdout.decode("utf-8", errors="ignore")
+        s = _last_agent_message(out)
     except Exception:
         s = ""
     if not s:
         s = (text or "").strip().replace("\n", " ")[:160]
     return s
 
-
-def _parse_one_json_field(s: str, key: str) -> str:
-    s = s.strip()
-    if not s:
-        return ""
-    try:
-        obj = json.loads(s)
-        v = obj.get(key)
-        return v.strip() if isinstance(v, str) else ""
-    except Exception:
-        return ""
+def _last_agent_message(s: str) -> str:
+    last = ""
+    for ln in s.splitlines():
+        ln = ln.strip()
+        if not ln:
+            continue
+        try:
+            ev = json.loads(ln)
+        except Exception:
+            continue
+        if ev.get("type") == "item.completed":
+            it = ev.get("item") or {}
+            if it.get("type") == "agent_message" and isinstance(it.get("text"), str):
+                t = it["text"].strip()
+                if t:
+                    last = t
+        elif ev.get("type") == "turn.failed":
+            break
+    return last
 
 
 def main() -> int:
