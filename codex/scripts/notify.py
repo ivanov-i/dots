@@ -4,7 +4,6 @@
 
 import json
 import os
-import re
 import subprocess
 import sys
 
@@ -62,16 +61,7 @@ def _parse_one_json_field(s: str, key: str) -> str:
         v = obj.get(key)
         return v.strip() if isinstance(v, str) else ""
     except Exception:
-        # Try to locate the first {...} block if extra noise is present
-        m = re.search(r"\{.*\}", s, flags=re.S)
-        if not m:
-            return ""
-        try:
-            obj = json.loads(m.group(0))
-            v = obj.get(key)
-            return v.strip() if isinstance(v, str) else ""
-        except Exception:
-            return ""
+        return ""
 
 
 def main() -> int:
