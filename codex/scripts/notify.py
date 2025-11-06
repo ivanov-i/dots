@@ -9,9 +9,6 @@ import subprocess
 import sys
 
 
-FAST_MODEL = "gpt-5-mini"  # explicit fast, non-thinking model
-
-
 def _summ(text: str) -> str:
     if not text:
         return ""
@@ -29,7 +26,7 @@ def _summ(text: str) -> str:
         "read-only",
         "exec",
         "-m",
-        FAST_MODEL,
+        "gpt-5",
         "-c",
         "model_verbosity=low",
         "-c",
