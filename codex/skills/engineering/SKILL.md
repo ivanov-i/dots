@@ -1,6 +1,6 @@
 ---
-name: starting-engineering
-description: Use when starting any engineering task — sets clarify‑first options and enforces simple, typed, error‑aware implementation.
+name: engineering
+description: Use when doing any task — sets clarify‑first options and enforces simple, typed, error‑aware implementation.
 ---
 
 # Starting Engineering
