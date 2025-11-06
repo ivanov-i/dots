@@ -5,7 +5,7 @@ import subprocess
 import sys
 
 
-def _summ(text: str) -> str:
+def summarize(text: str) -> str:
     if not text:
         return ""
     prompt = (
@@ -26,7 +26,7 @@ def _summ(text: str) -> str:
         "-c",
         "model_reasoning_effort=minimal",
         "-c",
-        "model_reasoning_summary=none",
+        "model_reasoning_summary=detailed",
         "-c",
         "model_verbosity=low",
         "-c",
@@ -39,19 +39,38 @@ def _summ(text: str) -> str:
             cmd,
             input=prompt.encode("utf-8"),
             stdout=subprocess.PIPE,
-            stderr=subprocess.DEVNULL,
+            stderr=subprocess.PIPE,
             check=False,
         )
         out = p.stdout.decode("utf-8", errors="ignore")
-        s = _last_agent_message(out)
-    except Exception:
+        s, failed, err, types, usage, reason = _parse_events(out)
+        if not s:
+            if failed and err:
+                _log(f"notify failed: {err}")
+            elif p.returncode != 0:
+                _log(f"notify rc={p.returncode}")
+            elif out.strip() == "":
+                se = p.stderr.decode("utf-8", errors="ignore").strip()
+                if se:
+                    _log(f"notify stderr: {se}")
+            else:
+                ut = f" usage={usage}" if usage else ""
+                rs = f" reasoning={(reason[:120] if reason else '')}"
+                _log(f"notify no agent_message; types={','.join(types)}{ut}{rs}")
+    except Exception as e:
+        _log(f"notify exception: {e}")
         s = ""
     if not s:
-        s = (text or "").strip().replace("\n", " ")[:160]
+        s = "Turn Complete!"
     return s
 
-def _last_agent_message(s: str) -> str:
+def _parse_events(s: str):
     last = ""
+    failed = False
+    err = ""
+    types = []
+    usage = {}
+    reason = ""
     for ln in s.splitlines():
         ln = ln.strip()
         if not ln:
@@ -60,15 +79,46 @@ def _last_agent_message(s: str) -> str:
             ev = json.loads(ln)
         except Exception:
             continue
-        if ev.get("type") == "item.completed":
+        t = ev.get("type")
+        if isinstance(t, str):
+            types.append(t)
+        if t == "item.completed":
             it = ev.get("item") or {}
             if it.get("type") == "agent_message" and isinstance(it.get("text"), str):
-                t = it["text"].strip()
-                if t:
-                    last = t
-        elif ev.get("type") == "turn.failed":
+                txt = it["text"].strip()
+                if txt:
+                    last = txt
+            elif it.get("type") == "reasoning" and isinstance(it.get("text"), str):
+                rt = it["text"].strip()
+                if rt:
+                    reason = rt
+        elif t == "error":
+            m = ev.get("message")
+            if isinstance(m, str) and m:
+                err = m
+        elif t == "turn.failed":
+            failed = True
+            e = ev.get("error") or {}
+            m = e.get("message") if isinstance(e, dict) else None
+            if isinstance(m, str) and m:
+                err = m
             break
-    return last
+        elif t == "turn.completed":
+            u = ev.get("usage")
+            if isinstance(u, dict):
+                for k in ("input_tokens", "cached_input_tokens", "output_tokens"):
+                    v = u.get(k)
+                    if isinstance(v, int):
+                        usage[k] = v
+            break
+    return last, failed, err, types, usage, reason
+
+
+def _log(msg: str) -> None:
+    try:
+        print(msg, file=sys.stderr, flush=True)
+    except Exception:
+        pass
 
 
 def main() -> int:
@@ -86,7 +136,7 @@ def main() -> int:
             msg = notification.get("last-assistant-message", "")
             if not msg:
                 return 0
-            s = _summ(msg)
+            s = summarize(msg)
             if s:
                 subprocess.run(["say", s], check=False)
         case _:
