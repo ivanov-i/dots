@@ -3,8 +3,8 @@ gui:
 git:
   autoFetch: false
   autoRefresh: false
-  paging:
-    externalDiffCommand: difft --color=always
+  pagers:
+    - externalDiffCommand: difft --color=always
 update:
   method: prompt
   days: 1
