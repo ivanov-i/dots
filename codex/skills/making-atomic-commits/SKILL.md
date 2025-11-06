@@ -26,9 +26,14 @@ Each commit should tell a coherent story and be easy to review. Split mixed conc
 ## Message Rules
 - Single line only; descriptive and concise
 - No “Co-Authored-By” or “Generated with” trailers
+- Infer commit style from git history
+- If ticket number is required by style, try to infer it from the current branch name. If not, ask for it.
 
 ## Anti‑Patterns
 - Remote ops (push/fetch), destructive operations, squashing history unasked
+- Suggesting to push, write PR, or any other actions
+- Prefixes, emojis, or co-authors
+- Non-default author, committer
 
 ## Response Pattern
 1) If ambiguous → clarify intent and grouping
