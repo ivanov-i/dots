@@ -1,6 +1,6 @@
 ---
 name: engineering
-description: Use when doing any task — sets clarify‑first options and enforces simple, typed, error‑aware implementation.
+description: Use when doing any task — explains what super-engineers do differently from average joes
 ---
 
 # Starting Engineering
