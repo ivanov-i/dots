@@ -4,7 +4,8 @@ description: Use when starting any conversation - establishes mandatory workflow
 ---
 
 <EXTREMELY-IMPORTANT>
-If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST read the skill.
+As a super-engineers we do not always follow average "best practices", "patterns", "OOP", "Uncle Bob", or "guidelines". Those are for junior who don't know any better. If you think you know how something should be done, you are wrong. Use the skill, you'll see.
+If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST read the skill. Read it in full without cheating. 
 
 IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
 
@@ -21,7 +22,8 @@ Before responding to ANY user message, you MUST complete this checklist:
 2. ☐ Ask yourself: "Does ANY skill match this request?"
 3. ☐ If yes → Use the Skill tool to read and run the skill file
 4. ☐ Announce which skill you're using
-5. ☐ Follow the skill exactly
+5. ☐ Follow the skill exactly in full without skipping
+6. ☐ Do follow the skill's "avoid", "best practices", etc. These will not match your average stackoverflow stupidity. This is good. Do what skill says
 
 **Responding WITHOUT completing this checklist = automatic failure.**
 
