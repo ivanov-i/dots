@@ -25,21 +25,27 @@ def main() -> int:
                         "Turn Complete!",
                         ]
                     )
-            # assistant_message = notification.get("last-assistant-message")
-            # if assistant_message:
-            #     title = f"Codex: {assistant_message}"
-            # else:
-            #     title = "Codex: Turn Complete!"
-            # input_messages = notification.get("input_messages", [])
-            # message = " ".join(input_messages)
-            # title += message
+            assistant_message = notification.get("last-assistant-message")
+            if assistant_message:
+                title = f"Codex: {assistant_message}"
+            else:
+                title = "Codex: Turn Complete!"
+            input_messages = notification.get("input_messages", [])
+            message = " ".join(input_messages)
+            title += message
+            subprocess.check_output(
+                    [
+                        "say",
+                        message,
+                        ]
+                    )
         case _:
             # print(f"not sending a push notification for: {notification_type}")
             # print(f"not sending a push notification for: {notification_type}", file=sys.stderr)
             return 0
 
-    # print("saying:", message, file=sys.stderr)
-    # print("title:", title, file=sys.stderr)
+    print("saying:", message, file=sys.stderr)
+    print("title:", title, file=sys.stderr)
 
     # subprocess.check_output(
     #     [
