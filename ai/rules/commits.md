@@ -65,7 +65,7 @@ SIGNAL: When triggered → Apply ALL rules below systematically
 ## ANTI-PATTERNS TO AVOID
 
 <avoid>
-❌ Dealing with remotes in any way. Push, fetch etc.
+❌ Dealing with remotes in any way. Never even ask to push, fetch etc.
 ❌ Anything else besides creating commits.
 ❌ Destructive git operations
 </avoid>
