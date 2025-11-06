@@ -9,7 +9,7 @@ def summarize(text: str) -> str:
     if not text:
         return ""
     prompt = (
-        "Summarize the entire assistant message below into one short, clear, speech-friendly sentence (max 160 chars). "
+        "Summarize the entire assistant message below into one short, clear, speech-friendly sentence (max 50 chars). "
         "Rewrite concisely; do not clip. Keep key outcome, action, or numbers. No code, URLs, quotes, or disclaimers.\n\n"
         "ASSISTANT MESSAGE:\n" + text
     )
