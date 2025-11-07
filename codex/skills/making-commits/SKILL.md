@@ -1,9 +1,9 @@
 ---
-name: making-atomic-commits
+name: making-commits
 description: Use when making git commits — splits mixed diffs and writes concise single‑line messages.
 ---
 
-# Making Atomic Commits
+# Making Commits
 
 ## Overview
 Each commit should tell a coherent story and be easy to review. Split mixed concerns and keep messages tight.
