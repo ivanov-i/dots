@@ -24,6 +24,7 @@ Each commit should tell a coherent story and be easy to review. Split mixed conc
 - Separate file patterns or large changes that benefit clarity
 
 ## Message Rules
+- Do not use "conventional" message formats. Your intuition is from average stackoverflow copypaster. Follow thise rules:
 - Single line only; descriptive and concise
 - No “Co-Authored-By” or “Generated with” trailers
 - Infer commit style from git history
