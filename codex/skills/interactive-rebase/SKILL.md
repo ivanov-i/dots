@@ -28,9 +28,9 @@ Safely rewrites local history with a clear boundary, a safety net, and visible p
 
 ## Quick Reference
 - Show window to edit: `git log --oneline --since "YYYY-MM-DD"`
-- Start rebase without opening an editor: prefix commands with `GIT_SEQUENCE_EDITOR=:`
-- Never open a commit editor: prefix message-only amends with `GIT_EDITOR=true` or pass `-m "..."`
-- Amend message only (non-interactive): `git commit --amend --allow-empty -m "New subject"`
+- Avoid opening the rebase TODO editor: prefix with `GIT_SEQUENCE_EDITOR=:` or provide a non‑interactive sequence editor script.
+- Avoid opening a commit editor: always pass `-m`/`-F` for message-only amends.
+- Amend message only (no editor): `git commit --amend --allow-empty -m "New subject"`
 - Continue: `git rebase --continue`
 - Cancel: `git rebase --abort`
 - Check progress: read `.git/rebase-merge/msgnum` and `.../end`
@@ -38,14 +38,12 @@ Safely rewrites local history with a clear boundary, a safety net, and visible p
 
 ## Quick Recipes
 
-### Reword a few commits (no‑editor manual)
-1. Identify SHAs within the window:
-   - `git log --oneline --since "YYYY-MM-DD"`
-2. Start rebase from each target’s parent without opening a todo editor:
-   - `GIT_SEQUENCE_EDITOR=: git rebase -i --rebase-merges <sha>^`
-   - When it stops (because you chose `edit` in the todo beforehand), amend non‑interactively:
-     - `git commit --amend --allow-empty -m "New message"`
-     - `git rebase --continue`
+### Reword a single commit (headless, no editor)
+1. Identify the target `<sha>` in the window.
+2. Start rebase from the parent and mark that commit for reword via a non‑interactive sequence editor:
+   - `GIT_SEQUENCE_EDITOR='sh -c "sed -E -i '' -e \"s/^pick <sha>/reword <sha>/\" \"$1\""' git rebase -i --rebase-merges <sha>^`
+3. When it stops on the target, amend the message non‑interactively and continue:
+   - `git commit --amend --allow-empty -m "New subject" && git rebase --continue`
 
 ### Batch reword with autosquash
 1. For each target commit, create a message‑only fixup without opening an editor:
@@ -103,7 +101,7 @@ Safely rewrites local history with a clear boundary, a safety net, and visible p
 - Amending without `--allow-empty` for message-only edits.
 - Forgetting to verify subjects across the whole window.
 - Starting `git rebase -i` without `GIT_SEQUENCE_EDITOR=:` (opens editor and hangs in headless runs).
-- Creating `--fixup=reword` commits without setting `GIT_EDITOR` to write the message.
+- Creating `--fixup=reword` commits without setting a `GIT_EDITOR` message‑writer (since `-m` cannot be combined with `--fixup=reword`).
 
 ## Anti‑Patterns
 - Remote operations (push/fetch) during rewrites.
