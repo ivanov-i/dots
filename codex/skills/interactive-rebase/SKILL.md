@@ -1,5 +1,7 @@
+---
 name: interactive-rebase
 description: Use when rewriting commit history — rewording, splitting, squashing, or cleaning messages — in a safe, bounded, and observable way without touching remotes.
+---
 
 ---
 
@@ -26,9 +28,9 @@ Safely rewrites local history with a clear boundary, a safety net, and visible p
 
 ## Quick Reference
 - Show window to edit: `git log --oneline --since "YYYY-MM-DD"`
-- Start interactive from parent: `git rebase -i --rebase-merges <sha>^`
-- Pause and edit message: mark line as `reword` (or `edit`)
-- Amend message only: `git commit --amend --allow-empty -m "New subject"`
+- Start rebase without opening an editor: prefix commands with `GIT_SEQUENCE_EDITOR=:`
+- Never open a commit editor: prefix message-only amends with `GIT_EDITOR=true` or pass `-m "..."`
+- Amend message only (non-interactive): `git commit --amend --allow-empty -m "New subject"`
 - Continue: `git rebase --continue`
 - Cancel: `git rebase --abort`
 - Check progress: read `.git/rebase-merge/msgnum` and `.../end`
@@ -36,23 +38,22 @@ Safely rewrites local history with a clear boundary, a safety net, and visible p
 
 ## Quick Recipes
 
-### Reword a few commits (manual)
-1. Identify SHAs to change, optionally within a window:
+### Reword a few commits (no‑editor manual)
+1. Identify SHAs within the window:
    - `git log --oneline --since "YYYY-MM-DD"`
-2. Start rebase from each target’s parent and stop at the commit:
-   - `git rebase -i --rebase-merges <sha>^`
-   - In the todo, mark the target as `reword` (or `edit`).
-3. At each stop:
-   - `git commit --amend -m "New message"` (use `--allow-empty` when changing message only),
-   - `git rebase --continue`.
+2. Start rebase from each target’s parent without opening a todo editor:
+   - `GIT_SEQUENCE_EDITOR=: git rebase -i --rebase-merges <sha>^`
+   - When it stops (because you chose `edit` in the todo beforehand), amend non‑interactively:
+     - `git commit --amend --allow-empty -m "New message"`
+     - `git rebase --continue`
 
 ### Batch reword with autosquash
-1. For each target commit:
-   - `git commit --allow-empty --fixup=reword:<sha>` (optionally set `GIT_EDITOR` to inject the new subject),
-2. Run autosquash without opening the todo:
-   - `GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash --rebase-merges <base>`.
-3. If Git stops on a commit marked “empty” while rewording only:
-   - `git commit --amend --allow-empty -m "New message"`, then `git rebase --continue`.
+1. For each target commit, create a message‑only fixup without opening an editor:
+   - `MSG="New subject" GIT_EDITOR='sh -c "printf %s\\n \"$MSG\" > \"$1\""' git commit --allow-empty --fixup=reword:<sha>`
+2. Autosquash non‑interactively (no todo editor):
+   - `GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash --rebase-merges <base>`
+3. If rebase stops as “empty”, finish non‑interactively:
+   - `git commit --amend --allow-empty -m "New subject" && git rebase --continue`
 
 ### Conflict Handling
 - Resolve conflicts, `git add <files>`, `git rebase --continue`.
@@ -101,6 +102,8 @@ Safely rewrites local history with a clear boundary, a safety net, and visible p
 - Rewriting published history without coordination.
 - Amending without `--allow-empty` for message-only edits.
 - Forgetting to verify subjects across the whole window.
+- Starting `git rebase -i` without `GIT_SEQUENCE_EDITOR=:` (opens editor and hangs in headless runs).
+- Creating `--fixup=reword` commits without setting `GIT_EDITOR` to write the message.
 
 ## Anti‑Patterns
 - Remote operations (push/fetch) during rewrites.
