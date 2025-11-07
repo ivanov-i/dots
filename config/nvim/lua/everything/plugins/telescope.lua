@@ -39,7 +39,7 @@ return
             desc = "Find Files",
         },
         {
-            "<leader>Ff",
+            "<leader>FF",
             function()
                 require("telescope.builtin").find_files({
                     hidden = true,
