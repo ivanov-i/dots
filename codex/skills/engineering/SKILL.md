@@ -18,6 +18,12 @@ Elite-quality code is simple, explicit, and resilient. Always clarify before cod
 - Decouple from frameworks where reasonable
 - Performance: profile → measure → optimize; pick correct data structures
 - Simplicity: KISS, YAGNI; remove dead/defensive/fallback code and spammy logs
+- No excessive abstractions.
+- No useless getters/setters/builders.
+- No fallbacks for tests in production code
+- No backward compatibility unless specifically required
+- No magic numbers; no magic strings
+- No default parametrs, null fallbacsk etc
 
 ## Checklist
 1. ☐ Ambiguities listed; 2–3 options with trade‑offs shared
