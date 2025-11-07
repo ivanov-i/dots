@@ -158,10 +158,24 @@ bd update bd-42 --status in_progress --json
 bd update bd-42 --priority 1 --json
 ```
 
+Add a note when status changes (required):
+
+```
+# Explain why the status changed and what to expect next
+bd comments add bd-42 "Status: in_progress — starting work; scope and approach noted"
+```
+
 Complete work:
 
 ```
 bd close bd-42 --reason "Completed" --json
+```
+
+Add a closing note (required):
+
+```
+# Summarize outcome, point to commits/PRs, and any follow‑ups
+bd comments add bd-42 "Status: closed — completed as scoped; see commits <sha>"
 ```
 
 ### Issue Types
@@ -184,10 +198,12 @@ bd close bd-42 --reason "Completed" --json
 
 1. Check ready work: `bd ready` shows unblocked issues
 2. Claim your task: `bd update <id> --status in_progress`
+   - Immediately add a note explaining the status change: `bd comments add <id> "Status: in_progress — why/what changed"`
 3. Work on it: Implement, test, document
 4. Discover new work? Create linked issue:
    - `bd create "Found bug" -p 1 --deps discovered-from:<parent-id>`
 5. Complete: `bd close <id> --reason "Done"`
+   - Add a closing note summarizing results and links: `bd comments add <id> "Status: closed — summary, commits/PRs"`
 6. Commit together: Always commit the `.beads/issues.jsonl` file together with the code changes so issue state stays in sync with code state
 
 ### Auto-Sync
@@ -205,3 +221,4 @@ bd automatically syncs with git:
 - Do NOT create markdown TODO lists
 - Do NOT use external issue trackers
 - Do NOT duplicate tracking systems
+- On every status change (claim/in_progress, closed, reopened), add a note via `bd comments add <id> "Status: <state> — why/what changed"`. Notes are mandatory and must capture context and pointers to commits/PRs where applicable.
