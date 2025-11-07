@@ -15,7 +15,7 @@ When skills reference tools you don't have, substitute your equivalent tools:
 
 **Critical Rules:**
 - Before ANY task, review the skills list (shown below)
-- If a relevant skill exists, you MUST use `~/.codex/superpowers-codex use-skill` to load it
+- If relevant skills exist, you MUST use `~/.codex/superpowers-codex use-skill` to load them
 - Announce: "I've read the [Skill Name] skill and I'm using it to [purpose]"
 - Skills with checklists require `update_plan` todos for each item
 - NEVER skip mandatory workflows (brainstorming before coding, TDD, systematic debugging)
