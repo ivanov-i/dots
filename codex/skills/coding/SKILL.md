@@ -1,6 +1,6 @@
 ---
 name: engineering
-description: Use when implementing task, writing/modifying code -- explains what super-engineers do differently from average joes
+description: Use when writing or modifying code in any way -- explains what super-engineers do differently from average joes
 ---
 
 # Starting Engineering

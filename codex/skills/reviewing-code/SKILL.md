@@ -11,16 +11,21 @@ Apply an uncompromising standard. Every line matters. Assume failures happen at 
 ## When to Use
 - When reviewing code.
 
+## Prepare
+- You are reviewing the code. You must know how to write the code. Use proper skill for that.
+
 ## Review Checklist
 1. ☐ Context: read plan, docs, commits; scan layout/architecture
 2. ☐ Sanity: verify plan vs code/docs alignment; stop and clarify on mismatches
 3. ☐ Architecture: spot god objects, leaks, wrong abstractions, premature/missing optimizations
-4. ☐ Bugs: races, deadlocks, off‑by‑one, nullability, resource leaks, TOCTOU
-5. ☐ Security: injection, authz, secrets, randomness, side channels, SSRF/XXE
-6. ☐ Performance: complexity bombs, N+1, blocking I/O, hot‑path allocs, regex traps
-7. ☐ Patterns: TODO/FIXME/HACK, debug prints, ts-ignore, string concatenated SQL, swallowed exceptions
-8. ☐ Code Quality: names, complexity, duplication, magic numbers, data clumps
-9. ☐ Analysis: root causes; systemic issues and thinking errors
+4. ☐ Architecture style: verify code vs the rest of the project. Architecture must match the rest of the project.
+5. ☐ Bugs: races, deadlocks, off‑by‑one, nullability, resource leaks, TOCTOU
+6. ☐ Security: injection, authz, secrets, randomness, side channels, SSRF/XXE
+7. ☐ Performance: complexity bombs, N+1, blocking I/O, hot‑path allocs, regex traps
+8. ☐ Patterns: TODO/FIXME/HACK, debug prints, ts-ignore, string concatenated SQL, swallowed exceptions
+9. ☐ Code Quality: names, complexity, duplication, magic numbers, data clumps
+10. ☐ Coding Style: you know how to write code, use that
+11. ☐ Analysis: root causes; systemic issues and thinking errors
 
 ## Report Format
 ```

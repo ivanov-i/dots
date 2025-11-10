@@ -11,11 +11,15 @@ Write plans that a fresh developer can execute linearly without guessing. Elimin
 ## When to Use
 - When creating or updating a plan.
 
+## Prepare
+- You are creating or updating a plan. You must know how to do each thing you are talking about. Use proper skills
+
 ## Checklist
 1. ☐ Get context: current codebase state; ask for missing info
 2. ☐ Sanity check: find discrepancies, missing tasks/docs, optional/NOP steps
-3. ☐ Implement: write all required sections fully; no placeholders
-4. ☐ State assumptions about the executor’s skill and lack of context
+3. ☐ Use proper skill to produce code samples, commit messages etc.
+4. ☐ Implement: write all required sections fully; no placeholders
+5. ☐ State assumptions about the executor’s skill and lack of context
 
 ## Plan Template
 ```

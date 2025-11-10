@@ -22,7 +22,7 @@ def summarize(text: str) -> str:
         "exec",
         "--json",
         "-m",
-        "gpt-5",
+        "gpt-5-codex-mini",
         "-c",
         "model_reasoning_effort=minimal",
         "-c",
