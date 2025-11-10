@@ -26,7 +26,7 @@ def summarize(text: str) -> str:
         "-c",
         "model_reasoning_effort=low",
         "-c",
-        "model_reasoning_summary=none",
+        "model_supports_reasoning_summaries = false",
         "-c",
         "model_verbosity=low",
         "-c",
