@@ -81,13 +81,13 @@ Ask: [specific metric/constraint]
 3) Cite which rules were applied (e.g., Clarify‑First, Progressive‑Architecture)
 
 
-# Creating Plans
+# Creating Plan MD Files
 
 ## Overview
 Write plans that a fresh developer can execute linearly without guessing. Eliminate ambiguity and optional steps.
 
 ## When to Use
-- When creating or updating a plan.
+- When creating or updating an MD  plan for a feature.
 
 ## Prepare
 
@@ -130,13 +130,13 @@ Write plans that a fresh developer can execute linearly without guessing. Elimin
 3) If blocked → ask for the missing inputs
 
 
-# Implementing Plans
+# Implementing Plans Specified in an MD File
 
 ## Overview
 Execute the plan sequentially without skipping or batching. Keep docs and the plan in sync as you go.
 
 ## When to Use
-- When implementing a written plan.
+- When implementing a written plan from an MD file.
 
 ## Execution Checklist
 1. ☐ Read plan and referenced docs fully

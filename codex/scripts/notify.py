@@ -31,6 +31,8 @@ def summarize(text: str) -> str:
         "model_verbosity=low",
         "-c",
         "notify=[]",
+        "-c",
+        "project_doc_max_bytes=0"
         "--skip-git-repo-check",
         "-",
     ]
