@@ -28,6 +28,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
     vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
     vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+
+    -- vim.keymap.set('i', '<Tab>', function()
+    --     if not vim.lsp.inline_completion.get() then
+    --         return '<Tab>'
+    --     end
+    -- end, { expr = true, desc = 'Accept the current inline completion' })
   end,
 })
 
@@ -83,3 +89,6 @@ vim.diagnostic.config({
         }
     }
 })
+
+vim.lsp.enable('copilot')
+vim.lsp.inline_completion.enable()
