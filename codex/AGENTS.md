@@ -194,8 +194,7 @@ Each commit should tell a coherent story and be easy to review. Split mixed conc
 1) If ambiguous → clarify intent and grouping
 2) If clear → add/split/commit with single‑line messages
 
-# tmux & Long-Running Tasks 
-mmands
+# tmux & Long-Running Tasks
 
 ## Overview
 Create tmux sessions and run background tasks reliably. 
@@ -204,7 +203,7 @@ Create tmux sessions and run background tasks reliably.
 - When running commands that don't return or take a very long time (servers, log streams, browser automation).
 
 ### How to Use
-- Run any command that could hang (s, servers, log streams, browser automation) inside tmux using the repository’s preferred entry point.
+- Run any command that could hang (tests, servers, log streams, browser automation) inside tmux using the repository’s preferred entry point.
 - Do not wrap tmux commands in infinite polling loops. Run the job, sleep briefly (≤30 s), capture output, and surface status at least once per minute.
 - Document which sessions you create and clean them up when they are no longer needed unless the workflow explicitly calls for persistent watchers.
 
@@ -217,8 +216,7 @@ A larger A.I. that can help you unstuck.
 - When you are stuck on a task and cannot proceed.
 
 ## How to Use
-Start by running oracle --help to find out how to use,
-Then in actual run add'--engine browser --browser-chrome-profile "Profile 4"' --browser-chrome-profile "Profile 4"' to make it work.
+Run `oracle --help` to learn the interface. For real runs add `--engine browser --browser-chrome-profile "Profile 4"` to use the prepared Chrome profile.
 
 # Reviewing Code
 
