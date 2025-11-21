@@ -507,7 +507,8 @@ source <(COMPLETE=zsh jj)
 
 cx() {
     if [[ "$1" == "update" ]]; then
-        npm install -g @openai/codex@latest
+        mise use -g node:@openai/codex@latest
+
     fi
     codex --yolo --enable web_search_request
 }
