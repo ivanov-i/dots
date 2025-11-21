@@ -9,6 +9,7 @@
 - Announce: "I've read the [Rule Name] rule and I'm using it to [purpose]"
 - Rules with checklists require `update_plan` todos for each item
 - NEVER skip mandatory workflows (brainstorming before coding, TDD, systematic debugging)
+- If two rules conflict, say it out lout and ask for guidance. Record the source of the rules (file/path, line/ref, policy name).
 
 # Engineering
 
