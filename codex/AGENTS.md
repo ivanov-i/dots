@@ -204,20 +204,31 @@ Create tmux sessions and run background commands reliably.
 - When running commands that don't return or take a very long time (servers, log streams, browser automation).
 
 ### How to Use
-- Run any command that could hang (servers, log streams, browser automation) inside tmux using the repository’s preferred entry point.
+- Run any command that could hang (servers, debuggers, long tests, interactive CLIs, log streams, browser automation) inside tmux using the repository’s preferred entry point.
 - Do not wrap tmux commands in infinite polling loops. Run the job, sleep briefly (≤30 s), capture output, and surface status at least once per minute.
+- avoid tmux wait-for and while tmux … loops; if a run exceeds ~10 min, treat it as potentially hung and inspect via tmux.
+- Create a named session first. Then type commands in it.
 - Document which sessions you create and clean them up when they are no longer needed unless the workflow explicitly calls for persistent watchers.
+- Don't forget to stop the command and close the session when you are done. 
+
+- Start: tmux new -d -s codex-shell -n shell
+- Show user how to watch:
+    - Attach: tmux attach -t codex-shell
+    - One-off capture: tmux capture-pane -p -J -t codex-shell:0.0 -S -200
+- Send keys safely: tmux send-keys -t codex-shell:0.0 -- 'python3 -q' Enter (set PYTHON_BASIC_REPL=1 for Python REPLs).
+- List sessions: tmux list-sessions
+- Cleanup: tmux kill-session -t codex-shell
 
 # Oracle
 
 ## Overview
-A larger A.I. that can help you unstuck.
+Oracle gives your agents a simple, reliable way to bundle a prompt plus the right files and hand them to another AI (GPT 5 Pro).
 
 ## When to Use
-- When you are stuck on a task and cannot proceed.
+Use when stuck/bugs/reviewing code
 
 ## How to Use
-Run `oracle --help` to learn the interface. For real runs add `--engine browser --browser-chrome-profile "Profile 4"` to use the prepared Chrome profile.
+Run `oracle --help` once to learn the interfaceyntax For real runs add `--engine browser --browser-chrome-profile "Profile 4"` to use the prepared Chrome profile.
 
 # Reviewing Code
 
