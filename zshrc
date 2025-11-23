@@ -234,6 +234,8 @@ update() {
   brew autoremove && \
   echo "[cleanup]" && \
   brew cleanup && \
+  echo "[mise upgrade]" && \
+  mise upgrade && \
   echo "[pip update]" && \
   pip install --upgrade pip && \
   pip list --outdated --format=json | jq -r '.[].name' | xargs -n1 pip install -U && \
@@ -276,6 +278,8 @@ update() {
 	  sudo apt upgrade -y && \
 	  echo "[apt autoremove]" && \
 	  sudo apt autoremove -y && \
+	  echo "[mise upgrade]" && \
+	  mise upgrade && \
 	  echo "[cargo cache cleanup]" && \
 	  cargo cache --autoclean && \
 	  echo "[npm cache cleanup]" && \
