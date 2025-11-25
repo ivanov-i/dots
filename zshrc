@@ -393,7 +393,7 @@ fi
 
  
 
-FILE=/Users/ivanov/.docker/init-zsh.sh; [ -f $FILE ] && . $FILE
+FILE="$HOME/.docker/init-zsh.sh"; [[ -f "$FILE" ]] && . "$FILE"
 
 fix-mosh-server() {
   fw=/usr/libexec/ApplicationFirewall/socketfilterfw
@@ -404,17 +404,20 @@ fix-mosh-server() {
 }
 
 function preexec() {
-  # Define the color variable
   local color="242"
+  local timestamp
+  local ruler_length
+  local dots=""
 
-  # Calculate the timestamp string
-  local timestamp=$(print -P -l "%D{%H:%M:%S %Y-%m-%d}")
+  timestamp=$(print -P -l "%D{%H:%M:%S %Y-%m-%d}")
+  (( ruler_length = COLUMNS - ${#timestamp} ))
+  (( ruler_length < 0 )) && ruler_length=0
 
-  # Calculate the length of the ruler
-  local ruler_length=$((COLUMNS - ${#timestamp}))
+  if (( ruler_length > 0 )); then
+    dots=$(printf '·%.0s' {1..$ruler_length})
+  fi
 
-  # Display the ruler and the timestamp using the defined color
-  print -P "\n%F{$color}$(printf '·%.0s' {1..$ruler_length})%D{%H:%M:%S %Y-%m-%d}%f"
+  print -P "\n%F{$color}${dots}%D{%H:%M:%S %Y-%m-%d}%f"
 }
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
