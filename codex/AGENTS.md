@@ -264,6 +264,9 @@ REJECTED | DANGEROUS | AMATEUR | MEDIOCRE | BARELY ACCEPTABLE | ACCEPTABLE
 2) If clear → produce structured report with exact fixes
 3) Cite which categories caught each issue
 
+# Useful Modern Utilities
+
+- trash: rm replacement on MacOs. Usage: "trash file1 file2 folder1 folder2". Use it and the files can be restored later. MacOs cleans up trashed files after a month, so don't worry about saving disk space. 
 
 # How Superengineers Work
 
