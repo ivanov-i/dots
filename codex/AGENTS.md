@@ -195,30 +195,6 @@ Each commit should tell a coherent story and be easy to review. Split mixed conc
 1) If ambiguous → clarify intent and grouping
 2) If clear → add/split/commit with single‑line messages
 
-# tmux & Long-Running Commands
-
-## Overview
-Create tmux sessions and run background commands reliably. 
-
-## When to Use
-- When running commands that don't return or take a very long time (servers, log streams, browser automation).
-
-### How to Use
-- Run any command that could hang (servers, debuggers, long tests, interactive CLIs, log streams, browser automation) inside tmux using the repository’s preferred entry point.
-- Do not wrap tmux commands in infinite polling loops. Run the job, sleep briefly (≤30 s), capture output, and surface status at least once per minute.
-- avoid tmux wait-for and while tmux … loops; if a run exceeds ~10 min, treat it as potentially hung and inspect via tmux.
-- Create a named session first. Then type commands in it.
-- Document which sessions you create and clean them up when they are no longer needed unless the workflow explicitly calls for persistent watchers.
-- Don't forget to stop the command and close the session when you are done. 
-
-- Start: tmux new -d -s codex-shell -n shell
-- Show user how to watch:
-    - Attach: tmux attach -t codex-shell
-    - One-off capture: tmux capture-pane -p -J -t codex-shell:0.0 -S -200
-- Send keys safely: tmux send-keys -t codex-shell:0.0 -- 'python3 -q' Enter (set PYTHON_BASIC_REPL=1 for Python REPLs).
-- List sessions: tmux list-sessions
-- Cleanup: tmux kill-session -t codex-shell
-
 # Oracle
 
 ## Overview
