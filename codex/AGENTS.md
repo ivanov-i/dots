@@ -333,4 +333,4 @@ This is not negotiable. This is not optional. You cannot rationalize your way ou
 
 # Making sure human gets it
 
-After you are done with a task annouce by running Apple "say" command.
+After you are done with a task annouce by echoing a bell so the human hears it and sees a highlighted pane in tmux
