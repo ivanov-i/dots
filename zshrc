@@ -520,3 +520,8 @@ cx() {
 #gemini
 
 alias gg="gemini --yolo"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  alias ipad='$HOME/dots/bin/sidecar.swift connect "iPadM1"'
+  alias noipad='$HOME/dots/bin/sidecar.swift disconnect "iPadM1"'
+fi
