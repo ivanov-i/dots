@@ -514,7 +514,7 @@ source <(COMPLETE=zsh jj)
 
 cx() {
     if [[ "$1" == "update" ]]; then
-        mise use -g node:@openai/codex@latest
+        mise upgrade -l npm:@openai/codex@latest
 
     fi
     codex --yolo --enable web_search_request
