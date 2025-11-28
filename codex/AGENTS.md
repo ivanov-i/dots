@@ -157,6 +157,18 @@ Execute the plan sequentially without skipping or batching. Keep docs and the pl
 2) If clear → implement strictly per plan
 3) Cite rules used (context-first, sanity‑check, sequential execution)
 
+# Working with Git
+
+## Overview
+Useful git technicques for superengineers.
+
+## When to Use
+- When issuing git commands.
+
+## How to Use
+1. Turn off pagers to avoid useless noise and make it easier to read
+2. Turn off external diffs (there are delta and difftastic configured) to see diffs more clearly in the terminal 
+3. Turn off coloring to make it easier to read in the terminal
 
 # Making Commits
 
@@ -204,7 +216,36 @@ Oracle gives your agents a simple, reliable way to bundle a prompt plus the righ
 Use when stuck/bugs/reviewing code
 
 ## How to Use
-Run `oracle --help` once to learn the interfaceyntax For real runs add `--engine browser --browser-chrome-profile "Profile 4"` to use the prepared Chrome profile.
+- Run `oracle --help` once to learn the interface syntax
+- For real runs add `--engine browser --browser-chrome-profile "Profile 4"` to use the prepared Chrome profile.
+- Note, only browser engine works. Do not use other engines.
+
+# Running Tests
+
+## Overview
+Tests verify correctness and prevent regressions.
+
+## When to Use
+- When you are going to run tests
+
+## How to run tests
+- Always run all tests. Never cheat by running only a subset of tests.
+- All tests should pass.
+- There is no such thing as "unrelated test"
+
+# Validating Builds
+
+## Overview
+Builds verify that code compiles and packages correctly.
+
+## When to Use
+- When you are going to check if your changes are correct.
+
+## What to do
+- Run a build script or one-liner whatever the project requires.
+- Run liner if available.
+- Make sure that all tests pass. No cheating. Every single test must pass.
+- There is no such thing as "unrelated test"
 
 # Reviewing Code
 
@@ -336,4 +377,6 @@ This is not negotiable. This is not optional. You cannot rationalize your way ou
 
 # Making sure human gets it
 
-After you are done with a task annouce by echoing a bell so the human hears it and sees a highlighted pane in tmux
+Answer in english unless instructed otherwise. Even if the task is in another language.
+
+After you are done with a task annouce by echoing a bell (printf '\a') so the human hears it and sees a highlighted pane in tmux
