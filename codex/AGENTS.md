@@ -181,27 +181,29 @@ Each commit should tell a coherent story and be easy to review. Split mixed conc
 ## Checklist
 1. ☐ `git status` — staged vs unstaged
 2. ☐ `git diff HEAD` — inspect changes; identify multiple concerns
-3. ☐ `git log --oneline -40` — learn tone/style
+3. ☐ `git log --oneline -n 40 --no-merges` — learn tone/style of commit messages
 4. ☐ If mixed concerns → split into focused commits
 5. ☐ Stage relevant hunks/files; verify with `git diff --staged`
 6. ☐ Write single‑line message; no emojis/prefixes or co‑authors
 
 ## Splitting Criteria
 - Different concerns or types of change (feature/fix/refactor/docs)
+- Do not mix different features even if they are in a single file or a similar type.
 - Separate file patterns or large changes that benefit clarity
 
 ## Message Rules
 - Do not use "conventional" message formats. Your intuition is from average stackoverflow copypaster. Follow thise rules:
 - Single line only; descriptive and concise
 - No “Co-Authored-By” or “Generated with” trailers
-- Infer commit style from git history
-- If ticket number is required by style, try to infer it from the current branch name. If not, ask for it.
+- Infer commit style from git history (step #3 in the checklist)
+- If ticket number is required by style, try to infer it from the current branch name. If not, ask for it. Do not commit without it. 
 
 ## Anti‑Patterns
 - Remote ops (push/fetch), destructive operations, squashing history unasked
 - Suggesting to push, write PR, or any other actions
 - Prefixes, emojis, or co-authors
 - Non-default author, committer
+- Commit messaeg which doenot follow establised commit style.
 
 ## Response Pattern
 1) If ambiguous → clarify intent and grouping
