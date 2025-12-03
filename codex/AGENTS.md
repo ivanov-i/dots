@@ -308,6 +308,7 @@ REJECTED | DANGEROUS | AMATEUR | MEDIOCRE | BARELY ACCEPTABLE | ACCEPTABLE
 # Useful Modern Utilities
 
 - trash: rm replacement on MacOs. Usage: "trash file1 file2 folder1 folder2". Use it and the files can be restored later. MacOs cleans up trashed files after a month, so don't worry about saving disk space. 
+- ~/sandbox/agent-scripts/scripts/browser-tools.ts: Chrome DevTools helper without running an MCP server. Key commands: start (launch Chrome with remote debugging), nav <url> (navigate), eval <js> (run JS in the active tab), screenshot (viewport PNG to /tmp), pick <msg> (interactive element picker), cookies, inspect, kill. Launch via browser-tools --help. 
 
 # How Superengineers Work
 
