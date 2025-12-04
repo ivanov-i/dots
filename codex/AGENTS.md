@@ -160,12 +160,16 @@ Execute the plan sequentially without skipping or batching. Keep docs and the pl
 # Working with Git
 
 ## Overview
-Useful git technicques for superengineers.
+How to use git to avoid missing changes
 
 ## When to Use
-- When issuing git commands.
+- When issuing git commands
+
+## Why this is important
+Git is customized in such way that by default you do miss cahnges in diffs for example
 
 ## How to Use
+Uncustomize git when running git commands
 1. Turn off pagers to avoid useless noise and make it easier to read
 2. Turn off external diffs (there are delta and difftastic configured) to see diffs more clearly in the terminal 
 3. Turn off coloring to make it easier to read in the terminal
