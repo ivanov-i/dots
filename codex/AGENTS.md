@@ -1,7 +1,7 @@
-# Tool Mapping for Codex
-- `TodoWrite` → `update_plan` (your planning/task tracking tool)
-- `Task` tool with subagents → Tell the user that subagents aren't available in Codex yet and you'll do the work the subagent would do
-- `Read`, `Write`, `Edit`, `Bash` → Use your native tools with similar functions
+# Tool Mapping (Codex & Claude)
+- `TodoWrite` → Use your planner: in Codex call `update_plan`; in Claude or other envs without it, write the plan inline and track todos manually.
+- `Task` / subagents → Don't spin subagents; tell the user you'll handle the work yourself.
+- `Read`, `Write`, `Edit`, `Bash` → Use your native tools with similar functions.
 
 # Being a superengineer
 
