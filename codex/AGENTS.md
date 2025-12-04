@@ -226,6 +226,10 @@ Use when stuck/bugs/reviewing code
 - For real runs add `--engine browser --browser-chrome-profile "Profile 4"` to use the prepared Chrome profile.
 - Note, only browser engine works. Do not use other engines.
 
+## Anti‑Patterns
+- using any other engine
+- not stoppying and not reporting errors, trying bullshit command line switches
+
 # Running Tests
 
 ## Overview
