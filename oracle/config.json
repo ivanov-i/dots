@@ -1,0 +1,8 @@
+{
+  engine: "browser",
+
+  browser: {
+    chromeProfile: "Profile 4",
+    chatgptUrl: "https://chatgpt.com/g/g-p-6934b46cd7808191820948489d935874-coding/project"
+  }
+}

@@ -226,8 +226,10 @@ Use when stuck/bugs/reviewing code
 
 ## How to Use
 - Run `oracle --help` once to learn the interface syntax
-- For real runs add `--engine browser --browser-chrome-profile "Profile 4"` to use the prepared Chrome profile.
+- By default it uses browser engine and profile set up elsewhere. This is correct, do not modify.
 - Note, only browser engine works. Do not use other engines.
+- Use good prompt and provide all needed context in prompt and files.
+- Do not supply the answers, do not nudge it into your direction
 
 ## Anti‑Patterns
 - using any other engine
