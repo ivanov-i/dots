@@ -1,5 +1,4 @@
 DISABLE_AUTO_UPDATE="true"
-DISABLE_MAGIC_FUNCTIONS="true"
 DISABLE_COMPFIX="true"
 
 autoload -Uz compinit
@@ -528,3 +527,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   alias ipad='$HOME/dots/bin/sidecar.swift connect "iPadM1"'
   alias noipad='$HOME/dots/bin/sidecar.swift disconnect "iPadM1"'
 fi
+
+
+# for url pasting
+set zle_bracketed_paste
+autoload -Uz bracketed-paste-magic url-quote-magic
+zle -N bracketed-paste bracketed-paste-magic
+zle -N self-insert url-quote-magic
+
