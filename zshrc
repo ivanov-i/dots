@@ -234,7 +234,7 @@ update() {
   echo "[cleanup]" && \
   brew cleanup && \
   echo "[mise upgrade]" && \
-  mise upgrade && \
+  npm_config_ignore_scripts=false mise upgrade && \
   echo "[pip update]" && \
   pip install --upgrade pip && \
   pip list --outdated --format=json | jq -r '.[].name' | xargs -n1 pip install -U && \
