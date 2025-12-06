@@ -194,6 +194,7 @@ Each commit should tell a coherent story and be easy to review. Split mixed conc
 - Different concerns or types of change (feature/fix/refactor/docs)
 - Do not mix different features even if they are in a single file or a similar type.
 - Separate file patterns or large changes that benefit clarity
+- You want to add with a commit message like "item1 and item2". That "and" word is a criteria to split.
 
 ## Message Rules
 - Do not use "conventional" message formats. Your intuition is from average stackoverflow copypaster. Follow thise rules:
@@ -207,7 +208,9 @@ Each commit should tell a coherent story and be easy to review. Split mixed conc
 - Suggesting to push, write PR, or any other actions
 - Prefixes, emojis, or co-authors
 - Non-default author, committer
-- Commit messaeg which doenot follow establised commit style.
+- Commit message which do not follow established commit style.
+- Commit contains two or more unrelated changes.
+- Message follow a "Item1 and Item2" style.
 
 ## Response Pattern
 1) If ambiguous → clarify intent and grouping
