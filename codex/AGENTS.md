@@ -30,7 +30,10 @@ Ask targeted questions to clarify requirements, constraints, and edge cases. Avo
 - Avoid burying yourself in details: focus on clarifying the big picture first
 
 ### Question rules
+- Research first. Check existing docs, code, plans for answers before asking.
+- You are not getting all you knowledge from the user. You have access to codebase, docs, plans, web etc. Use them to find answers before asking.
 - One question at a time
+- Do not modify anything untill the discussion is over
 - No walls of text
 - No open-ended questions
 - No "any other requirements?"
