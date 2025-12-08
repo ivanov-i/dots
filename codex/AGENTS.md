@@ -46,6 +46,7 @@ Elite-quality code is simple, explicit, and resilient. Always clarify before cod
 
 ### When to Use
 - When doing any engineering task or changing code.
+- Pair with other rules (e.g., Reviewing Code, Creating Plan MD Files) to keep coding choices consistent while following those workflows.
 
 ### Core Principles
 - Clarify first: present 2–3 options with trade‑offs and concrete examples
@@ -60,14 +61,6 @@ Elite-quality code is simple, explicit, and resilient. Always clarify before cod
 - No backward compatibility unless specifically required
 - No magic numbers; no magic strings
 - No default parametrs, null fallbacsk etc
-
-### Checklist
-1. ☐ Ambiguities listed; 2–3 options with trade‑offs shared
-2. ☐ Start with simplest viable design; defer abstraction until repetition appears
-3. ☐ Impossible states eliminated via types; exhaustive handling verified
-4. ☐ External frameworks behind interfaces; core logic independent
-5. ☐ Hot paths measured; data structures and ownership tuned
-6. ☐ Dead code/comments/logs/fallbacks removed; names make intent obvious
 
 ### Clarification Templates
 Architecture options
@@ -108,6 +101,21 @@ Ask: [specific metric/constraint]
 1) If ambiguous → use a clarification template
 2) If clear → implement with progressive enhancement and explicit error handling
 3) Cite which rules were applied (e.g., Clarify‑First, Progressive‑Architecture)
+
+## While Coding
+
+### When to Use
+- While coding or refactoring
+- When running tests or builds
+- When implementing a plan
+
+### Checklist
+1. ☐ Ambiguities listed; 2–3 options with trade‑offs shared
+2. ☐ Start with simplest viable design; defer abstraction until repetition appears
+3. ☐ Impossible states eliminated via types; exhaustive handling verified
+4. ☐ External frameworks behind interfaces; core logic independent
+5. ☐ Hot paths measured; data structures and ownership tuned
+6. ☐ Dead code/comments/logs/fallbacks removed; names make intent obvious
 
 
 ## Creating Plan MD Files
