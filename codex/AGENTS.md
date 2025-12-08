@@ -11,15 +11,40 @@
 - NEVER skip mandatory workflows (brainstorming before coding, TDD, systematic debugging)
 - If two rules conflict, say it out lout and ask for guidance. Record the source of the rules (file/path, line/ref, policy name).
 
-# Engineering
+# Rules
 
-## Overview
+## Discussing a Task
+
+### Overview
+Ask targeted questions to clarify requirements, constraints, and edge cases. Avoid assumptions.
+
+### When to Use
+- When your human partner tells you "let's talk", "let's discuss", or similar.
+
+### Core Principles
+- The idea is that human knows what they want, but cannot express it clearly. Your job is to help them express it clearly by asking the right questions.
+- Targeted questions: focus on specific ambiguities; avoid open-ended queries
+- Prioritize: ask about high-impact areas first (e.g., failure modes, performance)
+- Concrete examples: request scenarios illustrating expected behavior
+- Avoid assumptions: do not infer unstated requirements without confirmation
+- Avoid burying yourself in details: focus on clarifying the big picture first
+
+### Question rules
+- One question at a time
+- No walls of text
+- No open-ended questions
+- No "any other requirements?"
+- No "is there anything else I should know?"
+
+## Engineering
+
+### Overview
 Elite-quality code is simple, explicit, and resilient. Always clarify before coding, add complexity progressively, and make impossible states unrepresentable.
 
-## When to Use
+### When to Use
 - When doing any engineering task or changing code.
 
-## Core Principles
+### Core Principles
 - Clarify first: present 2–3 options with trade‑offs and concrete examples
 - Progressive architecture: start direct → abstract on repetition → generalize on patterns
 - Error handling: exhaustive enums/variants; actionable recovery paths; no force-unwraps
@@ -33,7 +58,7 @@ Elite-quality code is simple, explicit, and resilient. Always clarify before cod
 - No magic numbers; no magic strings
 - No default parametrs, null fallbacsk etc
 
-## Checklist
+### Checklist
 1. ☐ Ambiguities listed; 2–3 options with trade‑offs shared
 2. ☐ Start with simplest viable design; defer abstraction until repetition appears
 3. ☐ Impossible states eliminated via types; exhaustive handling verified
@@ -41,7 +66,7 @@ Elite-quality code is simple, explicit, and resilient. Always clarify before cod
 5. ☐ Hot paths measured; data structures and ownership tuned
 6. ☐ Dead code/comments/logs/fallbacks removed; names make intent obvious
 
-## Clarification Templates
+### Clarification Templates
 Architecture options
 ```
 Feature: [X]
@@ -68,49 +93,49 @@ Technical choice
 Ask: [specific metric/constraint]
 ```
 
-## Anti‑Patterns
+### Anti‑Patterns
 - God objects, stringly‑typed APIs, retained cycles
 - Force unwrapping, premature optimization, unnecessary abstraction
 
-## Quality Gates
+### Quality Gates
 - No force unwraps/unchecked error paths
 - Public APIs documented; edge cases (nil/empty/invalid) handled
 
-## Response Pattern
+### Response Pattern
 1) If ambiguous → use a clarification template
 2) If clear → implement with progressive enhancement and explicit error handling
 3) Cite which rules were applied (e.g., Clarify‑First, Progressive‑Architecture)
 
 
-# Creating Plan MD Files
+## Creating Plan MD Files
 
-## Overview
+### Overview
 Write plans that a fresh developer can execute linearly without guessing. Eliminate ambiguity and optional steps.
 
-## When to Use
+### When to Use
 - When creating or updating an MD  plan for a feature.
 
-## Prepare
+### Prepare
 
-## Checklist
+### Checklist
 1. ☐ Get context: current codebase state; ask for missing info
 2. ☐ Sanity check: find discrepancies, missing tasks/docs, optional/NOP steps
 4. ☐ Implement: write all required sections fully; no placeholders
 
-## Plan Template
+### Plan Template
 ```
-# %plan_name% - Plan
+## %plan_name% - Plan
 
-## Read This First
+### Read This First
 - Read this plan fully. Inspect current implementation/files: [paths]
 
-## What You Are Building
+### What You Are Building
 - What/why/how at high level; assumptions and constraints
 
-## Implementation Details
+### Implementation Details
 - Algorithms, data structures, failure modes; how we avoid bugs/deadlocks
 
-## Bite-Sized Tasks
+### Bite-Sized Tasks
 - [ ] 1. task name
   - steps
   - mark as done in plan
@@ -118,28 +143,28 @@ Write plans that a fresh developer can execute linearly without guessing. Elimin
 - [ ] 2. task name
 ...
 
-## Manual Testing Guide
+### Manual Testing Guide
 - Steps to verify end‑to‑end
 ```
 
-## Anti‑Patterns
+### Anti‑Patterns
 - Optional steps, NOP tasks (e.g., "keep this code"), pending items
 
-## Response Pattern
+### Response Pattern
 1) If ambiguous → ask targeted clarifying questions
 2) If clear → produce the plan using the template above
 3) If blocked → ask for the missing inputs
 
 
-# Implementing Plans Specified in an MD File
+## Implementing Plans Specified in an MD File
 
-## Overview
+### Overview
 Execute the plan sequentially without skipping or batching. Keep docs and the plan in sync as you go.
 
-## When to Use
+### When to Use
 - When implementing a written plan from an MD file.
 
-## Execution Checklist
+### Execution Checklist
 1. ☐ Read plan and referenced docs fully
 2. ☐ Sanity check: discrepancies, missing tasks/docs, optional/NOP steps → pause and clarify
 3. ☐ Select next task in order; implement it
@@ -148,41 +173,41 @@ Execute the plan sequentially without skipping or batching. Keep docs and the pl
 6. ☐ Commit with the plan’s specified message
 7. ☐ Proceed to next task; avoid batching
 
-## Anti‑Patterns
+### Anti‑Patterns
 - Doing tasks out of order or in batches
 - Skipping plan steps, modifying plan/docs without permission
 
-## Response Pattern
+### Response Pattern
 1) If ambiguous → clarify
 2) If clear → implement strictly per plan
 3) Cite rules used (context-first, sanity‑check, sequential execution)
 
-# Working with Git
+## Working with Git
 
-## Overview
+### Overview
 How to use git to avoid missing changes
 
-## When to Use
+### When to Use
 - When issuing git commands
 
-## Why this is important
+### Why this is important
 Git is customized in such way that by default you do miss cahnges in diffs for example
 
-## How to Use
+### How to Use
 Uncustomize git when running git commands
 1. Turn off pagers to avoid useless noise and make it easier to read
 2. Turn off external diffs (there are delta and difftastic configured) to see diffs more clearly in the terminal 
 3. Turn off coloring to make it easier to read in the terminal
 
-# Making Commits
+## Making Commits
 
-## Overview
+### Overview
 Each commit should tell a coherent story and be easy to review. Split mixed concerns and keep messages tight.
 
-## When to Use
+### When to Use
 - When making git commits.
 
-## Checklist
+### Checklist
 1. ☐ `git status` — staged vs unstaged
 2. ☐ `git diff HEAD` — inspect changes; identify multiple concerns
 3. ☐ `git log --oneline -n 40 --no-merges` — learn tone/style of commit messages
@@ -190,20 +215,20 @@ Each commit should tell a coherent story and be easy to review. Split mixed conc
 5. ☐ Stage relevant hunks/files; verify with `git diff --staged`
 6. ☐ Write single‑line message; no emojis/prefixes or co‑authors
 
-## Splitting Criteria
+### Splitting Criteria
 - Different concerns or types of change (feature/fix/refactor/docs)
 - Do not mix different features even if they are in a single file or a similar type.
 - Separate file patterns or large changes that benefit clarity
 - You want to add with a commit message like "item1 and item2". That "and" word is a criteria to split.
 
-## Message Rules
+### Message Rules
 - Do not use "conventional" message formats. Your intuition is from average stackoverflow copypaster. Follow thise rules:
 - Single line only; descriptive and concise
 - No “Co-Authored-By” or “Generated with” trailers
 - Infer commit style from git history (step #3 in the checklist)
 - If ticket number is required by style, try to infer it from the current branch name. If not, ask for it. Do not commit without it. 
 
-## Anti‑Patterns
+### Anti‑Patterns
 - Remote ops (push/fetch), destructive operations, squashing history unasked
 - Suggesting to push, write PR, or any other actions
 - Prefixes, emojis, or co-authors
@@ -212,19 +237,19 @@ Each commit should tell a coherent story and be easy to review. Split mixed conc
 - Commit contains two or more unrelated changes.
 - Message follow a "Item1 and Item2" style.
 
-## Response Pattern
+### Response Pattern
 1) If ambiguous → clarify intent and grouping
 2) If clear → add/split/commit with single‑line messages
 
-# Oracle
+## Oracle
 
-## Overview
+### Overview
 Oracle gives your agents a simple, reliable way to bundle a prompt plus the right files and hand them to another AI (GPT 5 Pro).
 
-## When to Use
+### When to Use
 Use when stuck/bugs/reviewing code
 
-## How to Use
+### How to Use
 - Run `oracle --help` once to learn the interface syntax
 - By default it uses browser engine and profile set up elsewhere. This is correct, do not modify.
 - If it can't login, do not try to fix it. Ask the user to help you.
@@ -232,49 +257,49 @@ Use when stuck/bugs/reviewing code
 - Use good prompt and provide all needed context in prompt and files.
 - Do not supply the answers, do not nudge it into your direction
 
-## Anti‑Patterns
+### Anti‑Patterns
 - using any other engine
 - not stoppying and not reporting errors
 - "I've already solved this, and here's my reasons why it's solved, but check it over anyway," kind of tone, which heavily biases Oracle
 
-# Running Tests
+## Running Tests
 
-## Overview
+### Overview
 Tests verify correctness and prevent regressions.
 
-## When to Use
+### When to Use
 - When you are going to run tests
 
-## How to run tests
+### How to run tests
 - Always run all tests. Never cheat by running only a subset of tests.
 - All tests should pass.
 - There is no such thing as "unrelated test"
 
-# Validating Builds
+## Validating Builds
 
-## Overview
+### Overview
 Builds verify that code compiles and packages correctly.
 
-## When to Use
+### When to Use
 - When you are going to check if your changes are correct.
 
-## What to do
+### What to do
 - Run a build script or one-liner whatever the project requires.
 - Run liner if available.
 - Make sure that all tests pass. No cheating. Every single test must pass.
 - There is no such thing as "unrelated test"
 
-# Reviewing Code
+## Reviewing Code
 
-## Overview
+### Overview
 Apply an uncompromising standard. Every line matters. Assume failures happen at the worst time; prevent them in review.
 
-## When to Use
+### When to Use
 - When reviewing code.
 
-## Prepare
+### Prepare
 
-## Review Checklist
+### Review Checklist
 1. ☐ Context: read plan, docs, commits; scan layout/architecture
 2. ☐ Sanity: verify plan vs code/docs alignment; stop and clarify on mismatches
 3. ☐ Architecture: spot god objects, leaks, wrong abstractions, premature/missing optimizations
@@ -287,7 +312,7 @@ Apply an uncompromising standard. Every line matters. Assume failures happen at 
 10. ☐ Coding Style: you know how to write code, use that
 11. ☐ Analysis: root causes; systemic issues and thinking errors
 
-## Report Format
+### Report Format
 ```
 - verdict
 - critical_failures
@@ -302,10 +327,10 @@ Apply an uncompromising standard. Every line matters. Assume failures happen at 
 - final_judgment
 ```
 
-## Verdict Scale
+### Verdict Scale
 REJECTED | DANGEROUS | AMATEUR | MEDIOCRE | BARELY ACCEPTABLE | ACCEPTABLE
 
-## Quick Reference Patterns
+### Quick Reference Patterns
 - Grep patterns to catch common issues (adapt to stack):
   - `TODO|FIXME|HACK|XXX`
   - `console\.log|print|fmt\.Print|puts|var_dump`
@@ -317,12 +342,12 @@ REJECTED | DANGEROUS | AMATEUR | MEDIOCRE | BARELY ACCEPTABLE | ACCEPTABLE
   - `new Date\(\)|Date\.now\(\)`
   - `@ts-ignore|@ts-nocheck`
 
-## Response Pattern
+### Response Pattern
 1) If ambiguous → clarify
 2) If clear → produce structured report with exact fixes
 3) Cite which categories caught each issue
 
-# Useful Modern Utilities
+## Useful Modern Utilities
 
 - trash: rm replacement on MacOs. Usage: "trash file1 file2 folder1 folder2". Use it and the files can be restored later. MacOs cleans up trashed files after a month, so don't worry about saving disk space. 
 - ~/sandbox/agent-scripts/scripts/browser-tools.ts: Chrome DevTools helper without running an MCP server. Key commands: start (launch Chrome with remote debugging), nav <url> (navigate), eval <js> (run JS in the active tab), screenshot (viewport PNG to /tmp), pick <msg> (interactive element picker), cookies, inspect, kill. Launch via browser-tools --help. 
@@ -337,9 +362,8 @@ This is not negotiable. This is not optional. You cannot rationalize your way ou
 
 ## Critical Rules
 
-1. **Follow mandatory workflows.** Brainstorming before coding. Check for relevant rules before ANY task.
-
-2. Execute rules with the Rule tool
+1. **Follow mandatory workflows.**
+2. Check for relevant rules before ANY task.
 
 ## Common Rationalizations That Mean You're About To Fail
 
