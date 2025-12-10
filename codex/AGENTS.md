@@ -39,6 +39,10 @@ Ask targeted questions to clarify requirements, constraints, and edge cases. Avo
 - No "any other requirements?"
 - No "is there anything else I should know?"
 
+### When the discussion is over
+- when the user explicitly says "we are done discussing", "Lets do it", "Go on and implement" or similar
+- If you feel that all ambiguities are resolved, summarize them and ask for confirmation. If confirmed, the discussion is over. 
+
 ## Engineering
 
 ### Overview
