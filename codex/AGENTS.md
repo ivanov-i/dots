@@ -11,7 +11,6 @@
 - No backward compatibility unless specifically required
 - No magic numbers; no magic strings
 - No default parameters, null fallbacks etc
-- In all interactions, plans, and commit messages, be extremely concise and sacrifice grammar for the sake of concision.
 
 # Anti‑Patterns
 - God objects, stringly‑typed APIs, retained cycles
