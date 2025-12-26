@@ -1,5 +1,5 @@
 # Core Principles
-- Clarify first: present 2–3 options with trade‑offs and concrete examples
+- Clarify only when genuinely ambiguous or blocked. Otherwise proceed with a reasonable assumption and state it. If still confused, present 2-3 options with trade-offs and concrete examples.
 - Progressive architecture: start direct → abstract on repetition → generalize on patterns
 - Error handling: exhaustive enums/variants; actionable recovery paths; no force-unwraps
 - Decouple from frameworks where reasonable
