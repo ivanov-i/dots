@@ -1,24 +1,61 @@
-# Core Principles
-- Clarify only when genuinely ambiguous or blocked. Otherwise proceed with a reasonable assumption and state it. If still confused, present 2-3 options with trade-offs and concrete examples.
-- Progressive architecture: start direct → abstract on repetition → generalize on patterns
-- Error handling: exhaustive enums/variants; actionable recovery paths; no force-unwraps
-- Decouple from frameworks where reasonable
-- Performance: profile → measure → optimize; pick correct data structures
-- Simplicity: KISS, YAGNI; remove dead/defensive/fallback code and spammy logs
-- No excessive abstractions.
-- No useless getters/setters/builders.
-- No fallbacks for tests in production code
-- No backward compatibility unless specifically required
-- No magic numbers; no magic strings
-- No default parameters, null fallbacks etc
+# AGENTS.MD
 
-# Anti‑Patterns
-- God objects, stringly‑typed APIs, retained cycles
-- Force unwrapping, premature optimization, unnecessary abstraction
+Igor owns this. Start: say hi + 1 motivating line.
+Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 
-# Working with Git
+## Agent Protocol
+- Files: repo or `~/dots/
+- Only edit AGENTS when user says “make a note” (ignore `CLAUDE.md`).
+- Guardrails: use `trash` for deletes.
+- Need upstream file: stage in `/tmp/`, then cherry-pick; never overwrite tracked.
+- Bugs: add regression test when it fits.
+- Keep files <~500 LOC; split/refactor as needed.
+- Commits: Conventional Commits (`feat|fix|refactor|build|ci|chore|docs|style|perf|test`). Follow the repo style.
+- Subagents: read `docs/subagent.md`.
+- Prefer end-to-end verify; if blocked, say what’s missing.
+- New deps: quick health check (recent releases/commits, adoption).
+- Slash cmds: `~/.codex/prompts/`.
+- Web: search early; quote exact errors; prefer 2024–2025 sources; fallback Firecrawl (`pnpm mcp:*`) / `mcporter`.
+- Oracle: run `oracle --help` once/session before first use.
+- Style: telegraph. Drop filler/grammar. Min tokens (global AGENTS + replies).
 
-## Diffs
+## Docs
+- Start: run docs list (`docs:list` script, or `bin/docs-list` here if present; ignore if not installed); open docs before coding.
+- Follow links until domain makes sense; honor `Read when` hints.
+- Keep notes short; update docs when behavior/API changes (no ship w/o docs).
+- Add `read_when` hints on cross-cutting docs.
+- Model preference: latest only. OK: Anthropic Opus 4.5 / Sonnet 4.5 (Sonnet 3.5 = old; avoid), OpenAI GPT-5.2, xAI Grok-4.1 Fast, Google Gemini 3 Flash.
+
+## Flow & Runtime
+- Use repo’s package manager/runtime; no swaps w/o approval.
+- Use Codex background for long jobs; tmux only for interactive/persistent (debugger/server).
+
+## Build / Test
+- Before handoff: run full gate (lint/typecheck/tests/docs).
+- Keep it observable (logs, panes, tails, MCP/browser tools).
+
+## Critical Thinking
+- Fix root cause (not band-aid).
+- Unsure: read more code; if still stuck, ask w/ short options.
+- Conflicts: call out; pick safer path.
+- Unrecognized changes: assume other agent; keep going; focus your changes. If it causes issues, stop + ask user.
+- Leave breadcrumb notes in thread.
+
+## Git
+
+- Safe by default: `git status/diff/log`. Push only when user asks.
+- `git checkout` ok for PR review / explicit request.
+- Branch changes require user consent.
+- Destructive ops forbidden unless explicit (`reset --hard`, `clean`, `restore`, `rm`, …).
+- Don’t delete/rename unexpected stuff; stop + ask.
+- No repo-wide S/R scripts; keep edits small/reviewable.
+- Avoid manual `git stash`; if Git auto-stashes during pull/rebase, that’s fine (hint, not hard guardrail).
+- If user types a command (“pull and push”), that’s consent for that command.
+- No amend unless asked.
+- Big review: `git --no-pager diff --color=never`.
+- Multi-agent: check `git status/diff` before edits; ship small commits.
+
+### Diffs
 
 Git is customized in such way that by default you do miss changes in diffs for example
 
@@ -29,41 +66,6 @@ Git is customized in such way that by default you do miss changes in diffs for e
 Example diff:
 
 git -c color.ui=false diff --no-pager --no-ext-diff HEAD 
-
-## Making Commits
-
-Each commit should tell a coherent story and be easy to review. Split mixed concerns and keep messages tight.
-
-### Checklist
-Git commands to run (remember to uncustomize as needed):
-1. status - staged vs unstaged
-2. diff  - inspect changes; identify multiple concerns
-3. log --oneline -n 40 --no-merges` — learn tone/style of commit messages
-4. If mixed concerns → split into focused commits
-5. diff staged
-6. Write single‑line message; no emojis/prefixes or co‑authors
-
-### Splitting Criteria
-- Different concerns or types of change (feature/fix/refactor/docs)
-- Do not mix different features even if they are in a single file or a similar type.
-- Separate file patterns or large changes that benefit clarity
-- You want to add with a commit message like "item1 and item2". That "and" word is a criteria to split.
-
-### Commit Message Rules
-Do not use "conventional" message formats. Your intuition is from average stackoverflow copypaster. Follow thise rules:
-- Single line only; descriptive and concise
-- No “Co-Authored-By” or “Generated with” trailers
-- Infer commit style from git history (step #3 in the checklist)
-- If ticket number is required by style, try to infer it from the current branch name. If not, ask for it. Do not commit without it. 
-
-### Anti‑Patterns
-- Remote ops (push/fetch), destructive operations, squashing history unasked
-- Suggesting to push, write PR, or any other actions
-- Prefixes, emojis, or co-authors
-- Non-default author, committer
-- Commit message which do not follow established commit style.
-- Commit contains two or more unrelated changes.
-- Message follow a "Item1 and Item2" style.
 
 # Oracle
 
@@ -86,16 +88,57 @@ Use when stuck/bugs/reviewing code
 - not stoppying and not reporting errors
 - "I've already solved this, and here's my reasons why it's solved, but check it over anyway," kind of tone, which heavily biases Oracle
 
+## Tools
+
+Read `~/dots/agent-scripts/tools.md` for the full tool catalog if it exists.
+
+### peekaboo
+- Screen tools: `~/dots/Peekaboo`. Cmds: `capture`, `see`, `click`, `list`, `tools`, `permissions status`.
+- Needs Screen Recording + Accessibility. Docs: `~/dots/Peekaboo/docs/commands/`.
+
+### trash
+- Move files to Trash: `trash …` (system command).
+
+### bin/docs-list / scripts/docs-list.ts
+- Optional. Lists `docs/` + enforces front-matter. Ignore if `bin/docs-list` not installed. Rebuild: `bun build scripts/docs-list.ts --compile --outfile bin/docs-list`.
+
+### bin/browser-tools / scripts/browser-tools.ts
+- Chrome DevTools helper. Cmds: `start`, `nav`, `eval`, `screenshot`, `pick`, `cookies`, `inspect`, `kill`.
+- Rebuild: `bun build scripts/browser-tools.ts --compile --target bun --outfile bin/browser-tools`.
+
+### oracle
+- Bundle prompt+files for 2nd model. Use when stuck/buggy/review.
+- Run `oracle --help` once/session (before first use).
+
+### gh
+- GitHub CLI for PRs/CI/releases. Given issue/PR URL (or `/pull/5`): use `gh`, not web search.
+- Examples: `gh issue view <url> --comments -R owner/repo`, `gh pr view <url> --comments --files -R owner/repo`.
+
+### tmux
+- Use only when you need persistence/interaction (debugger/server).
+- Quick refs: `tmux new -d -s codex-shell`, `tmux attach -t codex-shell`, `tmux list-sessions`, `tmux kill-session -t codex-shell`.
+
+# Frontend Aesthetics
+Avoid “AI slop” UI. Be opinionated + distinctive.
+
+Do:
+- Typography: pick a real font; avoid Inter/Roboto/Arial/system defaults.
+- Theme: commit to a palette; use CSS vars; bold accents > timid gradients.
+- Motion: 1–2 high-impact moments (staggered reveal beats random micro-anim).
+- Background: add depth (gradients/patterns), not flat default.
+
+Avoid: purple-on-white clichés, generic component grids, predictable layouts.
+
 # How to run tests
 - Always run all tests. Never cheat by running only a subset of tests.
 - All tests should pass.
-- There is no such thing as "unrelated test"
+- There is no such thing as "unrelated failing test"
 
 # How to validate Builds
 - Run a build script or one-liner whatever the project requires.
-- Run liner if available.
-- Make sure that all tests pass. No cheating. Every single test must pass.
-- There is no such thing as "unrelated test"
+- Run linter if available.
+- Make sure the build command also runs tests if present.
+- There is no such thing as "unrelated build error"
 
 # Reviewing Code
 

@@ -13,3 +13,6 @@ gradle = "latest"
 "npm:warelay" = "latest"
 "npm:happy-coder" = "latest"
 "npm:@mariozechner/pi-coding-agent" = "latest"
+
+[env]
+NPM_CONFIG_IGNORE_PSCRIPTS = "true"
