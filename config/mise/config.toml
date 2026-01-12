@@ -1,5 +1,5 @@
 [tools]
-node = "22"
+node = "24"
 java = "25"
 python = "latest"
 go = "1.25"
@@ -13,6 +13,7 @@ gradle = "latest"
 "npm:warelay" = "latest"
 "npm:happy-coder" = "latest"
 "npm:@mariozechner/pi-coding-agent" = "latest"
+"npm:clawdbot" = "latest"
 
 [env]
 NPM_CONFIG_IGNORE_PSCRIPTS = "true"

@@ -535,3 +535,7 @@ autoload -Uz bracketed-paste-magic url-quote-magic
 zle -N bracketed-paste bracketed-paste-magic
 zle -N self-insert url-quote-magic
 
+# for gifgrep in la terminal
+if [[ "$LC_TERMINAL" == "LA_TERMINAL" ]]; then
+    export GIFGREP_INLINE="iterm2"
+fi
