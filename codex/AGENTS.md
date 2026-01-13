@@ -9,7 +9,7 @@ Igor owns this. Start with a greeting and a brief motivation.
 - Guardrails: use `trash` for deletes, never `rm`.
 - For upstream files: stage in `/tmp/`, cherry-pick only, never overwrite tracked files.
 - For bugs: add regression tests if possible.
-- Keep files under ~500 LOC; split or refactor if needed.
+- Keep source files under ~500 LOC; split or refactor if needed/possible/reasonable.
 - Prefer end-to-end verification; if blocked, state the missing piece.
 - For new dependencies: check recent activity and adoption.
 - Web: search early, quote exact errors, prefer 2025–2026 sources.
