@@ -1,12 +1,11 @@
-#!/usr/bin/env tsx
-
 import { readdirSync, readFileSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const docsListFile = fileURLToPath(import.meta.url);
 const docsListDir = dirname(docsListFile);
-const DOCS_DIR = join(docsListDir, '..', 'docs');
+const MAIN_DOCS_DIR = join(docsListDir, '..', 'docs');
+const PROJECT_DOCS_DIR = 'docs'
 
 const EXCLUDED_DIRS = new Set(['archive', 'research']);
 
@@ -124,19 +123,24 @@ function extractMetadata(fullPath: string): {
 
 console.log('Listing all markdown files in docs folder:');
 
-const markdownFiles = walkMarkdownFiles(DOCS_DIR);
+const mainmarkdownFiles = walkMarkdownFiles(MAIN_DOCS_DIR).map((path) =>
+  join(MAIN_DOCS_DIR, path)
+);
+const projectmarkdownFiles = walkMarkdownFiles(PROJECT_DOCS_DIR).map((path) =>
+  join(PROJECT_DOCS_DIR, path)
+);
+const markdownFiles = [...mainmarkdownFiles, ...projectmarkdownFiles]; 
 
-for (const relativePath of markdownFiles) {
-  const fullPath = join(DOCS_DIR, relativePath);
+for (const fullPath of markdownFiles) {
   const { summary, readWhen, error } = extractMetadata(fullPath);
   if (summary) {
-    console.log(`${relativePath} - ${summary}`);
+    console.log(`${fullPath} - ${summary}`);
     if (readWhen.length > 0) {
       console.log(`  Read when: ${readWhen.join('; ')}`);
     }
   } else {
     const reason = error ? ` - [${error}]` : '';
-    console.log(`${relativePath}${reason}`);
+    console.log(`${fullPath}${reason}`);
   }
 }
 

@@ -1,3 +1,8 @@
+---
+summary: 'Top-level project structure and path purposes.'
+read_when:
+  - Navigating the repo or adding new files.
+---
 ## Project Structure & Module Organization
 | Path | Purpose |
 |---|---|
@@ -7,4 +12,3 @@
 | Root files | `zshrc`, `tmux.conf`, `gitconfig`, `githelpers`, `ideavimrc`, `p10k.zsh`, `fzf.zsh`. |
 | `codex/`, `claude/` | Agent prompts, scripts, and local agent settings. |
 | `git-templates/` | Git templates/hooks used by this repo. |
-
