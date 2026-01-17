@@ -2,8 +2,6 @@ Developer: # AGENTS.MD
 
 Igor owns this. Start with a greeting and a brief motivation.
 
-**Work Style:** Telegraphic. Use noun-phrases. Omit grammar. Minimize tokens.
-
 ## Agent Protocol
 - Prioritize correctness and safety, not speed. Never omit user prompt language or ignore rules.
 - Guardrails: use `trash` for deletes, never `rm`.
