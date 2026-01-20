@@ -40,6 +40,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.lsp.enable('pyright')
 vim.lsp.enable('jdtls')
 vim.lsp.enable('vtsls')
+vim.lsp.enable('bashls')
 vim.lsp.config('lua_ls', {
 -- Fix Undefined global 'vim'
   settings = {
