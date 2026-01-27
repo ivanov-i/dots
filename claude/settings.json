@@ -3,7 +3,7 @@
     "MAX_THINKING_TOKENS": "32000"
   },
   "includeCoAuthoredBy": false,
-  "model": "opus",
+  "model": "sonnet",
   "hooks": {
     "Notification": [
       {
@@ -26,8 +26,8 @@
     "command": "sh -c 'input=$(cat); model=$(echo \"$input\" | jq -r \".model.display_name\"); cwd=$(echo \"$input\" | jq -r \".workspace.current_dir\"); cwd_short=$(basename \"$cwd\"); git_branch=\"\"; if git -C \"$cwd\" rev-parse --git-dir >/dev/null 2>&1; then git_branch=$(git -C \"$cwd\" -c core.useBuiltinFSMonitor=false -c core.fsmonitor=false branch --show-current 2>/dev/null || echo \"\"); [ -n \"$git_branch\" ] && git_branch=\" $git_branch\"; fi; total_input=$(echo \"$input\" | jq -r \".context_window.total_input_tokens\"); total_output=$(echo \"$input\" | jq -r \".context_window.total_output_tokens\"); context_size=$(echo \"$input\" | jq -r \".context_window.context_window_size\"); total_used=$((total_input + total_output)); bar_width=40; filled=$((bar_width * total_used / context_size)); bar=\"\"; for i in $(seq 0 $((bar_width - 1))); do if [ $i -lt $filled ]; then pct=$((i * 100 / bar_width)); if [ $pct -lt 20 ]; then color=\"38;5;242\"; elif [ $pct -lt 40 ]; then color=\"38;5;243\"; elif [ $pct -lt 60 ]; then color=\"38;5;208\"; elif [ $pct -lt 80 ]; then color=\"38;5;202\"; else color=\"38;5;196\"; fi; bar=\"${bar}\\033[${color}m│\\033[0m\"; else bar=\"${bar}\\033[38;5;235m│\\033[0m\"; fi; done; tokens_display=\"${total_used}/${context_size}\"; printf \"\\033[38;5;240m%s\\033[0m \\033[38;5;242m│\\033[0m \\033[38;5;240m%s%s\\033[0m \\033[38;5;242m│\\033[0m %b \\033[38;5;242m│\\033[0m \\033[38;5;240m%s\\033[0m\" \"$model\" \"$cwd_short\" \"$git_branch\" \"$bar\" \"$tokens_display\"'",
     "padding": 0
   },
-  "alwaysThinkingEnabled": true,
   "enabledPlugins": {
     "code-simplifier@claude-plugins-official": true
-  }
+  },
+  "alwaysThinkingEnabled": true
 }
