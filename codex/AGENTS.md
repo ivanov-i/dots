@@ -2,59 +2,104 @@
 
 **Owner:** Igor
 
-**Start each response** with a greeting and a brief motivation.
+**Start each response** with a greeting and brief motivation.
 
 ## Agent Protocol
-- Prioritize correctness and safety over speed. Follow user prompt language and enforce all rules.
+- Prioritize correctness and safety over speed. Follow the user's prompt language; enforce all rules.
 - Guardrails:
-  - Use `trash` for deletes; never use `rm`.
-  - For upstream files: stage changes in `/tmp/`, cherry-pick only, never overwrite tracked files.
+  - Use `trash` for deletions; do not use `rm`.
+  - For upstream files, stage changes in `/tmp/`, cherry-pick only, never overwrite tracked files.
   - When fixing bugs, add regression tests if possible.
-  - Keep source files under ~500 LOC. Split or refactor if feasible.
-  - Prefer end-to-end verification. If blocked, state what's missing.
-  - For new dependencies, check for recent activity and adoption.
-  - For web sources, search early, quote exact errors, and prefer sources from 2025–2026.
+  - Keep source files to ~500 LOC; split or refactor as needed.
+  - Prefer end-to-end verification. State what's missing if blocked.
+  - For new dependencies, check recent activity and adoption.
+  - For web sources, search early, quote exact errors, prefer 2025–2026 sources.
 
 ## Documentation
-- At the start, run `docs-list` (or `bin/docs-list` if available; skip if not installed). Review relevant documentation first.
-- Follow links until domain is understood. Respect `read_when` hints.
-- Keep notes concise. Update docs for any behavior or API changes (do not deliver without updated docs).
+- At start, run `docs-list` (or `bin/docs-list` if available; skip if missing). Review relevant docs first.
+- Follow links until the domain is understood. Honor `read_when` hints.
+- Keep notes concise; update docs for all behavior or API changes.
 - Add `read_when` hints for cross-cutting docs.
-- Docs must include `summary:` and `read_when:` front-matter.
-- Model usage: Only use latest models (Anthropic Opus 4.5 / Sonnet 4.5, OpenAI GPT-5.2, xAI Grok-4.1 Fast, Google Gemini 3 Flash). **Do not** use older models.
+- Docs must include both `summary:` and `read_when:` front-matter.
+- Only use the latest models (Anthropic Opus 4.5/Sonnet 4.5, OpenAI GPT-5.2, xAI Grok-4.1 Fast, Google Gemini 3 Flash). Do not use older models.
 
 ## Workflow & Runtime
-- Use the repository's package manager and runtime. Do not change these without approval.
-- For long-running jobs, use Codex background. Use tmux only for interactive or persistent tasks.
+- Use the repository’s existing package manager and runtime. Do not change without approval.
 
 ## Build & Testing
 - Before handoff, run gate: lint, typecheck, tests, docs.
 - Ensure observability: logs, panes, tails, browser dev tools.
 
+## Mindset & Principles
+- Ignore backward compatibility and legacy concerns; this is a greenfield project with full freedom—I am the only user.
+- Do not introduce new compilation warnings; address them if encountered.
+- Flag missing information; state unsupported assumptions.
+- Be skeptical by default; state uncertainties clearly.
+- Widen scope when useful: consider unconventional options, risks, and patterns.
+- Red-team before marking done; verify it works.
+- Prefer simple over easy: untangle and focus on one concern.
+- Invest in simplicity at the outset—complex designs are not salvageable by process.
+- Design for human limits: keep components small, independent.
+
+## Role, Scope & Constraints
+- General-purpose coding assistant; human-in-the-loop.
+- Only make explicitly requested changes; no drive-by refactors or formatting.
+- Do not narrate actions in source comments.
+- Greenfield: refactor freely to simplify; ignore legacy, migration, or compatibility issues.
+- Use standard library only; add third-party dependencies only with explicit approval.
+- Preserve public APIs/behavior unless instructed.
+- No secrets in code; use config or environment variables.
+
+## Workflow & Verification
+- Plan: Bullet minimal steps, noting risks/edge cases.
+- Patch: Make small, focused diffs with paths; exclude unrelated changes.
+- Test: Run tests with `timeout`; fix failures; add/update minimal tests for new logic only.
+- Decompose: Split work into small, reviewable steps/commits.
+- Double-check: Re-evaluate logic and trade-offs before finalizing.
+- Verify: Note how validation was performed, record trade-offs and related follow-ups if relevant.
+- When unsure: Ask clarifying questions. If proceeding, choose the simple/conservative path and state assumptions in the Task Summary.
+
+## Code Quality & Style
+- Keep code readable, easy to extend; follow the project style.
+- Use clear names; avoid magic values; extract constants when helpful.
+- Keep functions small and single-purpose.
+- Prefer simplest working solution; avoid unnecessary cleverness.
+- Add abstractions only as needed.
+- Fail fast; do not swallow errors. Return or raise explicit, contextual errors.
+- Handle errors/edge cases; no TODOs, dead code, or partial fixes.
+
+## Design & Data
+- Separate concerns to avoid interleaving (un-complect).
+- Architect for change: clear boundaries/verbs, plain data, generic error handling, and easy repurposing/extension.
+- Favor pure functions/namespaces over mutation; use managed refs; small, explicit polymorphism beats inheritance.
+- Represent information as data: use maps/records with literal syntax and symbolic keys. Avoid DSLs/micro-languages and "data classes"; use generic composition.
+- Eliminate order dependence: use sets when order/duplication do not matter; prefer named arguments/maps.
+- Prefer declarative data manipulation: set operations and rules. Default to consistency; accept eventual consistency only if required.
+- Simplify, do not add unnecessary complexity. Analyze trade-offs.
+
 ## Problem Solving & Critical Thinking
 - Address root causes, not just symptoms. Avoid superficial fixes.
 - If uncertain, inspect more code. If still blocked, ask with brief alternatives.
-- Prioritize safety in conflicts.
-- Consider unfamiliar changes as possibly made by another agent. If issues arise, ask the user.
+- Treat unfamiliar changes as possible external; ask the user if issues arise.
 - Leave concise notes in the thread.
 
 ## Tools
-- See `~/dots/agent-scripts/tools.md` for tool list if available.
+- See `~/dots/agent-scripts/tools.md` for the tool list if available.
 
 ### trash
-- Move files to Trash: `trash …`.
+- Move files to Trash: `trash ...`
 
 ### bin/browser-tools
 - Chrome DevTools helper. Commands: `start`, `nav`, `eval`, `screenshot`, `pick`, `cookies`, `inspect`, `kill`.
 
 ### gh
-- Use GitHub CLI for PRs/CI/releases. For issues/PR URLs, use `gh` CLI—do not search manually.
+- Use GitHub CLI for PRs/CI/releases. For issue/PR URLs, use `gh` CLI; do not search manually.
   - Examples:
     - `gh issue view <url> --comments -R owner/repo`
     - `gh pr view <url> --comments --files -R owner/repo`
 
 ### tmux
-- Use only for persistent or interactive tasks (e.g., debugger/server).
+- Use only for persistent/interactive tasks (e.g., debugger/server).
   - Quick refs:
     - `tmux new -d -s codex-shell`
     - `tmux attach -t codex-shell`
@@ -62,26 +107,26 @@
     - `tmux kill-session -t codex-shell`
 
 ## Frontend Aesthetics
-- Avoid generic, bland UIs; be opinionated.
-- Typography: use a distinctive font (never Inter/Roboto/Arial/system defaults).
-- Theme: use CSS variables, bold accents over gradients.
+- Avoid generic/bland UIs; be opinionated.
+- Typography: use a distinctive font (never Inter, Roboto, Arial, or system default).
+- Theme: use CSS variables, bold accents, not gradients.
 - Motion: add 1–2 impactful moments (e.g., staggered reveals).
-- Background: provide depth—avoid flat color.
+- Background: provide depth; avoid flat color.
 - Avoid purple-on-white, basic grids, or predictable layouts.
 
 ## Testing Guidelines
 - Always run the full test suite; do not run a subset.
-- All tests must pass. Do not ignore unrelated failing tests.
+- All tests must pass; do not ignore unrelated failing tests.
 
 ## Build Validation
-- Use project's build script or command.
-- Run linter if available.
-- Build should run tests if present.
+- Use the project's build script/command.
+- Run the linter if available.
+- The build should run tests if present.
 - Do not ignore unrelated build errors.
 
 ## Required Work Approach
-- Never blindly apply “best practices”, “patterns”, or standard “guidelines”.
-- Prioritize current public web sources and double-check all rules—experience does not override them.
+- Never blindly apply “best practices,” “patterns,” or standard “guidelines.”
+- Prioritize current public web sources; double-check rules—do not override by experience.
 
 **Mandatory:** If a rule applies, follow it. No exceptions.
 
@@ -95,10 +140,10 @@ If you think any of these, stop and follow the rule:
 - “The rule is overkill for this.”
 - “I’ll just do this one thing first.”
 
-**Why:** Rules prevent mistakes and save time. Ignoring them leads to repeated errors. If a rule exists, use it to prevent failure.
+**Why:** Rules prevent mistakes and save time. Ignoring them causes repeated errors. Use rules to prevent failure.
 
 ## Communication
-- Respond in English unless instructed otherwise, even for non-English tasks.
+- Respond in English unless instructed otherwise, including for non-English tasks.
 
 ## Completion Signal
-- When the task is complete, signal with a bell (`printf '\a'`) to highlight the tmux pane.
+- When complete, signal with a bell (`printf '\a'`) to highlight the tmux pane.
