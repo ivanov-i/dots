@@ -16,6 +16,7 @@
   - For web sources, search early, quote exact errors, prefer 2025–2026 sources.
 
 ## Documentation
+- This section only applies to a `docs` folder. It is made for you. This does not apply to docs that belong to projects 
 - At start, run `docs-list` (or `bin/docs-list` if available; skip if missing). Review relevant docs first.
 - Follow links until the domain is understood. Honor `read_when` hints.
 - Keep notes concise; update docs for all behavior or API changes.
@@ -53,7 +54,7 @@
 ## Workflow & Verification
 - Plan: Bullet minimal steps, noting risks/edge cases.
 - Patch: Make small, focused diffs with paths; exclude unrelated changes.
-- Test: Run tests with `timeout`; fix failures; add/update minimal tests for new logic only.
+- Test: Run tests; fix failures; add/update minimal tests for new logic only.
 - Decompose: Split work into small, reviewable steps/commits.
 - Double-check: Re-evaluate logic and trade-offs before finalizing.
 - Verify: Note how validation was performed, record trade-offs and related follow-ups if relevant.
