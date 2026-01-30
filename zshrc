@@ -516,7 +516,7 @@ cx() {
         mise upgrade -l npm:@openai/codex@latest
 
     fi
-    codex --yolo --enable web_search_request
+    codex
 }
 
 #gemini
