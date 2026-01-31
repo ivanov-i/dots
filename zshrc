@@ -539,6 +539,3 @@ zle -N self-insert url-quote-magic
 if [[ "$LC_TERMINAL" == "LA_TERMINAL" ]]; then
     export GIFGREP_INLINE="iterm2"
 fi
-
-# OpenClaw Completion
-source <(openclaw completion --shell zsh)
