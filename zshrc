@@ -539,3 +539,14 @@ zle -N self-insert url-quote-magic
 if [[ "$LC_TERMINAL" == "LA_TERMINAL" ]]; then
     export GIFGREP_INLINE="iterm2"
 fi
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
+export EDITOR='nvim'
+

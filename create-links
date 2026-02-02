@@ -74,3 +74,6 @@ ln -f -s $PWD/config/kitty/current-theme.conf ~/.config/kitty/current-theme.conf
 
 mkdir -p ~/.oracle
 ln -f -s $PWD/oracle/config.json ~/.oracle/config.json
+
+mkdir -p ~/.config/yazi
+ln -f -s $PWD/config/yazi/yazi.toml ~/.config/yazi/yazi.toml
