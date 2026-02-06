@@ -37,6 +37,7 @@ When analyzing the diff, consider splitting commits based on these criteria:
 - File patterns: Changes to different types of files (e.g., source code vs documentation)
 - Logical grouping: Changes that would be easier to understand or review separately
 - Size: Very large changes that would be clearer if broken down
+- Different fixes. Do not create commits with logically different changes. The word "and" usually  is a smell
 
 ## Commit Message Convention
 - Check historical commits to learn style and tone (`git log --oneline -40`).
