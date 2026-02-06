@@ -233,8 +233,12 @@ update() {
   brew autoremove && \
   echo "[cleanup]" && \
   brew cleanup && \
+
   echo "[mise upgrade]" && \
-  npm_config_ignore_scripts=false mise upgrade && \
+  mise upgrade && \
+  echo "[mise prune -y]" && \
+  mise prune -y && \
+
   echo "[pip update]" && \
   pip install --upgrade pip && \
   pip list --outdated --format=json | jq -r '.[].name' | xargs -n1 pip install -U && \
@@ -245,16 +249,19 @@ update() {
   pip cache purge && \
   echo "[pip3 cache cleanup]" && \
   pip3 cache purge && \
+
   echo "[rustup update]" && \
   rustup update && \
   echo "[cargo update]" && \
   cargo install-update -a && \
   echo "[cargo cache cleanup]" && \
   cargo cache --autoclean && \
+
   echo "[npm update]" && \
   npx npm-check --global --update-all
   echo "[npm cache cleanup]" && \
   npm cache clean --force && \
+
   echo "[uv cache cleanup]" && \
   uv cache clean && \
   echo "[tldr update]" && \
@@ -279,6 +286,8 @@ update() {
 	  sudo apt autoremove -y && \
 	  echo "[mise upgrade]" && \
 	  mise upgrade && \
+	  echo "[mise prune -y]" && \
+	  mise prune -y && \
 	  echo "[cargo cache cleanup]" && \
 	  cargo cache --autoclean && \
 	  echo "[npm cache cleanup]" && \
