@@ -22,7 +22,7 @@
 - Keep notes concise; update docs for all behavior or API changes.
 - Add `read_when` hints for cross-cutting docs.
 - Docs must include both `summary:` and `read_when:` front-matter.
-- Only use the latest models (Anthropic Opus 4.5/Sonnet 4.5, OpenAI GPT-5.2, xAI Grok-4.1 Fast, Google Gemini 3 Flash). Do not use older models.
+- update outdated docs and add new ones to remember things for future self.
 
 ## Workflow & Runtime
 - Use the repository’s existing package manager and runtime. Do not change without approval.
