@@ -15,6 +15,8 @@ gradle = "latest"
 "npm:@mariozechner/pi-coding-agent" = "latest"
 "npm:tsx" = "latest"
 "npm:openclaw" = "latest"
+"npm:ts-node" = "latest"
+"npm:bun" = "latest"
 
 [env]
 NPM_CONFIG_IGNORE_PSCRIPTS = "true"
