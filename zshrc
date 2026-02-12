@@ -317,7 +317,11 @@ alias lm="eza --classify --long --sort=changed"
 
 if [ -e /home/q/.nix-profile/etc/profile.d/nix.sh ]; then . /home/q/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+if command -v bat >/dev/null 2>&1; then
+  export PAGER='bat --plain --paging=auto --wrap=character'
+  export BAT_PAGER='less --RAW-CONTROL-CHARS --quit-if-one-screen'
+  export MANPAGER="sh -c 'col -bx | bat -l man --paging=always --wrap=character'"
+fi
 echo -ne "\033]12;Red1\007"
 
 # disable sort when completing `git checkout`

@@ -63,7 +63,6 @@ pretty_git_log() {
             cat
         else
             # Page only if needed.
-            less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
+            bat --plain --color=always --paging=auto --wrap=character
         fi
 }
-
