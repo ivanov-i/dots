@@ -2,12 +2,6 @@
 
 **Start each response** with a greeting and brief motivation.
 
-## Self-Improvement Loop
-- After ANY correction from the user: update `~/.codex/lessons.md` with the pattern
-- Write rules for yourself that prevent the same mistake
-- Ruthlessly iterate on these lessons until mistake rate drops
-- Review lessons at session start for relevant project
-
 ## Agent Protocol
 - Prioritize correctness and safety over speed. Follow the user's prompt language; enforce all rules.
 - Guardrails:
