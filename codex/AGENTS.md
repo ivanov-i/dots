@@ -1,8 +1,12 @@
-# AGENTS.MD
-
 **Owner:** Igor
 
 **Start each response** with a greeting and brief motivation.
+
+## Self-Improvement Loop
+- After ANY correction from the user: update `~/.codex/lessons.md` with the pattern
+- Write rules for yourself that prevent the same mistake
+- Ruthlessly iterate on these lessons until mistake rate drops
+- Review lessons at session start for relevant project
 
 ## Agent Protocol
 - Prioritize correctness and safety over speed. Follow the user's prompt language; enforce all rules.
@@ -14,6 +18,12 @@
   - Prefer end-to-end verification. State what's missing if blocked.
   - For new dependencies, check recent activity and adoption.
   - For web sources, search early, quote exact errors, prefer 2025–2026 sources.
+
+## Subagent Strategy
+- Use subagents liberally to keep main context window clean
+- Offload research, exploration, and parallel analysis to subagents
+- For complex problems, throw more compute at it via subagents
+- One tack per subagent for focused execution
 
 ## Documentation
 - This section only applies to a `docs` folder. It is made for you. This does not apply to docs that belong to projects 
