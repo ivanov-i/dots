@@ -15,13 +15,14 @@
 # break this.
 
 HASH="%C(yellow)%h%Creset"
-STUPID_TIME="%Cgreen(%ar)%Creset"
+STUPID_TIME="%Cgreen(%ah)%Creset"
 correctTime="%Cgreen(%aD)%Creset"
 AUTHOR="%C(bold blue)<%an>%Creset"
 REFS="%C(bold red)%d%Creset"
 SUBJECT="%s"
 
-FORMAT="}$HASH}$correctTime}$AUTHOR}$REFS $SUBJECT"
+FORMAT="}$HASH}$STUPID_TIME}$AUTHOR}$REFS $SUBJECT"
+# FORMAT="}$HASH}$correctTime}$AUTHOR}$REFS $SUBJECT"
 
 ANSI_BLACK='\033[30m'
 ANSI_BLACK_BOLD='\033[0;30;1m'
@@ -48,14 +49,34 @@ show_git_head() {
 }
 
 pretty_git_log() {
-    git log --graph --pretty="tformat:${FORMAT}" $* |
+    local args=("$@")
+    local has_count=0
+    local default_max_lines
+
+    default_max_lines="$(( $(tput lines) - 1 ))"
+
+    for arg in "${args[@]}"; do
+        case "$arg" in
+            -n | --max-count | -n* | --max-count=*)
+                has_count=1
+                ;;
+        esac
+    done
+
+    if [ "$has_count" -eq 0 ]; then
+        args=(-n "$default_max_lines" "${args[@]}")
+    fi
+
+    git log --graph --pretty="tformat:${FORMAT}" "${args[@]}" |
         # Replace (2 years ago) with (2 years)
         sed -Ee 's/(^[^<]*) ago\)/\1)/' |
         # Replace (2 years, 5 months) with (2 years)
         sed -Ee 's/(^[^<]*), [[:digit:]]+ .*months?\)/\1)/' |
         # Line columns up based on } delimiter
-        column -s '}' -t |
-        # cut -c 1-$(tput cols) |
+        # column -s '}' -t -c "$(tput cols)" |
+        column -s '}' -t -c "$(tput cols)" |
+        # column -s '}' -t |
+        cut -c 1-$(tput cols) |
         # Color merge commits specially
         sed -Ee "s/(Merge (branch|remote-tracking branch|pull request) .*$)/$(printf $ANSI_RED)\1$(printf $ANSI_RESET)/" |
         # Page only if we're asked to.
