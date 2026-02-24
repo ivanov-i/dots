@@ -36,7 +36,7 @@
 - Ensure observability: logs, panes, tails, browser dev tools.
 
 ## Mindset & Principles
-- Ignore backward compatibility and legacy concerns; this is a greenfield project with full freedom—I am the only user.
+- Use a hard cutover approach and never implement backward compatibility.
 - Do not introduce new compilation warnings; address them if encountered.
 - Flag missing information; state unsupported assumptions.
 - Be skeptical by default; state uncertainties clearly.
