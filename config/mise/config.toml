@@ -17,7 +17,6 @@ gradle = "latest"
 "npm:openclaw" = "latest"
 "npm:ts-node" = "latest"
 "npm:bun" = "latest"
-"npm:@rhobot-dev/rho" = "latest"
 
 [env]
 NPM_CONFIG_IGNORE_PSCRIPTS = "true"
