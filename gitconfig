@@ -13,6 +13,7 @@
 	ci = commit --verbose
 	co = checkout
 	di = diff
+	d = "!f() { git -c diff.external='difft --syntax-highlight off --tab-width 4' diff --ext-diff \"$@\"; }; f"
 	dc = diff --cached
 	amend = commit --amend
 	aa = add --all
@@ -46,7 +47,6 @@
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 [diff]
 	tool = p4merge
-	external = difft --syntax-highlight off --tab-width 4
 	colormoved=default
 	renamelimit = 999999
 [difftool]
