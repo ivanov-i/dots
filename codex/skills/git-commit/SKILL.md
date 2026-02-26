@@ -25,7 +25,7 @@ Create well-formatted commits
 
 ## Commit Style
 
-- Granular commits: Each commit should contain related changes that serve a single purpose.
+- Single-purpose commits: Each commit should contain related changes that serve a single purpose.
 - Split large changes: If changes touch multiple concerns, split them into separate commits. Always reviews the commit diff to ensure the message matches the changes
 
 ## Guidelines for Splitting Commits
@@ -37,7 +37,7 @@ When analyzing the diff, consider splitting commits based on these criteria:
 - File patterns: Changes to different types of files (e.g., source code vs documentation)
 - Logical grouping: Changes that would be easier to understand or review separately
 - Size: Very large changes that would be clearer if broken down
-- Different fixes. Do not create commits with logically different changes. The word "and" usually  is a smell
+- Different fixes. Do not create commits with logically different changes. The word "and" usually indicates that a commit must be split
 
 ## Commit Message Convention
 - Check historical commits to learn style and tone (`git log --oneline -40`).
