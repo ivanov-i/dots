@@ -1,5 +1,5 @@
 ---
-name: plan-review
+name: visual-plan-review
 description: Generate a visual HTML plan review that compares a proposed implementation plan against the current codebase. Use when the user asks to validate an RFC, spec, or plan before implementation and wants gap/risk analysis.
 ---
 

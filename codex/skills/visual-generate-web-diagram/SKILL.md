@@ -1,5 +1,5 @@
 ---
-name: generate-web-diagram
+name: visual-generate-web-diagram
 description: Generate a self-contained visual HTML diagram and open it in the browser. Use when the user asks for architecture diagrams, flowcharts, schemas, timelines, dashboards, or any technical visual explanation that should be rendered as a page instead of terminal ASCII.
 ---
 

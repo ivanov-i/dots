@@ -1,5 +1,5 @@
 ---
-name: diff-review
+name: visual-diff-review
 description: Generate a visual HTML diff review with before/after architecture, code review findings, and decision context. Use when the user asks to review changes against a branch, commit, range, PR, or current working tree.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: project-recap
+name: visual-project-recap
 description: Generate a visual HTML project recap that rebuilds context from current code and recent activity. Use when the user asks for a mental-model refresh, recent-change narrative, architecture snapshot, or cognitive-debt inventory.
 ---
 

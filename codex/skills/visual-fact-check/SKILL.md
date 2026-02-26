@@ -1,5 +1,5 @@
 ---
-name: fact-check
+name: visual-fact-check
 description: Verify factual accuracy of a document against the codebase and git evidence, then correct inaccuracies in place. Use when the user asks to validate HTML review pages, markdown plans/specs, or other code-claiming documents.
 ---
 

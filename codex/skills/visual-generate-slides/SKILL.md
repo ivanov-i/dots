@@ -1,5 +1,5 @@
 ---
-name: generate-slides
+name: visual-generate-slides
 description: Generate a magazine-quality slide deck as a self-contained HTML page using visual-explainer slide mode. Use when the user asks for a slide deck, presentation output, /generate-slides, or --slides formatting.
 ---
 

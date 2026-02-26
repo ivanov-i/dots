@@ -1,0 +1,3 @@
+interface:
+  display_name: "Visual Diff Review"
+  short_description: "Create visual diff review pages"
