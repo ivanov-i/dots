@@ -74,12 +74,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[gui]
-	recentrepo = C:/WorkFolder/eft
-[winUpdater]
-	recentlySeenVersion = 2.25.0.windows.1
-#[credential]
-    #helper = /c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-manager.exe
 [difftool "sourcetree"]
 	cmd = '' \"$LOCAL\" \"$REMOTE\"
 [mergetool "sourcetree"]
@@ -92,11 +86,6 @@
 [init]
 	defaultBranch = main
 	templatedir = ~/.git-templates
-[safe]
-	directory = /home/q/neovim
-	directory = /mnt/n/S5_EFT_SSH
-	directory = /mnt/g
-	directory = /mnt/n/dmz
 [pager]
         difftool = true
 [mergetool "diffconflicts"]
