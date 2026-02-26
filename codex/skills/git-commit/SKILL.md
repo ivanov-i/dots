@@ -25,7 +25,7 @@ Create well-formatted commits
 
 ## Commit Style
 
-- Atomic commits: Each commit should contain related changes that serve a single purpose.
+- Granular commits: Each commit should contain related changes that serve a single purpose.
 - Split large changes: If changes touch multiple concerns, split them into separate commits. Always reviews the commit diff to ensure the message matches the changes
 
 ## Guidelines for Splitting Commits
