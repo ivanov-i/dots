@@ -6,6 +6,7 @@
 - Prioritize correctness and safety over speed. Follow the user's prompt language; enforce all rules.
 - Guardrails:
   - Use `trash` for deletions; do not use `rm`.
+  - Use '-c' flag whith cp to save drive space and time. It is not mandatory but it is recommended.
   - For upstream files, stage changes in `/tmp/`, cherry-pick only, never overwrite tracked files.
   - When fixing bugs, add regression tests if possible.
   - Keep source files to ~500 LOC; split or refactor as needed.
