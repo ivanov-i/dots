@@ -95,10 +95,6 @@
 ### trash
 - Move files to Trash: `trash ...`
 
-### ~/bin/browser-tools
-- Chrome DevTools helper. Commands: `start`, `nav`, `eval`, `screenshot`, `pick`, `cookies`, `inspect`, `kill`.
-- Rebuild: bun build ~/bin/browser-tools.ts --compile --target bun --outfile ~/bin/browser-tools.
-
 ### gh
 - Use GitHub CLI for PRs/CI/releases. For issue/PR URLs, use `gh` CLI; do not search manually.
   - Examples:
