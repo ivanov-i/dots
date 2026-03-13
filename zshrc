@@ -551,3 +551,6 @@ function y() {
 }
 
 export EDITOR='nvim'
+
+# OpenClaw Completion
+source "/Users/ivanov/.openclaw/completions/openclaw.zsh"
