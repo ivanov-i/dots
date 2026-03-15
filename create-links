@@ -7,6 +7,7 @@ ln -f -s $PWD/tmux.conf ~/.tmux.conf
 
 ln -f -s $PWD/vimrc ~/.vimrc
 
+ln -f -s $PWD/zshenv ~/.zshenv
 ln -f -s $PWD/zshrc ~/.zshrc
 ln -f -s $PWD/zshrc ~/.zshrc
 
