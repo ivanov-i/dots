@@ -61,9 +61,10 @@ ln -f -s $PWD/config/wezterm ~/.config/
 ln -f -s $PWD/config/mise ~/.config/
 
 mkdir -p ~/.codex
+ln -f -s $PWD/codex/AGENTS.md ~/.codex/AGENTS.md
+ln -f -s $PWD/codex/hooks.json ~/.codex/hooks.json
 ln -f -s $PWD/codex/scripts ~/.codex/
 ln -f -s $PWD/codex/prompts ~/.codex/
-ln -f -s $PWD/codex/AGENTS.md ~/.codex/AGENTS.md
 ln -f -s $PWD/codex/skills ~/.codex/
 ln -f -s $PWD/codex/rules ~/.codex/
 
