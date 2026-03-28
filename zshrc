@@ -513,14 +513,7 @@ source <(COMPLETE=zsh jj)
 
 #codex
 
-cx() {
-    if [[ "$1" == "update" ]]; then
-        mise upgrade -l npm:@openai/codex@latest
-
-    fi
-    codex
-}
-
+alias cx=codex
 #gemini
 
 alias gg="gemini --yolo"
