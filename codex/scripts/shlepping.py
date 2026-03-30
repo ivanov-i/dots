@@ -45,7 +45,8 @@ def main() -> int:
     i = random.randint(0, len(messages)-1) 
     message = messages[i]
     subprocess.run(["say", message], check=False)
-    output = """{"systemMessage": message}"""
+    # create output json in format {"systemMessage": "shlepping"} 
+    output = json.dumps({"systemMessage": message})
     print(output) 
     return 0
 
