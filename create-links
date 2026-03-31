@@ -81,3 +81,4 @@ mkdir -p ~/.config/yazi
 ln -f -s $PWD/config/yazi/yazi.toml ~/.config/yazi/yazi.toml
 
 ln -f -s $PWD/config/uv ~/.config
+ln -f -s $PWD/npmrc ~/.npmrc
