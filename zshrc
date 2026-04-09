@@ -253,6 +253,15 @@ update() {
 
   echo "[uv cache cleanup]" && \
   uv cache clean && \
+
+  # echo "[pip update]" && \
+  # pip list --outdated --exclude pip | awk 'NR>2 {print $1}' | while read -r pkg; do pip install -U --break-system-packages "$pkg"; done && \
+  echo "[pip cache purge]" && \
+  pip cache purge && \
+
+  echo "[pipx update]" && \
+  pipx upgrade-all && \
+
   echo "[tldr update]" && \
   tldr --update && \
   echo "[oh my zsh update]"
@@ -547,3 +556,4 @@ export EDITOR='nvim'
 
 # OpenClaw Completion
 source "/Users/ivanov/.openclaw/completions/openclaw.zsh"
+export PATH="$(brew --prefix python)/libexec/bin:$PATH"
