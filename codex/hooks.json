@@ -6,7 +6,7 @@
           {
             "type": "command",
             "command": "uv run ~/.codex/scripts/shlepping.py",
-            "timeout": 3
+            "timeout": 5
           }
         ]
       }
@@ -17,7 +17,7 @@
           {
             "type": "command",
             "command": "uv run ~/.codex/scripts/notify.py",
-            "timeout": 3
+            "timeout": 5
           }
         ]
       }
