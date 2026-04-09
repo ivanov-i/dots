@@ -53,7 +53,7 @@ pretty_git_log() {
     local has_count=0
     local default_max_lines
 
-    default_max_lines="$(( $(tput lines) - 1 ))"
+    default_max_lines="$(( $(tput lines) - 10 ))"
 
     for arg in "${args[@]}"; do
         case "$arg" in
