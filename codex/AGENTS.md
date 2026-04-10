@@ -22,7 +22,7 @@
 
 ## Documentation
 - This section only applies to a `docs` folder. It is made for you. This does not apply to docs that belong to projects 
-- At start, run `docs-list` (or `bin/docs-list` if available; skip if missing). Review relevant docs first.
+- At start, run `docs-list`. Review relevant docs first.
 - Follow links until the domain is understood. Honor `read_when` hints.
 - Keep notes concise; update docs for all behavior or API changes.
 - Add `read_when` hints for cross-cutting docs.
