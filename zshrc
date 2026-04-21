@@ -246,6 +246,9 @@ update() {
   echo "[cargo cache cleanup]" && \
   cargo cache --autoclean && \
 
+  echo "[openclaw update]" && \
+  openclaw update && \
+
   echo "[npm update]" && \
   npx npm-check --global --update-all && \
   echo "[npm cache cleanup]" && \
