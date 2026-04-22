@@ -44,18 +44,6 @@ ln -f -s $PWD/ideavimrc ~/.ideavimrc
 
 ln -f -s $PWD/bin ~
 
-mkdir -p ~/.claude
-ln -f -s $PWD/claude/CLAUDE.md ~/.claude/CLAUDE.md
-ln -f -s $PWD/claude/commands ~/.claude/
-ln -f -s $PWD/claude/scripts ~/.claude/
-ln -f -s $PWD/claude/agents ~/.claude/
-ln -f -s $PWD/claude/output-styles ~/.claude/
-ln -f -s $PWD/claude/status-lines ~/.claude/
-ln -f -s $PWD/claude/hooks ~/.claude/
-ln -f -s $PWD/claude/settings.json ~/.claude/settings.json
-
-ln -f -s $PWD/claude/CLAUDE.md ~/.claude/AGENTS.md
-
 ln -f -s $PWD/config/wezterm ~/.config/
 
 ln -f -s $PWD/config/mise ~/.config/
@@ -73,9 +61,6 @@ ln -f -s $PWD/config/ghostty ~/.config
 mkdir -p ~/.config/kitty
 ln -f -s $PWD/config/kitty/kitty.conf ~/.config/kitty/kitty.conf
 ln -f -s $PWD/config/kitty/current-theme.conf ~/.config/kitty/current-theme.conf
-
-mkdir -p ~/.oracle
-ln -f -s $PWD/oracle/config.json ~/.oracle/config.json
 
 mkdir -p ~/.config/yazi
 ln -f -s $PWD/config/yazi/yazi.toml ~/.config/yazi/yazi.toml

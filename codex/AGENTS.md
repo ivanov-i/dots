@@ -14,21 +14,6 @@
   - For new dependencies, check recent activity and adoption.
   - For web sources, search early, quote exact errors, prefer 2025–2026 sources.
 
-## Subagent Strategy
-- Use subagents liberally to keep main context window clean
-- Offload research, exploration, and parallel analysis to subagents
-- For complex problems, throw more compute at it via subagents
-- One tack per subagent for focused execution
-
-## Documentation
-- This section only applies to a `docs` folder. It is made for you. This does not apply to docs that belong to projects 
-- At start, run `docs-list`. Review relevant docs first.
-- Follow links until the domain is understood. Honor `read_when` hints.
-- Keep notes concise; update docs for all behavior or API changes.
-- Add `read_when` hints for cross-cutting docs.
-- Docs must include both `summary:` and `read_when:` front-matter.
-- update outdated docs and add new ones to remember things for future self.
-
 ## Workflow & Runtime
 - Use the repository’s existing package manager and runtime. Do not change without approval.
 
@@ -89,25 +74,8 @@
 - Treat unfamiliar changes as possible external; ask the user if issues arise.
 - Leave concise notes in the thread.
 
-## Tools
-- See `~/dots/agent-scripts/tools.md` for the tool list if available.
-
 ### trash
 - Move files to Trash: `trash ...`
-
-### gh
-- Use GitHub CLI for PRs/CI/releases. For issue/PR URLs, use `gh` CLI; do not search manually.
-  - Examples:
-    - `gh issue view <url> --comments -R owner/repo`
-    - `gh pr view <url> --comments --files -R owner/repo`
-
-### tmux
-- Use only for persistent/interactive tasks (e.g., debugger/server).
-  - Quick refs:
-    - `tmux new -d -s codex-shell`
-    - `tmux attach -t codex-shell`
-    - `tmux list-sessions`
-    - `tmux kill-session -t codex-shell`
 
 ## Frontend Aesthetics
 - Avoid generic/bland UIs; be opinionated.
