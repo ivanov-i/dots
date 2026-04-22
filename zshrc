@@ -246,11 +246,12 @@ update() {
   echo "[cargo cache cleanup]" && \
   cargo cache --autoclean && \
 
+  echo "[npm update]" && \
+  npx npm-check --global --update-all && \
+
   echo "[openclaw update]" && \
   openclaw update && \
 
-  echo "[npm update]" && \
-  npx npm-check --global --update-all && \
   echo "[npm cache cleanup]" && \
   npm cache clean --force && \
 
