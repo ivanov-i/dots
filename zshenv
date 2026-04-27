@@ -21,4 +21,4 @@ _zb_path_append $ZEROBREW_BIN
 _zb_path_append $ZEROBREW_PREFIX/bin
 export PATH="/opt/zerobrew/prefix/bin:$PATH"
 
-eval "$(mise hook-env -s zsh 2>/dev/null)"
+eval "$(mise activate zsh 2>/dev/null)"
