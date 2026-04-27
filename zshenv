@@ -20,3 +20,7 @@ fi
 _zb_path_append $ZEROBREW_BIN
 _zb_path_append $ZEROBREW_PREFIX/bin
 export PATH="/opt/zerobrew/prefix/bin:$PATH"
+
+if command -v mise >/dev/null 2>&1; then
+    eval "$(mise hook-env -s zsh 2>/dev/null)"
+fi
