@@ -1,7 +1,3 @@
-**Owner:** Igor
-
-**Start each response** with a greeting and brief motivation.
-
 ## Agent Protocol
 - Prioritize correctness and safety over speed. Follow the user's prompt language; enforce all rules.
 - Guardrails:
@@ -12,7 +8,6 @@
   - Keep source files to ~500 LOC; split or refactor as needed.
   - Prefer end-to-end verification. State what's missing if blocked.
   - For new dependencies, check recent activity and adoption.
-  - For web sources, search early, quote exact errors, prefer 2025–2026 sources.
 
 ## Workflow & Runtime
 - Use the repository’s existing package manager and runtime. Do not change without approval.
@@ -68,22 +63,8 @@
 - Prefer declarative data manipulation: set operations and rules. Default to consistency; accept eventual consistency only if required.
 - Simplify, do not add unnecessary complexity. Analyze trade-offs.
 
-## Problem Solving & Critical Thinking
-- Address root causes, not just symptoms. Avoid superficial fixes.
-- If uncertain, inspect more code. If still blocked, ask with brief alternatives.
-- Treat unfamiliar changes as possible external; ask the user if issues arise.
-- Leave concise notes in the thread.
-
 ### trash
 - Move files to Trash: `trash ...`
-
-## Frontend Aesthetics
-- Avoid generic/bland UIs; be opinionated.
-- Typography: use a distinctive font (never Inter, Roboto, Arial, or system default).
-- Theme: use CSS variables, bold accents, not gradients.
-- Motion: add 1–2 impactful moments (e.g., staggered reveals).
-- Background: provide depth; avoid flat color.
-- Avoid purple-on-white, basic grids, or predictable layouts.
 
 ## Testing Guidelines
 - Always run the full test suite; do not run a subset.
