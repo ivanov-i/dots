@@ -524,7 +524,16 @@ source <(COMPLETE=zsh jj)
 
 #codex
 
-alias cx=codex
+# alias cx=codex
+
+function cx() {
+    instructions=$(mktemp /tmp/gpt-5.5-instructions.XXXXXX) && \
+        jq -r '.models[] | select(.slug=="gpt-5.5") | .base_instructions' \
+        ~/.codex/models_cache.json | \
+        grep -vi 'goblins' > "$instructions" && \
+        codex -m gpt-5.5 -c "model_instructions_file=\"$instructions\""
+}
+
 #gemini
 
 alias gg="gemini --yolo"
