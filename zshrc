@@ -314,6 +314,7 @@ fi
 
 alias ll="eza --classify"
 alias lm="eza --classify --long --sort=changed"
+alias cpc="ditto --clone"
 
 if [ -e /home/q/.nix-profile/etc/profile.d/nix.sh ]; then . /home/q/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
