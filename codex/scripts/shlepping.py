@@ -5,6 +5,8 @@ import sys
 import random
 import os
 
+from hook_context import read_hook_event, should_notify_user
+
 messages = """
         Accomplishing, Actioning, Actualizing, Baking, Booping, Brewing,
 Calculating, Cerebrating, Channelling, Churning, Clauding,
@@ -41,6 +43,9 @@ def log(message: str) -> None:
 log ("Script started")
 
 def main() -> int:
+    if not should_notify_user(read_hook_event()):
+        return 0
+
     # a random number between 0 and 10
     i = random.randint(0, len(messages)-1) 
     message = messages[i]

@@ -5,6 +5,8 @@ import sys
 import random
 import os
 
+from hook_context import read_hook_event, should_notify_user
+
 messages = [
         "Turn complete",
         "You are absilutely right!"
@@ -22,6 +24,9 @@ def log(message: str) -> None:
 log ("Script started")
 
 def main() -> int:
+    if not should_notify_user(read_hook_event()):
+        return 0
+
     # a random number between 0 and 10
     num = random.randint(0, 10)
     if num < 9:
