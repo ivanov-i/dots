@@ -5,6 +5,8 @@ import sys
 import random
 import os
 
+sys.dont_write_bytecode = True
+
 from hook_context import read_hook_event, should_notify_user
 
 messages = [
