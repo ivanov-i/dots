@@ -83,7 +83,7 @@ Committed single change:
 or with the helper:
 
 ```bash
-/Users/steipete/Projects/agent-scripts/skills/autoreview/scripts/autoreview --mode commit --commit HEAD
+<autoreview-helper> --mode commit --commit HEAD
 ```
 
 Use commit review for already-landed or already-pushed work on `main`. Reviewing
@@ -96,7 +96,7 @@ with `--base`.
 Format first if formatting can change line locations. Then it is OK to run tests and review in parallel:
 
 ```bash
-scripts/autoreview --parallel-tests "<focused test command>"
+<autoreview-helper> --parallel-tests "<focused test command>"
 ```
 
 Tradeoff: tests may force code changes that stale the review. If tests or review lead to code edits, rerun the affected tests and rerun review until no accepted/actionable findings remain. Once that rerun exits cleanly, stop; do not spend another long review cycle on redundant confirmation.
@@ -137,28 +137,10 @@ Run the helper directly so target selection, engine choice, structured validatio
 
 ## Helper
 
-OpenClaw repo-local helper:
-
-```bash
-.agents/skills/autoreview/scripts/autoreview --help
-```
-
-`agent-scripts` checkout helper:
-
-```bash
-skills/autoreview/scripts/autoreview --help
-```
-
-Global helper from `agent-scripts`:
+helper:
 
 ```bash
 ~/.codex/skills/agent-scripts/autoreview/scripts/autoreview --help
-```
-
-If installed from `agent-scripts`, path is:
-
-```bash
-/Users/steipete/Projects/agent-scripts/skills/autoreview/scripts/autoreview --help
 ```
 
 The helper:
