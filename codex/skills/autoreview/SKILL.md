@@ -140,7 +140,7 @@ Run the helper directly so target selection, engine choice, structured validatio
 helper:
 
 ```bash
-~/.codex/skills/agent-scripts/autoreview/scripts/autoreview --help
+~/.codex/skills/autoreview/scripts/autoreview --help
 ```
 
 The helper:
