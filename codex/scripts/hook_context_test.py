@@ -18,12 +18,24 @@ def transcript(thread_source):
     return str(path)
 
 
+def desktop_transcript():
+    path = Path(tempfile.mkdtemp()) / "rollout.jsonl"
+    path.write_text(
+        json.dumps({"type": "session_meta", "payload": {"source": "vscode"}}) + "\n",
+        encoding="utf-8",
+    )
+    return str(path)
+
+
 class HookContextTest(unittest.TestCase):
     def test_user_thread_notifies(self):
         self.assertTrue(should_notify_user({"transcript_path": transcript("user")}))
 
     def test_subagent_thread_is_silent(self):
         self.assertFalse(should_notify_user({"transcript_path": transcript("subagent")}))
+
+    def test_desktop_user_thread_without_thread_source_notifies(self):
+        self.assertTrue(should_notify_user({"transcript_path": desktop_transcript()}))
 
     def test_missing_transcript_is_silent(self):
         self.assertFalse(should_notify_user({"transcript_path": None}))
