@@ -27,6 +27,15 @@ def desktop_transcript():
     return str(path)
 
 
+def source_object_transcript():
+    path = Path(tempfile.mkdtemp()) / "rollout.jsonl"
+    path.write_text(
+        json.dumps({"type": "session_meta", "payload": {"source": {"subagent": "review"}}}) + "\n",
+        encoding="utf-8",
+    )
+    return str(path)
+
+
 class HookContextTest(unittest.TestCase):
     def test_user_thread_notifies(self):
         self.assertTrue(should_notify_user({"transcript_path": transcript("user")}))
@@ -36,6 +45,9 @@ class HookContextTest(unittest.TestCase):
 
     def test_desktop_user_thread_without_thread_source_notifies(self):
         self.assertTrue(should_notify_user({"transcript_path": desktop_transcript()}))
+
+    def test_source_object_without_thread_source_is_silent(self):
+        self.assertFalse(should_notify_user({"transcript_path": source_object_transcript()}))
 
     def test_missing_transcript_is_silent(self):
         self.assertFalse(should_notify_user({"transcript_path": None}))

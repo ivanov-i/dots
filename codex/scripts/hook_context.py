@@ -33,4 +33,8 @@ def should_notify_user(event: dict[str, Any]) -> bool:
     if not isinstance(payload, dict):
         return False
 
-    return payload.get("thread_source") == "user"
+    thread_source = payload.get("thread_source")
+    if thread_source is not None:
+        return thread_source == "user"
+
+    return isinstance(payload.get("source"), str)
