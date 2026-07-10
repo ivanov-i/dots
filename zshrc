@@ -408,14 +408,6 @@ fi
 
 FILE="$HOME/.docker/init-zsh.sh"; [[ -f "$FILE" ]] && . "$FILE"
 
-fix-mosh-server() {
-  fw=/usr/libexec/ApplicationFirewall/socketfilterfw
-  mosh=$(/opt/homebrew/bin/brew info mosh|grep Cellar|awk '{print $1}')/bin/mosh-server
-  echo $mosh
-  sudo $fw --add $mosh
-  sudo $fw --unblockapp $mosh
-}
-
 function preexec() {
   local color="242"
   local timestamp
@@ -569,3 +561,7 @@ export EDITOR='nvim'
 # OpenClaw Completion
 source "/Users/ivanov/.openclaw/completions/openclaw.zsh"
 export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+
+# Homebrew sane defaults
+export HOMEBREW_NO_ASK=1
+export HOMEBREW_NO_INSTALL_UPGRADE=1
