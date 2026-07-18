@@ -1,12 +1,6 @@
 DISABLE_AUTO_UPDATE="true"
-DISABLE_COMPFIX="true"
-
-autoload -Uz compinit
-if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
-    compinit
-else
-    compinit -C
-fi
+# Trust Homebrew/plugin completion directories; auditing them dominates shell startup.
+ZSH_DISABLE_COMPFIX="true"
 
 # zmodload zsh/zprof
 
@@ -62,8 +56,11 @@ export PATH="/opt/homebrew/opt/llvm/bin/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+if [[ -d /opt/homebrew/share/zsh/site-functions ]]; then
+  fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+elif (( $+commands[brew] )); then
+  fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
+fi
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -338,7 +335,6 @@ zstyle ':fzf-tab:*' switch-group ',' '.'
 
 #rust
 export PATH="$HOME/.cargo/bin:$PATH"
-source $HOME/.cargo/env
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
@@ -560,7 +556,11 @@ export EDITOR='nvim'
 
 # OpenClaw Completion
 source "/Users/ivanov/.openclaw/completions/openclaw.zsh"
-export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+if [[ -d /opt/homebrew/opt/python/libexec/bin ]]; then
+  export PATH="/opt/homebrew/opt/python/libexec/bin:$PATH"
+elif (( $+commands[brew] )); then
+  export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+fi
 
 # Homebrew sane defaults
 export HOMEBREW_NO_ASK=1

@@ -1,5 +1,4 @@
 source "$HOME/.cargo/env"
-. "$HOME/.cargo/env"
 if [ -e /Users/ivanov/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/ivanov/.nix-profile/etc/profile.d/nix.sh; fi
 export ZEROBREW_DIR=/Users/ivanov/.zerobrew
 export ZEROBREW_BIN=/Users/ivanov/.local/bin
