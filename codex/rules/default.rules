@@ -1,3 +1,4 @@
 prefix_rule(pattern=["git"], decision="allow")
 prefix_rule(pattern=["node", "/Users/ivanov/dots/codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs"], decision="allow")
 prefix_rule(pattern=["codex", "mcp", "add"], decision="allow")
+prefix_rule(pattern=["/Users/ivanov/sandbox/agent-skills/skills/autoreview/scripts/autoreview"], decision="allow")
