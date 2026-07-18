@@ -14,7 +14,7 @@ local config_path = vim.fn.glob(jdtls_path .. '/config_' .. system)
 local lombok_path = jdtls_path .. '/lombok.jar'
 
 local home = os.getenv("HOME")
-local javaHome = vim.fn.glob(home .. "/wrk/java/jdk-21.0.2.jdk/Contents/Home") 
+local javaHome = vim.fn.glob(home .. "/.local/share/mise/installs/java/21.0.2")
 local status, jdtls = pcall(require, 'jdtls')
 if status == false then
     return
@@ -77,7 +77,7 @@ local config = {
                     },
                     {
                         name = 'JavaSE-21',
-                        path = vim.fn.expand '~/wrk/java/jdk-21.0.2.jdk/Contents/Home',
+                        path = vim.fn.expand '~/.local/share/mise/installs/java/21.0.2',
                     },
                 },
             },
