@@ -569,3 +569,6 @@ fi
 # Homebrew sane defaults
 export HOMEBREW_NO_ASK=1
 export HOMEBREW_NO_INSTALL_UPGRADE=1
+
+# UV Malware Check
+export UV_MALWARE_CHECK=1
