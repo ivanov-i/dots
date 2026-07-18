@@ -505,8 +505,12 @@ export COREPACK_ENABLE_AUTO_PIN=0
 export DISABLE_TELEMETRY=1
 export DISABLE_ERROR_REPORTING=1
 alias cc="claude --dangerously-skip-permissions"
-alias ccc="claude --dangerously-skip-permissions -p"
-alias gcauto='git commit -m "$(claude -p "Look at the staged git changes and create a summarizing git commit title. Only respond with the title and no affirmation.")"'
+alias claudex='CLAUDE_CODE_SUBAGENT_MODEL=gpt-5.6-sol \
+CLAUDE_CODE_ALWAYS_ENABLE_EFFORT=1 \
+CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY=3 \
+ENABLE_TOOL_SEARCH=false \
+claude --model gpt-5.6-sol \
+--dangerously-skip-permissions'
 
 #jujutsu, jj
 source <(COMPLETE=zsh jj)
