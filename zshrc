@@ -572,3 +572,6 @@ export HOMEBREW_NO_INSTALL_UPGRADE=1
 
 # UV Malware Check
 export UV_MALWARE_CHECK=1
+
+# .NET telemetry opt-out
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
