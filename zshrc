@@ -320,7 +320,9 @@ if command -v bat >/dev/null 2>&1; then
   export BAT_PAGER='less --RAW-CONTROL-CHARS --quit-if-one-screen'
   export MANPAGER="sh -c 'col -bx | bat -l man --paging=always --wrap=character'"
 fi
-echo -ne "\033]12;Red1\007"
+if [[ -t 1 ]]; then
+  echo -ne "\033]12;Red1\007"
+fi
 
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
