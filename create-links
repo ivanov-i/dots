@@ -44,6 +44,11 @@ ln -f -s $PWD/ideavimrc ~/.ideavimrc
 
 ln -f -s $PWD/bin ~
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	mkdir -p ~/Library/LaunchAgents
+	ln -f -s "$PWD/config/launchd/com.ivanov.trashsweeper.plist" ~/Library/LaunchAgents/
+fi
+
 ln -f -s $PWD/config/wezterm ~/.config/
 
 ln -f -s $PWD/config/mise ~/.config/
