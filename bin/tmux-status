@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-import hashlib
-import json
-import os
-import pathlib
-import re
-import subprocess
-import sys
-import time
+lazy import hashlib
+lazy import json
+lazy import os
+lazy import pathlib
+lazy import re
+lazy import subprocess
+lazy import sys
+lazy import time
 
 CACHE_ROOT = pathlib.Path(os.environ.get("TMPDIR", "/tmp")) / "tmux-status"
 CACHE_ROOT.mkdir(parents=True, exist_ok=True)
