@@ -577,3 +577,6 @@ export UV_MALWARE_CHECK=1
 
 # .NET telemetry opt-out
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+# To customize prompt, run `p10k configure` or edit ~/dots/p10k.zsh.
+[[ ! -f ~/dots/p10k.zsh ]] || source ~/dots/p10k.zsh
